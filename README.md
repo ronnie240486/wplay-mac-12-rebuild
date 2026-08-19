@@ -23,7 +23,7 @@ Os arquivos-fonte da identidade visual ficam em `assets/brand/`. A aplicação u
 
 ## MAC da rede
 
-O componente `com.evolux.MacAddressTextView` tenta primeiro ler os arquivos de endereço de `eth0`, `eno1`, `en0` e `wlan0`, que são as interfaces mais comuns para Ethernet e Wi‑Fi em Android TV. Se não conseguir, percorre as interfaces de rede disponíveis, ignora a interface loopback e seleciona uma interface com endereço físico de seis bytes. O valor é normalizado, validado como 12 caracteres hexadecimais e formatado em seis pares separados por dois-pontos.
+O componente `com.evolux.MacAddressTextView` tenta primeiro ler o endereço físico das interfaces `eth0`, `eno1`, `en0` e `wlan0`, que são as interfaces mais comuns para Ethernet e Wi‑Fi em Android TV. Se não conseguir, percorre as interfaces de rede disponíveis, ignora a interface loopback e seleciona uma interface com endereço físico de seis bytes. Quando o Android não libera nenhum MAC físico, o componente usa o `Settings.Secure.ANDROID_ID`; se ele também não estiver disponível, cria e salva um UUID local. Nos dois casos, os primeiros 12 caracteres são formatados como identificador estável do aparelho.
 
 O formato apresentado é:
 
@@ -31,13 +31,13 @@ O formato apresentado é:
 AA:BB:CC:DD:EE:FF
 ```
 
-Esse valor corresponde a 12 caracteres hexadecimais e cinco separadores. A aplicação não trata esse identificador como IMEI: IMEI e MAC são identificadores diferentes. Se o sistema Android ou o fabricante ocultar o endereço físico, a tela exibirá `MAC indisponivel` em vez de inventar um valor.
+Esse valor corresponde a 12 caracteres hexadecimais e cinco separadores. A aplicação não trata esse identificador como IMEI: IMEI e MAC são identificadores diferentes. Se o sistema Android ocultar o MAC físico, a tela ainda exibirá um identificador de 12 caracteres estável para cadastro no painel, mas esse valor deve ser tratado pelo backend como **ID do aparelho**, não como MAC físico.
 
 O cartão do MAC fica grande e visível na tela Evolux. Ele é focável para Android TV e possui um listener de clique. Ao tocar ou selecionar o cartão, o valor exibido é colocado na área de transferência com o rótulo `Evolux MAC` e a aplicação mostra a confirmação `MAC copiado`.
 
 ## Fluxo de acesso
 
-O botão **Entrar** usa o MAC que foi lido automaticamente, sem pedir usuário ou senha. O campo manual legado continua oculto no layout para que o código protegido encontre os IDs originais, mas não participa mais da leitura do identificador. O segundo valor legado é mantido vazio e o sufixo automático antigo não é aplicado ao MAC.
+O botão **Entrar** usa o mesmo identificador que aparece no cartão, seja MAC físico ou fallback do aparelho, sem pedir usuário ou senha. O campo manual legado continua oculto no layout para que o código protegido encontre os IDs originais, mas não participa mais da leitura do identificador. O segundo valor legado é mantido vazio e o sufixo automático antigo não é aplicado.
 
 A leitura e a cópia do MAC são funcionalidades locais. O fluxo de autorização de conteúdo ainda passa pelo componente de rede protegido herdado do APK. Portanto, **o fato de o MAC aparecer e ser copiado não significa que o backend já esteja autenticando o dispositivo**. A integração real deve ser feita quando você fornecer a URL, o endpoint, o corpo JSON, os cabeçalhos e o formato das respostas.
 
@@ -82,7 +82,7 @@ A documentação oficial do Apktool descreve a reconstrução de APKs [1], e a d
 
 ## Validação realizada
 
-A versão Evolux foi recompilada sem erros pelo Apktool 3.0.3 após a remoção do cache de build. O VerifyError causado pela chamada incorreta de `Character.digit` e pelo intervalo de exceção vazio em `readFileMac` foi corrigido, e o APK final foi alinhado e validado com assinatura Android v1, v2 e v3. A inspeção do DEX confirmou `readNetworkMac`, os caminhos `sys/class/net`, a normalização de 12 caracteres, o serviço de área de transferência e as mensagens de cópia e indisponibilidade. Os recursos `splash.jpeg`, `home_logo.png`, `broadcasts_logo_4x.png` e `hdplayer_icon.png` foram substituídos pelas variantes Evolux.
+A versão Evolux foi recompilada sem erros pelo Apktool 3.0.3 após a remoção do cache de build. O VerifyError causado pela chamada incorreta de `Character.digit` e pelo intervalo de exceção vazio em `readFileMac` foi corrigido, e o APK final foi alinhado e validado com assinatura Android v1, v2 e v3. A inspeção do DEX confirmou `readNetworkMac`, `readIdentifier`, `ANDROID_ID`, o fallback persistente de 12 caracteres, o serviço de área de transferência e o uso do mesmo valor pelo botão Entrar. Os recursos `splash.jpeg`, `home_logo.png`, `broadcasts_logo_4x.png` e `hdplayer_icon.png` foram substituídos pelas variantes Evolux.
 
 Ainda é necessário testar em um aparelho ou Android TV real, porque a disponibilidade do MAC físico depende do sistema, do fabricante e da interface de rede usada. O teste deve verificar Ethernet, Wi‑Fi, ausência de rede, cópia pelo controle remoto, cópia por toque e o comportamento do backend após o fornecimento do contrato.
 

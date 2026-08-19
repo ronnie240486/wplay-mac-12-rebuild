@@ -274,7 +274,9 @@
     .line 54
     .line 55
     .line 56
-    invoke-static {}, Lcom/evolux/MacAddressTextView;->readNetworkMac()Ljava/lang/String;
+    invoke-virtual {p0}, Landroidx/fragment/app/u;->getContext()Landroid/content/Context;
+    move-result-object v0
+    invoke-static {v0}, Lcom/evolux/MacAddressTextView;->readIdentifier(Landroid/content/Context;)Ljava/lang/String;
 
     .line 57
     move-result-object p1
