@@ -159,10 +159,18 @@
     if-eqz p1, :show_failure
     const-string v1, "Identificador cadastrado. Abrindo lista..."
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+    iget-object v2, p0, Lae/h;->m0:Landroid/widget/Button;
+    if-eqz v2, :status_done
+    const/4 v3, 0x0
+    invoke-virtual {v2, v3}, Landroid/view/View;->setEnabled(Z)V
     goto :status_done
 
     :show_failure
     invoke-virtual {v0, p2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+    iget-object v2, p0, Lae/h;->m0:Landroid/widget/Button;
+    if-eqz v2, :status_done
+    const/4 v3, 0x1
+    invoke-virtual {v2, v3}, Landroid/view/View;->setEnabled(Z)V
 
     :status_done
     if-eqz p1, :backend_failed
