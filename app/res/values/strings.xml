@@ -311,10 +311,10 @@ Your plan expires in %s days!"</string>
     <string name="loading">Loading ...</string>
     <string name="login">Entrar</string>
     <string name="login_error_msg">Can not login now, try again later,</string>
-    <string name="login_with_device_id">MAC da rede</string>
-    <string name="login_with_username">MAC DA REDE</string>
-    <string name="mac_copy_hint">Toque no MAC para copiar</string>
-    <string name="mac_hint">MAC da rede ativa</string>
+    <string name="login_with_device_id">Identificador do painel</string>
+    <string name="login_with_username">IDENTIFICADOR DO PAINEL</string>
+    <string name="mac_copy_hint">Toque no identificador para copiar</string>
+    <string name="mac_hint">Identificador retornado pelo painel</string>
     <string name="logout">Logout</string>
     <string name="m3_ref_typeface_brand_regular">sans-serif</string>
     <string name="m3_ref_typeface_plain_medium">sans-serif-medium</string>
