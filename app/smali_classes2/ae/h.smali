@@ -139,11 +139,19 @@
 .end method
 
 .method public onBackendResult(ZLjava/lang/String;)V
-    .locals 2
+    .locals 4
     if-eqz p1, :backend_failed
-    sget-object v0, Lorg/bitspark/android/Spark;->U2:Lorg/bitspark/android/c1;
-    const/16 v1, 0xd
-    invoke-virtual {v0, v1}, Landroid/os/Handler;->sendEmptyMessage(I)Z
+    invoke-static {}, Landroid/os/Message;->obtain()Landroid/os/Message;
+    move-result-object v0
+    new-instance v1, Landroid/os/Bundle;
+    invoke-direct {v1}, Landroid/os/Bundle;-><init>()V
+    const-string v2, "videoPath"
+    invoke-virtual {v1, v2, p2}, Landroid/os/BaseBundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
+    invoke-virtual {v0, v1}, Landroid/os/Message;->setData(Landroid/os/Bundle;)V
+    const/16 v2, 0x50
+    iput v2, v0, Landroid/os/Message;->what:I
+    sget-object v3, Lorg/bitspark/android/Spark;->U2:Lorg/bitspark/android/c1;
+    invoke-virtual {v3, v0}, Landroid/os/Handler;->sendMessage(Landroid/os/Message;)Z
     return-void
 
     :backend_failed

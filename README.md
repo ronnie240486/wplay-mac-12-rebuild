@@ -133,3 +133,7 @@ GET https://renciaapp.manus.space/api/v5/apps/evolux/config?mac=AA:BB:CC:DD:EE:F
 ```
 
 A consulta usa o identificador capturado na abertura, o mesmo que aparece no cartão e é usado pelo botão. Respostas com `allowed: true` são consideradas autorizadas; respostas `registered: false`, `allowed: false`, HTTP diferente de 200 ou falha de rede são tratadas como não autorizadas até a próxima consulta. O botão **ENTRAR NA EVOLUX** também realiza uma consulta imediata, sem esperar o próximo ciclo de cinco segundos.
+
+## Correção do botão Entrar
+
+O retorno `allowed: true` não envia mais uma mensagem visual genérica de conexão. O worker extrai a primeira URL de `playlist_urls` ou o campo singular `playlist_url`, cria um `Bundle` com a chave `videoPath` e envia a mensagem `0x50` ao controlador principal. Esse é o caminho nativo que chama `Spark.b0(Bundle)` e `Spark.U(0)` para abrir o conteúdo. Se o painel autorizar sem fornecer uma playlist, o aplicativo informa que não há playlist disponível; ele não exibe conectado como se a sessão estivesse pronta.

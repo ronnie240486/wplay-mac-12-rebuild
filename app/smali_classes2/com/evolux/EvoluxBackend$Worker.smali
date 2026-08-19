@@ -82,6 +82,34 @@
     invoke-virtual {v9, v10}, Lorg/json/JSONObject;->optBoolean(Ljava/lang/String;)Z
     move-result v10
     if-eqz v10, :blocked
+
+    const-string v10, "playlist_urls"
+    invoke-virtual {v9, v10}, Lorg/json/JSONObject;->optJSONArray(Ljava/lang/String;)Lorg/json/JSONArray;
+    move-result-object v11
+    if-eqz v11, :single_playlist
+    invoke-virtual {v11}, Lorg/json/JSONArray;->length()I
+    move-result v12
+    if-lez v12, :single_playlist
+    const/4 v12, 0x0
+    invoke-virtual {v11, v12}, Lorg/json/JSONArray;->optString(I)Ljava/lang/String;
+    move-result-object v8
+    goto :playlist_ready
+
+    :single_playlist
+    const-string v10, "playlist_url"
+    invoke-virtual {v9, v10}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v8
+
+    :playlist_ready
+    invoke-static {v8}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+    move-result v10
+    if-eqz v10, :playlist_ok
+    const/4 v10, 0x0
+    const-string v11, "Painel autorizou, mas nao retornou playlist."
+    invoke-direct {p0, v10, v11}, Lcom/evolux/EvoluxBackend$Worker;->deliver(ZLjava/lang/String;)V
+    return-void
+
+    :playlist_ok
     const/4 v10, 0x1
     invoke-direct {p0, v10, v8}, Lcom/evolux/EvoluxBackend$Worker;->deliver(ZLjava/lang/String;)V
     return-void
