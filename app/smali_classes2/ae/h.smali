@@ -166,6 +166,13 @@
 
     :status_done
     if-eqz p1, :backend_failed
+    sget-object v2, Lorg/bitspark/android/Spark;->U2:Lorg/bitspark/android/c1;
+    iget-object v3, v2, Lorg/bitspark/android/c1;->a:Ljava/lang/ref/WeakReference;
+    invoke-virtual {v3}, Ljava/lang/ref/Reference;->get()Ljava/lang/Object;
+    move-result-object v3
+    check-cast v3, Lorg/bitspark/android/Spark;
+    sget-object v2, Lorg/bitspark/android/Constants$VIDEO_TYPE;->BSLIVE:Lorg/bitspark/android/Constants$VIDEO_TYPE;
+    iput-object v2, v3, Lorg/bitspark/android/Spark;->u2:Lorg/bitspark/android/Constants$VIDEO_TYPE;
     invoke-static {}, Landroid/os/Message;->obtain()Landroid/os/Message;
     move-result-object v0
     new-instance v1, Landroid/os/Bundle;
