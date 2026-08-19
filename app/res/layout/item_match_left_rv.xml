@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:id="@id/root" android:tag="layout/item_match_left_rv_0" android:layout_width="122.0dip" android:layout_height="144.0dip" android:stateListAnimator="@drawable/animator_focus_film_img_1_1"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView android:id="@id/imageView" android:duplicateParentState="true" android:layout_width="fill_parent" android:layout_height="fill_parent" android:scaleType="fitXY" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    <TextView android:textSize="12.0sp" android:textColor="@color/white" android:gravity="center" android:id="@id/tv" android:duplicateParentState="true" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="20.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

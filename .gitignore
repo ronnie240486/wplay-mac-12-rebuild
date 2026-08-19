@@ -1,0 +1,22 @@
+# Chaves e segredos
+*.jks
+*.keystore
+*.p12
+*.pem
+*.key
+.env
+.env.*
+
+# Saídas e caches locais
+app/build/
+*.log
+*.tmp
+*.bak
+.DS_Store
+.idea/
+.gradle/
+
+# Relatórios locais de ferramentas
+jadx_src/
+verified_mac/
+build_reference*/

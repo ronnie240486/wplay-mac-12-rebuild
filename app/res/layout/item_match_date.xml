@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:id="@id/root" android:tag="layout/item_match_date_0" android:background="@drawable/selector_item_date_bg" android:layout_width="fill_parent" android:layout_height="57.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <TextView android:textSize="16.0sp" android:textColor="@color/white" android:id="@id/tv_day" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Fri" app:layout_constraintBottom_toTopOf="@id/tv_date" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_chainStyle="packed" />
+    <TextView android:textSize="16.0sp" android:textColor="@color/white" android:id="@id/tv_date" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:text="03 Jun" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/tv_day" />
+</androidx.constraintlayout.widget.ConstraintLayout>

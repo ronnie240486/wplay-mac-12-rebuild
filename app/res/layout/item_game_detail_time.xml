@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:gravity="center_vertical" android:orientation="horizontal" android:tag="layout/item_game_detail_time_0" android:focusable="false" android:focusableInTouchMode="false" android:layout_width="152.0dip" android:layout_height="32.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <View android:background="@android:color/white" android:layout_width="fill_parent" android:layout_height="4.0dip" android:layout_centerVertical="true" />
+    <TextView android:textSize="16.0sp" android:textColor="@android:color/black" android:gravity="center" android:id="@id/tv" android:background="@drawable/shape_game_detail_ball_20" android:layout_width="32.0dip" android:layout_height="32.0dip" android:text="10'" android:layout_marginStart="8.0dip" />
+</RelativeLayout>

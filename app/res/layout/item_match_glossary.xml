@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:tag="layout/item_match_glossary_0" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <TextView android:textSize="10.0sp" android:textStyle="bold" android:textColor="@color/white" android:id="@id/tv_left" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="J" />
+    <TextView android:textSize="10.0sp" android:textStyle="bold" android:textColor="@color/white" android:id="@id/tv_right" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text=":Jogos" android:layout_marginStart="3.0dip" />
+</LinearLayout>

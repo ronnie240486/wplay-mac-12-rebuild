@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <gradient android:startColor="@android:color/transparent" android:endColor="#ff0f1116" android:angle="0.0" android:type="radial" android:centerX="50.0%" android:centerY="50.0%" android:gradientRadius="79.99999%p" android:centerColor="@android:color/transparent" />
+        </shape>
+    </item>
+    <item android:gravity="left" android:width="40.0dip">
+        <shape android:shape="rectangle">
+            <gradient android:startColor="@color/color_0f1116" android:endColor="@android:color/transparent" android:angle="0.0" android:centerColor="@color/color_550f1116" />
+        </shape>
+    </item>
+    <item android:gravity="left" android:width="30.0dip">
+        <shape android:shape="rectangle">
+            <gradient android:startColor="@color/color_0f1116" android:endColor="@android:color/transparent" android:angle="0.0" android:centerColor="@color/color_550f1116" />
+        </shape>
+    </item>
+    <item android:gravity="left" android:width="20.0dip">
+        <shape android:shape="rectangle">
+            <gradient android:startColor="@color/color_0f1116" android:endColor="@android:color/transparent" android:angle="0.0" android:centerColor="@color/color_550f1116" />
+        </shape>
+    </item>
+    <item android:gravity="left" android:width="10.0dip">
+        <shape android:shape="rectangle">
+            <gradient android:startColor="@color/color_0f1116" android:endColor="@android:color/transparent" android:angle="0.0" android:centerColor="@color/color_550f1116" />
+        </shape>
+    </item>
+    <item android:gravity="right" android:width="40.0dip">
+        <shape android:shape="rectangle">
+            <gradient android:startColor="@android:color/transparent" android:endColor="@color/color_0f1116" android:angle="0.0" android:centerColor="@color/color_550f1116" />
+        </shape>
+    </item>
+    <item android:gravity="right" android:width="30.0dip">
+        <shape android:shape="rectangle">
+            <gradient android:startColor="@android:color/transparent" android:endColor="@color/color_0f1116" android:angle="0.0" android:centerColor="@color/color_550f1116" />
+        </shape>
+    </item>
+    <item android:gravity="right" android:width="20.0dip">
+        <shape android:shape="rectangle">
+            <gradient android:startColor="@android:color/transparent" android:endColor="@color/color_0f1116" android:angle="0.0" android:centerColor="@color/color_550f1116" />
+        </shape>
+    </item>
+    <item android:gravity="right" android:width="50.0dip">
+        <shape android:shape="rectangle">
+            <gradient android:startColor="@android:color/transparent" android:endColor="@color/color_0f1116" android:angle="0.0" android:centerColor="@color/color_550f1116" />
+        </shape>
+    </item>
+    <item android:gravity="right" android:width="60.0dip">
+        <shape android:shape="rectangle">
+            <gradient android:startColor="@android:color/transparent" android:endColor="@color/color_0f1116" android:angle="0.0" android:centerColor="@color/color_550f1116" />
+        </shape>
+    </item>
+    <item android:gravity="bottom" android:height="50.0dip">
+        <shape android:shape="rectangle">
+            <gradient android:startColor="@android:color/transparent" android:endColor="@color/color_0f1116" android:angle="270.0" android:centerColor="@color/color_550f1116" />
+        </shape>
+    </item>
+    <item android:gravity="bottom" android:height="40.0dip">
+        <shape android:shape="rectangle">
+            <gradient android:startColor="@android:color/transparent" android:endColor="@color/color_0f1116" android:angle="270.0" android:centerColor="@color/color_550f1116" />
+        </shape>
+    </item>
+    <item android:gravity="bottom" android:height="30.0dip">
+        <shape android:shape="rectangle">
+            <gradient android:startColor="@android:color/transparent" android:endColor="@color/color_0f1116" android:angle="270.0" android:centerColor="@color/color_550f1116" />
+        </shape>
+    </item>
+    <item android:gravity="bottom" android:height="20.0dip">
+        <shape android:shape="rectangle">
+            <gradient android:startColor="@android:color/transparent" android:endColor="@color/color_0f1116" android:angle="270.0" android:centerColor="@color/color_550f1116" />
+        </shape>
+    </item>
+    <item android:gravity="bottom" android:height="10.0dip">
+        <shape android:shape="rectangle">
+            <gradient android:startColor="@android:color/transparent" android:endColor="@color/color_0f1116" android:angle="270.0" android:centerColor="@color/color_550f1116" />
+        </shape>
+    </item>
+</layer-list>

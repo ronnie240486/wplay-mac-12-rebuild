@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:tag="layout/item_game_detail_edge_end_0" android:focusable="false" android:focusableInTouchMode="false" android:layout_width="10.0dip" android:layout_height="32.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/iv" android:background="@drawable/shape_game_detail_ball" android:layout_width="10.0dip" android:layout_height="10.0dip" android:layout_marginEnd="20.0dip" />
+</LinearLayout>

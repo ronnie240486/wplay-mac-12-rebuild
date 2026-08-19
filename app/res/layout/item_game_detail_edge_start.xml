@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:gravity="center_vertical" android:orientation="horizontal" android:tag="layout/item_game_detail_edge_start_0" android:focusable="false" android:focusableInTouchMode="false" android:layout_width="152.0dip" android:layout_height="32.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/iv" android:background="@drawable/shape_game_detail_ball" android:layout_width="10.0dip" android:layout_height="10.0dip" android:layout_centerVertical="true" />
+    <View android:background="@android:color/white" android:layout_width="fill_parent" android:layout_height="4.0dip" android:layout_centerVertical="true" android:layout_marginStart="5.0dip" />
+</RelativeLayout>

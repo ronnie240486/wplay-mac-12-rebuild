@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector android:height="67.5dip" android:width="76.0dip" android:viewportWidth="152.0" android:viewportHeight="135.0"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#00000000" android:pathData="M46.5,42.5L105.5,42.5A3,3 0,0 1,108.5 45.5L108.5,97.5A3,3 0,0 1,105.5 100.5L46.5,100.5A3,3 0,0 1,43.5 97.5L43.5,45.5A3,3 0,0 1,46.5 42.5z" android:strokeColor="@color/vod_border_color_start" android:strokeWidth="5.0" android:fillType="evenOdd" />
+    <path android:fillColor="@color/vod_border_color_start" android:pathData="M43,56h65v6h-65z" android:strokeColor="#00000000" android:strokeWidth="1.0" android:fillType="evenOdd" />
+    <path android:fillColor="@color/vod_border_color_start" android:pathData="M62,32L62,32A3,3 0,0 1,65 35L65,47A3,3 0,0 1,62 50L62,50A3,3 0,0 1,59 47L59,35A3,3 0,0 1,62 32z" android:strokeColor="#00000000" android:strokeWidth="1.0" android:fillType="evenOdd" />
+    <path android:fillColor="@color/vod_border_color_start" android:pathData="M90,32L90,32A3,3 0,0 1,93 35L93,47A3,3 0,0 1,90 50L90,50A3,3 0,0 1,87 47L87,35A3,3 0,0 1,90 32z" android:strokeColor="#00000000" android:strokeWidth="1.0" android:fillType="evenOdd" />
+    <path android:fillColor="#00000000" android:pathData="M65,78.5L73.09,86.26C73.49,86.64 74.12,86.63 74.51,86.23C74.52,86.21 74.54,86.19 74.55,86.17L88,70L88,70" android:strokeColor="@color/vod_border_color_start" android:strokeWidth="6.0" android:strokeLineCap="round" android:fillType="evenOdd" />
+</vector>

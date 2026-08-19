@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:orientation="vertical" android:id="@id/history_live_phone_item" android:background="@drawable/history_download_card_bg" android:padding="6.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginBottom="12.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/history_cover" android:background="@drawable/history_download_cover_bg" android:layout_width="58.0dip" android:layout_height="58.0dip" android:scaleType="centerCrop" android:layout_centerVertical="true" android:outlineProvider="background" android:clipToOutline="true" />
+    <LinearLayout android:gravity="center_vertical" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_toRightOf="@id/history_cover" android:layout_centerVertical="true" android:layout_marginStart="12.0dip" android:layout_toEndOf="@id/history_cover">
+        <TextView android:textSize="13.0sp" android:textColor="#ffffffff" android:ellipsize="end" android:id="@id/history_name" android:layout_width="fill_parent" android:layout_height="wrap_content" android:maxLines="1" />
+        <TextView android:textSize="10.0sp" android:textColor="#b3ffffff" android:ellipsize="end" android:id="@id/program_now" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="4.0dip" android:maxLines="1" />
+        <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4.0dip">
+            <ImageView android:layout_width="10.0dip" android:layout_height="10.0dip" android:src="@drawable/time_icon" />
+            <TextView android:textSize="10.0sp" android:textColor="#99ffffff" android:ellipsize="end" android:id="@id/visit_at" android:layout_width="fill_parent" android:layout_height="wrap_content" android:maxLines="1" android:layout_marginStart="4.0dip" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

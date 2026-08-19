@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:tag="layout/item_game_detail_team_event_0" android:paddingTop="12.0dip" android:paddingBottom="12.0dip" android:focusable="false" android:focusableInTouchMode="false" android:layout_width="152.0dip" android:layout_height="87.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <org.bitspark.android.view.BubbleRelativeLayout android:id="@id/brl" android:layout_width="fill_parent" android:layout_height="fill_parent" app:half_base_of_leg="6.0dip" app:stroke_width="1.0">
+        <ImageView android:id="@id/icon" android:layout_width="16.0dip" android:layout_height="16.0dip" android:src="@drawable/icon_meau" android:scaleType="fitXY" android:layout_centerVertical="true" android:layout_marginStart="8.0dip" />
+        <TextView android:textColor="@color/white" android:ellipsize="marquee" android:id="@id/tv" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="\ 121312312312" android:singleLine="true" android:layout_centerVertical="true" android:marqueeRepeatLimit="marquee_forever" android:layout_marginStart="8.0dip" android:layout_marginEnd="8.0dip" android:layout_toEndOf="@id/icon" />
+    </org.bitspark.android.view.BubbleRelativeLayout>
+</LinearLayout>

@@ -1,0 +1,56 @@
+.class public final Lye/b;
+.super Ljava/lang/Object;
+.source "MyApplication"
+
+
+# static fields
+.field public static final b:Lye/b;
+
+
+# instance fields
+.field public final a:[Lm5/a;
+
+
+# direct methods
+.method static constructor <clinit>()V
+    .locals 2
+
+    .line 1
+    const/4 v0, 0x0
+
+    .line 2
+    new-array v0, v0, [Lm5/a;
+
+    .line 3
+    .line 4
+    new-instance v1, Lye/b;
+
+    .line 5
+    .line 6
+    invoke-direct {v1, v0}, Lye/b;-><init>([Lm5/a;)V
+
+    .line 7
+    .line 8
+    .line 9
+    sput-object v1, Lye/b;->b:Lye/b;
+
+    .line 10
+    .line 11
+    return-void
+.end method
+
+.method public constructor <init>([Lm5/a;)V
+    .locals 0
+
+    .line 1
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    .line 2
+    .line 3
+    .line 4
+    iput-object p1, p0, Lye/b;->a:[Lm5/a;
+
+    .line 5
+    .line 6
+    return-void
+.end method
