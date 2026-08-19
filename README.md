@@ -111,3 +111,15 @@ A implementação usa uma thread de rede para não bloquear a tela e define time
 ## Correção do crash de contexto
 
 O clique não usa mais `getContext()` diretamente na classe Fragment incompatível. Ele obtém o contexto pela `View` da tela e usa `getActivity()` apenas como fallback, evitando o `NoSuchMethodError` apresentado no relatório do aparelho.
+
+## Presença online ao abrir
+
+Ao inflar o cartão de identificação na tela inicial, o aplicativo lê o mesmo valor exibido ao usuário e envia, em segundo plano:
+
+```text
+GET https://renciaapp.manus.space/api/v5/heartbeat?mac=AA:BB:CC:DD:EE:FF
+```
+
+O endpoint respondeu `success:true` para um teste público de presença. O APK possui as permissões `INTERNET` e `ACCESS_NETWORK_STATE`. O heartbeat não depende do clique no botão e é iniciado na abertura da tela. O fluxo de configuração continua usando a rota específica do Evolux ao clicar em **ENTRAR NA EVOLUX**.
+
+A correção mais recente não chama `getView()`, `getActivity()` ou `getContext()` no Fragment. O contexto é obtido diretamente do `View` recebido no clique, evitando o `NoSuchMethodError` visto em aparelhos com essa versão da biblioteca AndroidX.

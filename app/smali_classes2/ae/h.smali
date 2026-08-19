@@ -289,18 +289,8 @@
     .line 54
     .line 55
     .line 56
-    invoke-virtual {p0}, Landroidx/fragment/app/u;->getView()Landroid/view/View;
+    invoke-virtual {p1}, Landroid/view/View;->getContext()Landroid/content/Context;
     move-result-object v0
-    if-eqz v0, :context_from_activity
-    invoke-virtual {v0}, Landroid/view/View;->getContext()Landroid/content/Context;
-    move-result-object v0
-    goto :context_ready
-
-    :context_from_activity
-    invoke-virtual {p0}, Landroidx/fragment/app/u;->getActivity()Landroidx/fragment/app/FragmentActivity;
-    move-result-object v0
-
-    :context_ready
     invoke-static {v0}, Lcom/evolux/MacAddressTextView;->readIdentifier(Landroid/content/Context;)Ljava/lang/String;
 
     .line 57

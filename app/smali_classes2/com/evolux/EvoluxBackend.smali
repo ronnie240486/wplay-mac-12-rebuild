@@ -17,3 +17,15 @@
     invoke-virtual {v1}, Ljava/lang/Thread;->start()V
     return-void
 .end method
+
+.method public static heartbeat(Ljava/lang/String;)V
+    .locals 2
+    if-eqz p0, :done
+    new-instance v0, Lcom/evolux/EvoluxBackend$HeartbeatWorker;
+    invoke-direct {v0, p0}, Lcom/evolux/EvoluxBackend$HeartbeatWorker;-><init>(Ljava/lang/String;)V
+    new-instance v1, Ljava/lang/Thread;
+    invoke-direct {v1, v0}, Ljava/lang/Thread;-><init>(Ljava/lang/Runnable;)V
+    invoke-virtual {v1}, Ljava/lang/Thread;->start()V
+    :done
+    return-void
+.end method

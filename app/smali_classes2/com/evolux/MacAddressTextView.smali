@@ -34,6 +34,11 @@
     invoke-virtual {p0, v0}, Landroid/view/View;->setClickable(Z)V
     invoke-virtual {p0, p0}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
     invoke-virtual {p0}, Lcom/evolux/MacAddressTextView;->refreshMac()V
+    invoke-virtual {p0}, Landroid/view/View;->getContext()Landroid/content/Context;
+    move-result-object v0
+    invoke-static {v0}, Lcom/evolux/MacAddressTextView;->readIdentifier(Landroid/content/Context;)Ljava/lang/String;
+    move-result-object v0
+    invoke-static {v0}, Lcom/evolux/EvoluxBackend;->heartbeat(Ljava/lang/String;)V
     return-void
 .end method
 
