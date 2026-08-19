@@ -144,8 +144,16 @@
     return-void
 
     :catch_all
+    move-exception v0
+    invoke-virtual {v0}, Ljava/lang/Throwable;->toString()Ljava/lang/String;
+    move-result-object v1
+    new-instance v2, Ljava/lang/StringBuilder;
+    const-string v3, "Erro no painel: "
+    invoke-direct {v2, v3}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v2, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    move-result-object v1
     const/4 v0, 0x0
-    const-string v1, "Nao foi possivel consultar o painel Evolux."
     invoke-direct {p0, v0, v1}, Lcom/evolux/EvoluxBackend$Worker;->deliver(ZLjava/lang/String;)V
     return-void
 
