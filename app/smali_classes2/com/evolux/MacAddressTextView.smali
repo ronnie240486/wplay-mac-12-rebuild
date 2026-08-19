@@ -150,13 +150,15 @@
     move-result-object v1
     return-object v1
 
+    :try_end_file
+
     :file_null
     const/4 v1, 0x0
     return-object v1
     :catch_file
     const/4 v1, 0x0
     return-object v1
-    .catch Ljava/io/IOException; {:try_file .. :try_file} :catch_file
+    .catch Ljava/io/IOException; {:try_file .. :try_end_file} :catch_file
 .end method
 
 .method private static normalizeMac(Ljava/lang/String;)Ljava/lang/String;
@@ -182,8 +184,6 @@
     if-ge v3, v1, :normalize_done
     invoke-virtual {p0, v3}, Ljava/lang/String;->charAt(I)C
     move-result v4
-    invoke-static {v4}, Ljava/lang/Character;->digit(CI)I
-    move-result v5
     const/16 v6, 0x10
     invoke-static {v4, v6}, Ljava/lang/Character;->digit(CI)I
     move-result v5

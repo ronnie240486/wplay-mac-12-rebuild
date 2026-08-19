@@ -82,7 +82,7 @@ A documentação oficial do Apktool descreve a reconstrução de APKs [1], e a d
 
 ## Validação realizada
 
-A versão Evolux foi recompilada sem erros pelo Apktool 3.0.3 após a remoção do cache de build. O APK final foi alinhado e validado com assinatura Android v1, v2 e v3. A inspeção do DEX confirmou `readNetworkMac`, os caminhos `sys/class/net`, a normalização de 12 caracteres, o serviço de área de transferência e as mensagens de cópia e indisponibilidade. Os recursos `splash.jpeg`, `home_logo.png`, `broadcasts_logo_4x.png` e `hdplayer_icon.png` foram substituídos pelas variantes Evolux.
+A versão Evolux foi recompilada sem erros pelo Apktool 3.0.3 após a remoção do cache de build. O VerifyError causado pela chamada incorreta de `Character.digit` e pelo intervalo de exceção vazio em `readFileMac` foi corrigido, e o APK final foi alinhado e validado com assinatura Android v1, v2 e v3. A inspeção do DEX confirmou `readNetworkMac`, os caminhos `sys/class/net`, a normalização de 12 caracteres, o serviço de área de transferência e as mensagens de cópia e indisponibilidade. Os recursos `splash.jpeg`, `home_logo.png`, `broadcasts_logo_4x.png` e `hdplayer_icon.png` foram substituídos pelas variantes Evolux.
 
 Ainda é necessário testar em um aparelho ou Android TV real, porque a disponibilidade do MAC físico depende do sistema, do fabricante e da interface de rede usada. O teste deve verificar Ethernet, Wi‑Fi, ausência de rede, cópia pelo controle remoto, cópia por toque e o comportamento do backend após o fornecimento do contrato.
 
