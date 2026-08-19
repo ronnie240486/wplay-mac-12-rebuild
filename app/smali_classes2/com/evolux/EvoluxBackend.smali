@@ -3,6 +3,7 @@
 .source "EvoluxBackend.java"
 
 .field private static pollStarted:Z
+.field private static callback:Lcom/evolux/EvoluxBackend$Callback;
 
 .method private constructor <init>()V
     .locals 0
@@ -12,6 +13,7 @@
 
 .method public static check(Ljava/lang/String;Lcom/evolux/EvoluxBackend$Callback;)V
     .locals 2
+    sput-object p1, Lcom/evolux/EvoluxBackend;->callback:Lcom/evolux/EvoluxBackend$Callback;
     new-instance v0, Lcom/evolux/EvoluxBackend$Worker;
     invoke-direct {v0, p0, p1}, Lcom/evolux/EvoluxBackend$Worker;-><init>(Ljava/lang/String;Lcom/evolux/EvoluxBackend$Callback;)V
     new-instance v1, Ljava/lang/Thread;

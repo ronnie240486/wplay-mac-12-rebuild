@@ -140,6 +140,19 @@
 
 .method public onBackendResult(ZLjava/lang/String;)V
     .locals 4
+    iget-object v0, p0, Lae/h;->p0:Landroid/widget/TextView;
+    if-eqz v0, :status_done
+    const/4 v1, 0x0
+    invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
+    if-eqz p1, :show_failure
+    const-string v1, "Identificador cadastrado. Abrindo lista..."
+    invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+    goto :status_done
+
+    :show_failure
+    invoke-virtual {v0, p2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+
+    :status_done
     if-eqz p1, :backend_failed
     invoke-static {}, Landroid/os/Message;->obtain()Landroid/os/Message;
     move-result-object v0
@@ -158,6 +171,10 @@
     return-void
 
     :backend_failed
+    if-eqz p1, :finish_callback
+    return-void
+
+    :finish_callback
     const/4 v0, -0x1
     invoke-static {v0, p2}, Lorg/bitspark/android/Spark;->p0(ILjava/lang/String;)V
     return-void

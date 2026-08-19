@@ -17,7 +17,7 @@
                 <CheckBox android:id="@id/eyeIcon" android:visibility="gone" android:layout_width="1.0dip" android:layout_height="1.0dip" />
             </RelativeLayout>
             <View android:id="@id/password_line" android:visibility="gone" android:layout_width="1.0dip" android:layout_height="1.0dip" />
-            <TextView android:textSize="14.0sp" android:textColor="#ffff7892" android:gravity="center_horizontal" android:id="@id/login_error" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="error" />
+            <TextView android:textSize="14.0sp" android:textColor="#ffff7892" android:gravity="center_horizontal" android:id="@id/login_error" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="Consultando painel..." />
             <Button android:textSize="18.0sp" android:textStyle="bold" android:textColor="#ffffffff" android:gravity="center" android:id="@id/username_login_submit_btn" android:background="@drawable/login_bg_select" android:focusable="true" android:layout_width="300.0dip" android:layout_height="50.0dip" android:layout_marginTop="12.0dip" android:text="@string/login" android:layout_centerHorizontal="true" />
         </RelativeLayout>
     </RelativeLayout>
