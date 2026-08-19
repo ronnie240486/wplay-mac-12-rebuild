@@ -2,7 +2,7 @@
 
 Este repositório contém a atualização autorizada do APK originalmente fornecido como `WPlay11.8.6d.apk`. A versão atual se chama **Evolux**, usa uma identidade visual futurística com logo, ícone e fundo renovados e apresenta o MAC da rede diretamente na tela inicial.
 
-> **Estado atual:** o APK Evolux foi recompilado, alinhado e assinado para desenvolvimento. O MAC é obtido da primeira interface de rede não-loopback com endereço físico de seis bytes, formatado como `AA:BB:CC:DD:EE:FF`, exibido em fonte grande e copiado para a área de transferência ao tocar no cartão. A autenticação real com o backend continua pendente dos dados da API.
+> **Estado atual:** o APK Evolux foi recompilado sem cache, alinhado e assinado para desenvolvimento. O MAC é procurado primeiro em `eth0`, `eno1`, `en0` e `wlan0` por meio de `/sys/class/net/*/address`; depois há fallback para interfaces não-loopback. O valor é formatado como `AA:BB:CC:DD:EE:FF`, exibido em fonte grande e copiado para a área de transferência ao tocar no cartão. A autenticação real com o backend continua pendente dos dados da API.
 
 ## Resultado entregue
 
@@ -19,11 +19,11 @@ Este repositório contém a atualização autorizada do APK originalmente fornec
 
 O nome público foi alterado de WPlay para **Evolux**. O manifesto continua usando a estrutura técnica e os IDs internos originais para preservar compatibilidade com as classes protegidas, mas o rótulo exibido ao usuário, a tela de login, o ícone do aplicativo e os principais banners foram atualizados.
 
-Os arquivos-fonte da identidade visual ficam em `assets/brand/`. A aplicação usa `evolux_logo.png` na tela inicial, os ícones Evolux nos recursos `mipmap-xhdpi` e `mipmap-xxhdpi`, e o fundo neon azul-violeta em `res/drawable/banner.jpg` e `res/mipmap-xhdpi/home_banner.png`.
+Os arquivos-fonte da identidade visual ficam em `assets/brand/`. A aplicação usa `evolux_logo.png` na tela de acesso, `evolux_splash.png` no splash de abertura, os ícones Evolux nos recursos `mipmap-xhdpi` e `mipmap-xxhdpi`, e o fundo neon azul-violeta em `res/drawable/banner.jpg` e `res/mipmap-xhdpi/home_banner.png`. As variantes `values-pt` e `values-pt-rBR` também foram atualizadas para não reintroduzir o título antigo de usuário.
 
 ## MAC da rede
 
-O componente `com.evolux.MacAddressTextView` percorre as interfaces de rede disponíveis, ignora a interface loopback e seleciona uma interface com endereço físico de seis bytes. Cada byte é convertido para dois caracteres hexadecimais em maiúsculas e os seis pares são separados por dois-pontos.
+O componente `com.evolux.MacAddressTextView` tenta primeiro ler os arquivos de endereço de `eth0`, `eno1`, `en0` e `wlan0`, que são as interfaces mais comuns para Ethernet e Wi‑Fi em Android TV. Se não conseguir, percorre as interfaces de rede disponíveis, ignora a interface loopback e seleciona uma interface com endereço físico de seis bytes. O valor é normalizado, validado como 12 caracteres hexadecimais e formatado em seis pares separados por dois-pontos.
 
 O formato apresentado é:
 
@@ -82,7 +82,7 @@ A documentação oficial do Apktool descreve a reconstrução de APKs [1], e a d
 
 ## Validação realizada
 
-A versão Evolux foi recompilada sem erros pelo Apktool 3.0.3. O APK final foi alinhado e validado com assinatura Android v1, v2 e v3. A decodificação posterior confirmou o rótulo `Evolux`, o cartão `com.evolux.MacAddressTextView`, a chamada de `readNetworkMac`, o serviço de área de transferência e as mensagens de cópia e indisponibilidade.
+A versão Evolux foi recompilada sem erros pelo Apktool 3.0.3 após a remoção do cache de build. O APK final foi alinhado e validado com assinatura Android v1, v2 e v3. A inspeção do DEX confirmou `readNetworkMac`, os caminhos `sys/class/net`, a normalização de 12 caracteres, o serviço de área de transferência e as mensagens de cópia e indisponibilidade. Os recursos `splash.jpeg`, `home_logo.png`, `broadcasts_logo_4x.png` e `hdplayer_icon.png` foram substituídos pelas variantes Evolux.
 
 Ainda é necessário testar em um aparelho ou Android TV real, porque a disponibilidade do MAC físico depende do sistema, do fabricante e da interface de rede usada. O teste deve verificar Ethernet, Wi‑Fi, ausência de rede, cópia pelo controle remoto, cópia por toque e o comportamento do backend após o fornecimento do contrato.
 

@@ -42,6 +42,33 @@
 
 .method public static readNetworkMac()Ljava/lang/String;
     .locals 8
+    const-string v0, "/sys/class/net/eth0/address"
+    invoke-static {v0}, Lcom/evolux/MacAddressTextView;->readFileMac(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v0
+    if-eqz v0, :try_eno1
+    return-object v0
+
+    :try_eno1
+    const-string v0, "/sys/class/net/eno1/address"
+    invoke-static {v0}, Lcom/evolux/MacAddressTextView;->readFileMac(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v0
+    if-eqz v0, :try_en0
+    return-object v0
+
+    :try_en0
+    const-string v0, "/sys/class/net/en0/address"
+    invoke-static {v0}, Lcom/evolux/MacAddressTextView;->readFileMac(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v0
+    if-eqz v0, :try_wlan0
+    return-object v0
+
+    :try_wlan0
+    const-string v0, "/sys/class/net/wlan0/address"
+    invoke-static {v0}, Lcom/evolux/MacAddressTextView;->readFileMac(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v0
+    if-eqz v0, :try_start
+    return-object v0
+
     :try_start
     invoke-static {}, Ljava/net/NetworkInterface;->getNetworkInterfaces()Ljava/util/Enumeration;
     move-result-object v0
@@ -102,6 +129,80 @@
     .catch Ljava/net/SocketException; {:try_start .. :try_end} :catch_socket
 
     :catch_socket
+    const/4 v0, 0x0
+    return-object v0
+.end method
+
+.method private static readFileMac(Ljava/lang/String;)Ljava/lang/String;
+    .locals 4
+    :try_file
+    new-instance v0, Ljava/io/BufferedReader;
+    new-instance v1, Ljava/io/FileReader;
+    invoke-direct {v1, p0}, Ljava/io/FileReader;-><init>(Ljava/lang/String;)V
+    invoke-direct {v0, v1}, Ljava/io/BufferedReader;-><init>(Ljava/io/Reader;)V
+    invoke-virtual {v0}, Ljava/io/BufferedReader;->readLine()Ljava/lang/String;
+    move-result-object v1
+    invoke-virtual {v0}, Ljava/io/BufferedReader;->close()V
+    if-eqz v1, :file_null
+    invoke-virtual {v1}, Ljava/lang/String;->trim()Ljava/lang/String;
+    move-result-object v1
+    invoke-static {v1}, Lcom/evolux/MacAddressTextView;->normalizeMac(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v1
+    return-object v1
+
+    :file_null
+    const/4 v1, 0x0
+    return-object v1
+    :catch_file
+    const/4 v1, 0x0
+    return-object v1
+    .catch Ljava/io/IOException; {:try_file .. :try_file} :catch_file
+.end method
+
+.method private static normalizeMac(Ljava/lang/String;)Ljava/lang/String;
+    .locals 7
+    const-string v1, ":"
+    const-string v2, ""
+    invoke-virtual {p0, v1, v2}, Ljava/lang/String;->replace(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Ljava/lang/String;
+    move-result-object p0
+    const-string v1, "-"
+    invoke-virtual {p0, v1, v2}, Ljava/lang/String;->replace(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Ljava/lang/String;
+    move-result-object p0
+    invoke-virtual {p0}, Ljava/lang/String;->toUpperCase()Ljava/lang/String;
+    move-result-object p0
+    invoke-virtual {p0}, Ljava/lang/String;->length()I
+    move-result v1
+    const/16 v2, 0xc
+    if-ne v1, v2, :normalize_null
+    new-instance v2, Ljava/lang/StringBuilder;
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+    const/4 v3, 0x0
+
+    :normalize_loop
+    if-ge v3, v1, :normalize_done
+    invoke-virtual {p0, v3}, Ljava/lang/String;->charAt(I)C
+    move-result v4
+    invoke-static {v4}, Ljava/lang/Character;->digit(CI)I
+    move-result v5
+    const/16 v6, 0x10
+    invoke-static {v4, v6}, Ljava/lang/Character;->digit(CI)I
+    move-result v5
+    if-ltz v5, :normalize_null
+    invoke-virtual {v2, v4}, Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;
+    add-int/lit8 v3, v3, 0x1
+    if-ge v3, v1, :normalize_loop
+    rem-int/lit8 v5, v3, 0x2
+    if-nez v5, :normalize_loop
+    const/16 v6, 0x3a
+    invoke-virtual {v2, v6}, Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;
+    goto :normalize_loop
+
+    :normalize_done
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    move-result-object v0
+    return-object v0
+
+    :normalize_null
     const/4 v0, 0x0
     return-object v0
 .end method

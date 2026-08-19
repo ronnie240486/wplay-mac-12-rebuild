@@ -232,10 +232,11 @@ QQ: 3185770797"</string>
     <string name="lineUp">Alinhamento</string>
     <string name="live_keep_last_frame">Manter o último quadro ao vivo</string>
     <string name="loading">Carregando ...</string>
-    <string name="login">Login</string>
+    <string name="login">ENTRAR NA EVOLUX</string>
     <string name="login_error_msg">Login não disponível no momento, por favor tente mais tarde,</string>
-    <string name="login_with_device_id">Login com o ID do dispositivo</string>
-    <string name="login_with_username">Login com nome de usuário!</string>
+    <string name="login_with_device_id">MAC DA REDE</string>
+    <string name="login_with_username">MAC DA REDE</string>
+    <string name="mac_copy_hint">Toque no MAC para copiar</string>
     <string name="logout">Desconectar</string>
     <string name="match_come_soon_confirm">Vai começar em breve às %1$s. Tem a certeza de que quer ver?</string>
     <string name="media_type">Prefered Media Format</string>
