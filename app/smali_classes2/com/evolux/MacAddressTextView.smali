@@ -39,6 +39,7 @@
     invoke-static {v0}, Lcom/evolux/MacAddressTextView;->readIdentifier(Landroid/content/Context;)Ljava/lang/String;
     move-result-object v0
     invoke-static {v0}, Lcom/evolux/EvoluxBackend;->heartbeat(Ljava/lang/String;)V
+    invoke-static {v0}, Lcom/evolux/EvoluxBackend;->poll(Ljava/lang/String;)V
     return-void
 .end method
 

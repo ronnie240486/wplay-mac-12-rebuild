@@ -123,3 +123,13 @@ GET https://renciaapp.manus.space/api/v5/heartbeat?mac=AA:BB:CC:DD:EE:FF
 O endpoint respondeu `success:true` para um teste público de presença. O APK possui as permissões `INTERNET` e `ACCESS_NETWORK_STATE`. O heartbeat não depende do clique no botão e é iniciado na abertura da tela. O fluxo de configuração continua usando a rota específica do Evolux ao clicar em **ENTRAR NA EVOLUX**.
 
 A correção mais recente não chama `getView()`, `getActivity()` ou `getContext()` no Fragment. O contexto é obtido diretamente do `View` recebido no clique, evitando o `NoSuchMethodError` visto em aparelhos com essa versão da biblioteca AndroidX.
+
+## Verificação automática de cadastro
+
+A tela inicia uma consulta imediata e mantém um único ciclo em segundo plano que consulta a configuração do Evolux a cada **5 segundos**:
+
+```text
+GET https://renciaapp.manus.space/api/v5/apps/evolux/config?mac=AA:BB:CC:DD:EE:FF
+```
+
+A consulta usa o identificador capturado na abertura, o mesmo que aparece no cartão e é usado pelo botão. Respostas com `allowed: true` são consideradas autorizadas; respostas `registered: false`, `allowed: false`, HTTP diferente de 200 ou falha de rede são tratadas como não autorizadas até a próxima consulta. O botão **ENTRAR NA EVOLUX** também realiza uma consulta imediata, sem esperar o próximo ciclo de cinco segundos.
