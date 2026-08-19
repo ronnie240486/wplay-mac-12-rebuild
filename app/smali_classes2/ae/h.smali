@@ -157,7 +157,7 @@
     const/4 v1, 0x0
     invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
     if-eqz p1, :show_failure
-    const-string v1, "Evolux build 4262201 — Identificador cadastrado. Abrindo lista..."
+    const-string v1, "Identificador cadastrado. Abrindo lista..."
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
     goto :status_done
 
