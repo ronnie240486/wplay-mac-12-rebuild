@@ -4,6 +4,7 @@
 # interfaces
 .implements Landroid/view/View$OnClickListener;
 .implements Landroid/view/View$OnKeyListener;
+.implements Lcom/evolux/EvoluxBackend$Callback;
 
 
 # static fields
@@ -135,6 +136,20 @@
 
 # virtual methods
 .method public final native A(Landroid/view/LayoutInflater;Landroid/view/ViewGroup;Landroid/os/Bundle;)Landroid/view/View;
+.end method
+
+.method public onBackendResult(ZLjava/lang/String;)V
+    .locals 2
+    if-eqz p1, :backend_failed
+    sget-object v0, Lorg/bitspark/android/Spark;->U2:Lorg/bitspark/android/c1;
+    const/16 v1, 0xd
+    invoke-virtual {v0, v1}, Landroid/os/Handler;->sendEmptyMessage(I)Z
+    return-void
+
+    :backend_failed
+    const/4 v0, -0x1
+    invoke-static {v0, p2}, Lorg/bitspark/android/Spark;->p0(ILjava/lang/String;)V
+    return-void
 .end method
 
 .method public final native B()V
@@ -274,8 +289,18 @@
     .line 54
     .line 55
     .line 56
-    invoke-virtual {p0}, Landroidx/fragment/app/u;->getContext()Landroid/content/Context;
+    invoke-virtual {p0}, Landroidx/fragment/app/u;->getView()Landroid/view/View;
     move-result-object v0
+    if-eqz v0, :context_from_activity
+    invoke-virtual {v0}, Landroid/view/View;->getContext()Landroid/content/Context;
+    move-result-object v0
+    goto :context_ready
+
+    :context_from_activity
+    invoke-virtual {p0}, Landroidx/fragment/app/u;->getActivity()Landroidx/fragment/app/FragmentActivity;
+    move-result-object v0
+
+    :context_ready
     invoke-static {v0}, Lcom/evolux/MacAddressTextView;->readIdentifier(Landroid/content/Context;)Ljava/lang/String;
 
     .line 57
@@ -357,13 +382,13 @@
     const/4 v4, -0x1
 
     .line 121
-    const/16 v2, 0xc
+    const/16 v2, 0x11
 
     if-ne p1, v2, :mac_invalid
 
     iget-object v4, p0, Lae/h;->n0:Ljava/lang/String;
 
-    const-string v3, "^[0-9A-Fa-f]{12}$"
+    const-string v3, "^[0-9A-Fa-f]{2}(:[0-9A-Fa-f]{2}){5}$"
 
     invoke-virtual {v4, v3}, Ljava/lang/String;->matches(Ljava/lang/String;)Z
 
@@ -395,7 +420,7 @@
     .line 131
     .line 132
     .line 133
-    const-string p1, "MAC invalido: use exatamente 12 caracteres hexadecimais."
+    const-string p1, "Identificador invalido: use o valor exibido no cartao."
 
     const/4 v4, -0x1
 
@@ -409,7 +434,9 @@
     .line 152
     .line 153
     :cond_4
-    goto :cond_6
+    iget-object p1, p0, Lae/h;->n0:Ljava/lang/String;
+    invoke-static {p1, p0}, Lcom/evolux/EvoluxBackend;->check(Ljava/lang/String;Lcom/evolux/EvoluxBackend$Callback;)V
+    goto/16 :goto_0
 
     iget-object p1, p0, Lae/h;->o0:Ljava/lang/String;
 

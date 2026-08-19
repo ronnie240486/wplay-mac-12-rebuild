@@ -95,3 +95,19 @@ Para conectar o backend sem adivinhações, forneça a URL base, o endpoint, o m
 [1]: https://apktool.org/docs/build/ "Apktool — Build Guide"
 [2]: https://developer.android.com/tools/apksigner "Android Developers — apksigner"
 [3]: https://cli.github.com/manual/gh_repo_create "GitHub CLI — gh repo create"
+
+## Integração Evolux com o painel Rencia
+
+O fluxo de entrada consulta em segundo plano a rota oficial definida no guia fornecido:
+
+```text
+GET https://renciaapp.manus.space/api/v5/apps/evolux/config?mac=AA:BB:CC:DD:EE:FF
+```
+
+A consulta usa o mesmo identificador exibido no cartão. Se a resposta contiver `allowed: true`, o APK continua para o fluxo nativo do player; se contiver `allowed: false` ou a chamada falhar, o APK interrompe a entrada e exibe a mensagem recebida de indisponibilidade. A resposta de configuração fica sob o contrato do PDF, incluindo `playlist_urls`, `server_api_url`, `app_name`, `logo_url`, `background_url` e `apk_version`. A aceitação do dispositivo é integrada; a aplicação de uma lista M3U/Xtream específica depende do parser/player protegido herdado do APK original e deve ser validada com a resposta real do MAC cadastrado.
+
+A implementação usa uma thread de rede para não bloquear a tela e define timeout de conexão e leitura de 15 segundos. O teste público com um MAC não cadastrado retornou `{"registered":false,"error":"MAC não cadastrado."}`, confirmando que a rota está ativa e que o APK deve usar exatamente o identificador cadastrado no painel.
+
+## Correção do crash de contexto
+
+O clique não usa mais `getContext()` diretamente na classe Fragment incompatível. Ele obtém o contexto pela `View` da tela e usa `getActivity()` apenas como fallback, evitando o `NoSuchMethodError` apresentado no relatório do aparelho.
