@@ -274,34 +274,12 @@
     .line 54
     .line 55
     .line 56
-    iget-object p1, p0, Lae/h;->k0:Landroid/widget/EditText;
+    invoke-static {}, Lcom/evolux/MacAddressTextView;->readNetworkMac()Ljava/lang/String;
 
     .line 57
+    move-result-object p1
+
     .line 58
-    invoke-virtual {p1}, Landroid/widget/EditText;->getText()Landroid/text/Editable;
-
-    .line 59
-    .line 60
-    .line 61
-    move-result-object p1
-
-    .line 62
-    invoke-virtual {p1}, Ljava/lang/Object;->toString()Ljava/lang/String;
-
-    .line 63
-    .line 64
-    .line 65
-    move-result-object p1
-
-    .line 66
-    invoke-virtual {p1}, Ljava/lang/String;->trim()Ljava/lang/String;
-
-    .line 67
-    .line 68
-    .line 69
-    move-result-object p1
-
-    .line 70
     iput-object p1, p0, Lae/h;->n0:Ljava/lang/String;
 
     .line 71
