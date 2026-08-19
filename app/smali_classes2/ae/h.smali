@@ -192,6 +192,8 @@
     iput v2, v0, Landroid/os/Message;->what:I
     sget-object v3, Lorg/bitspark/android/Spark;->U2:Lorg/bitspark/android/c1;
     invoke-virtual {v3, v0}, Landroid/os/Handler;->sendMessage(Landroid/os/Message;)Z
+    const/16 v2, 0xd
+    invoke-virtual {v3, v2}, Landroid/os/Handler;->sendEmptyMessage(I)Z
     return-void
 
     :backend_failed
