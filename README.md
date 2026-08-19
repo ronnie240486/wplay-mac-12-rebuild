@@ -137,3 +137,9 @@ A consulta usa o identificador capturado na abertura, o mesmo que aparece no car
 ## Correção do botão Entrar
 
 O retorno `allowed: true` não envia mais uma mensagem visual genérica de conexão. O worker extrai a primeira URL de `playlist_urls` ou o campo singular `playlist_url`, cria um `Bundle` com a chave `videoPath` e envia a mensagem `0x50` ao controlador principal. Esse é o caminho nativo que chama `Spark.b0(Bundle)` e `Spark.U(0)` para abrir o conteúdo. Se o painel autorizar sem fornecer uma playlist, o aplicativo informa que não há playlist disponível; ele não exibe conectado como se a sessão estivesse pronta.
+
+## Fonte oficial do identificador
+
+O APK não trata mais o MAC físico da interface como fonte principal. No primeiro bootstrap, ele usa o identificador local disponível apenas para consultar o painel. Quando a resposta contém `mac_address`, o valor é normalizado para `AA:BB:CC:DD:EE:FF`, salvo em `SharedPreferences` no arquivo lógico `evolux_panel`, chave `mac_address`, e passa a ser a fonte usada nas consultas seguintes de configuração, heartbeat e comandos.
+
+Essa ordem reproduz o fluxo esperado: o painel devolve os dados da conta, o aplicativo lê o campo `mac_address`, persiste o valor e o gerenciador de comandos reutiliza o valor persistido. Em caso de limpeza de dados ou primeiro uso sem resposta do painel, o APK usa temporariamente o identificador local para o bootstrap.

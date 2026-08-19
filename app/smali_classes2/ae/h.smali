@@ -147,6 +147,9 @@
     invoke-direct {v1}, Landroid/os/Bundle;-><init>()V
     const-string v2, "videoPath"
     invoke-virtual {v1, v2, p2}, Landroid/os/BaseBundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
+    const-string v2, "videoType"
+    const-string v3, "BSLIVE"
+    invoke-virtual {v1, v2, v3}, Landroid/os/BaseBundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
     invoke-virtual {v0, v1}, Landroid/os/Message;->setData(Landroid/os/Bundle;)V
     const/16 v2, 0x50
     iput v2, v0, Landroid/os/Message;->what:I

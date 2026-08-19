@@ -78,6 +78,10 @@
     move-result-object v8
     new-instance v9, Lorg/json/JSONObject;
     invoke-direct {v9, v8}, Lorg/json/JSONObject;-><init>(Ljava/lang/String;)V
+    const-string v10, "mac_address"
+    invoke-virtual {v9, v10}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v10
+    invoke-static {v10}, Lcom/evolux/MacAddressTextView;->savePanelIdentifier(Ljava/lang/String;)V
     const-string v10, "allowed"
     invoke-virtual {v9, v10}, Lorg/json/JSONObject;->optBoolean(Ljava/lang/String;)Z
     move-result v10

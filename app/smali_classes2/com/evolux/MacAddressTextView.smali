@@ -5,6 +5,7 @@
 .implements Landroid/view/View$OnClickListener;
 
 .field private static final HEX:Ljava/lang/String; = "0123456789ABCDEF"
+.field private static panelContext:Landroid/content/Context;
 
 .method public constructor <init>(Landroid/content/Context;)V
     .locals 0
@@ -36,6 +37,9 @@
     invoke-virtual {p0}, Lcom/evolux/MacAddressTextView;->refreshMac()V
     invoke-virtual {p0}, Landroid/view/View;->getContext()Landroid/content/Context;
     move-result-object v0
+    invoke-virtual {v0}, Landroid/content/Context;->getApplicationContext()Landroid/content/Context;
+    move-result-object v0
+    sput-object v0, Lcom/evolux/MacAddressTextView;->panelContext:Landroid/content/Context;
     invoke-static {v0}, Lcom/evolux/MacAddressTextView;->readIdentifier(Landroid/content/Context;)Ljava/lang/String;
     move-result-object v0
     invoke-static {v0}, Lcom/evolux/EvoluxBackend;->heartbeat(Ljava/lang/String;)V
@@ -151,8 +155,45 @@
     return-object v0
 .end method
 
+.method public static savePanelIdentifier(Ljava/lang/String;)V
+    .locals 5
+    if-eqz p0, :save_done
+    sget-object v0, Lcom/evolux/MacAddressTextView;->panelContext:Landroid/content/Context;
+    if-eqz v0, :save_done
+    invoke-static {p0}, Lcom/evolux/MacAddressTextView;->formatIdentifier(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v1
+    if-eqz v1, :save_done
+    const-string v2, "evolux_panel"
+    const/4 v3, 0x0
+    invoke-virtual {v0, v2, v3}, Landroid/content/Context;->getSharedPreferences(Ljava/lang/String;I)Landroid/content/SharedPreferences;
+    move-result-object v0
+    invoke-interface {v0}, Landroid/content/SharedPreferences;->edit()Landroid/content/SharedPreferences$Editor;
+    move-result-object v2
+    const-string v3, "mac_address"
+    invoke-interface {v2, v3, v1}, Landroid/content/SharedPreferences$Editor;->putString(Ljava/lang/String;Ljava/lang/String;)Landroid/content/SharedPreferences$Editor;
+    move-result-object v2
+    invoke-interface {v2}, Landroid/content/SharedPreferences$Editor;->apply()V
+    :save_done
+    return-void
+.end method
+
 .method public static readIdentifier(Landroid/content/Context;)Ljava/lang/String;
     .locals 5
+    if-eqz p0, :network_mac
+    const-string v0, "evolux_panel"
+    const/4 v1, 0x0
+    invoke-virtual {p0, v0, v1}, Landroid/content/Context;->getSharedPreferences(Ljava/lang/String;I)Landroid/content/SharedPreferences;
+    move-result-object v0
+    const-string v1, "mac_address"
+    const/4 v2, 0x0
+    invoke-interface {v0, v1, v2}, Landroid/content/SharedPreferences;->getString(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v1
+    invoke-static {v1}, Lcom/evolux/MacAddressTextView;->formatIdentifier(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v2
+    if-eqz v2, :network_mac
+    return-object v2
+
+    :network_mac
     invoke-static {}, Lcom/evolux/MacAddressTextView;->readNetworkMac()Ljava/lang/String;
     move-result-object v0
     if-eqz v0, :android_id
