@@ -332,36 +332,9 @@
     .line 94
     if-eqz p1, :cond_3
 
-    .line 95
-    .line 96
-    iget-object p1, p0, Lae/h;->k0:Landroid/widget/EditText;
-
-    .line 97
-    .line 98
-    invoke-virtual {p1}, Landroid/view/View;->requestFocus()Z
-
-    .line 99
-    .line 100
-    .line 101
-    iget-object p1, p0, Lae/h;->k0:Landroid/widget/EditText;
-
-    .line 102
-    .line 103
-    invoke-virtual {p1}, Landroid/view/View;->requestFocusFromTouch()Z
-
-    .line 104
-    .line 105
-    .line 106
-    const p1, 0x7f12027c
-
-    .line 107
-    .line 108
-    .line 109
-    invoke-static {p1}, Lorg/bitspark/android/Spark;->o0(I)V
-
-    .line 110
-    .line 111
-    .line 112
+    const-string p1, "MAC da rede indisponivel. Conecte o aparelho a Ethernet ou Wi-Fi."
+    const/4 v4, -0x1
+    invoke-static {v4, p1}, Lorg/bitspark/android/Spark;->p0(ILjava/lang/String;)V
     goto/16 :goto_0
 
     .line 113
