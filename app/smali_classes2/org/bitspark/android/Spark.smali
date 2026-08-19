@@ -4060,6 +4060,7 @@
     .line 33
     .line 34
     move-result-object v1
+    goto :evolux_url_ok
 
     const-string v4, "http://"
     invoke-virtual {v1, v4}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
