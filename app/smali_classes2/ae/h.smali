@@ -194,6 +194,12 @@
     invoke-virtual {v3, v0}, Landroid/os/Handler;->sendMessage(Landroid/os/Message;)Z
     const/16 v2, 0xd
     invoke-virtual {v3, v2}, Landroid/os/Handler;->sendEmptyMessage(I)Z
+    invoke-virtual {p0}, Landroidx/fragment/app/u;->m()Landroidx/fragment/app/o0;
+    move-result-object v0
+    if-eqz v0, :navigation_done
+    invoke-virtual {v0}, Landroidx/fragment/app/o0;->O()Z
+
+    :navigation_done
     return-void
 
     :backend_failed
