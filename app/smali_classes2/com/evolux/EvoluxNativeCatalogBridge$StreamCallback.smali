@@ -44,6 +44,16 @@
     invoke-static {v0, v1}, Lorg/bitspark/android/Spark;->p0(ILjava/lang/String;)V
     return-void
     :post_apply
+    invoke-static {v4}, Lcom/evolux/EvoluxNativeCatalogBridge;->prepareLiveChannelGroups(Ljava/util/List;)V
+    iget-object v0, p0, Lcom/evolux/EvoluxNativeCatalogBridge$StreamCallback;->spark:Lorg/bitspark/android/Spark;
+    new-instance v1, Lcom/evolux/EvoluxNativeCatalogBridge$ApplyListRunnable;
+    const/4 v2, 0x0
+    invoke-direct {v1, v0, v4, v2}, Lcom/evolux/EvoluxNativeCatalogBridge$ApplyListRunnable;-><init>(Lorg/bitspark/android/Spark;Ljava/util/List;I)V
+    new-instance v2, Landroid/os/Handler;
+    invoke-static {}, Landroid/os/Looper;->getMainLooper()Landroid/os/Looper;
+    move-result-object v3
+    invoke-direct {v2, v3}, Landroid/os/Handler;-><init>(Landroid/os/Looper;)V
+    invoke-virtual {v2, v1}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
     return-void
     :catch
     move-exception v0

@@ -260,6 +260,27 @@
     return-object v0
 .end method
 
+.method public static prepareLiveChannelGroups(Ljava/util/List;)V
+    .locals 5
+    new-instance v0, Ljava/util/HashMap;
+    invoke-direct {v0}, Ljava/util/HashMap;-><init>()V
+    new-instance v1, Lorg/bitspark/android/beans/Group;
+    invoke-direct {v1}, Lorg/bitspark/android/beans/Group;-><init>()V
+    const/4 v2, 0x0
+    iput v2, v1, Lorg/bitspark/android/beans/Group;->id:I
+    iput v2, v1, Lorg/bitspark/android/beans/Group;->type:I
+    iput-boolean v2, v1, Lorg/bitspark/android/beans/Group;->restrictedAccess:Z
+    const-string v3, "Canais"
+    iput-object v3, v1, Lorg/bitspark/android/beans/Group;->name:Ljava/lang/String;
+    iput-object v3, v1, Lorg/bitspark/android/beans/Group;->url:Ljava/lang/String;
+    iput-object p0, v1, Lorg/bitspark/android/beans/Group;->channnels:Ljava/util/List;
+    invoke-static {v2}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+    move-result-object v4
+    invoke-virtual {v0, v4, v1}, Ljava/util/HashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+    sput-object v0, Lsd/c;->d:Ljava/util/HashMap;
+    return-void
+.end method
+
 .method public static prepareLiveGroup()V
     .locals 7
     new-instance v0, Lorg/bitspark/android/beans/GroupBeanModel;

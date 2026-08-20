@@ -17,15 +17,26 @@
 .end method
 
 .method public run()V
-    .locals 7
+    .locals 8
     iget-object v0, p0, Lcom/evolux/EvoluxNativeCatalogBridge$ApplyListRunnable;->spark:Lorg/bitspark/android/Spark;
+    if-eqz v0, :retry
     iget-object v1, v0, Lorg/bitspark/android/Spark;->R:Lzd/b0;
     if-eqz v1, :retry
-    iget-object v2, v1, Lzd/b0;->f0:Lrd/l0;
+    iget-object v2, v1, Lzd/b0;->X:Landroidx/leanback/widget/VerticalGridView;
     if-eqz v2, :retry
-    iget-object v2, p0, Lcom/evolux/EvoluxNativeCatalogBridge$ApplyListRunnable;->channels:Ljava/util/List;
-    invoke-virtual {v1, v2}, Lzd/b0;->i0(Ljava/util/List;)V
+
+    const/4 v3, 0x1
+    iput-boolean v3, v1, Lzd/b0;->n0:Z
+    const/4 v4, 0x0
+    invoke-virtual {v2, v4}, Landroidx/recyclerview/widget/RecyclerView;->setAdapter(Landroidx/recyclerview/widget/x0;)V
+    iput-object v4, v1, Lzd/b0;->f0:Lrd/l0;
+    const/4 v5, 0x0
+    iput v5, v1, Lzd/b0;->w0:I
+    invoke-virtual {v1}, Lzd/b0;->e0()V
+    iget-object v6, p0, Lcom/evolux/EvoluxNativeCatalogBridge$ApplyListRunnable;->channels:Ljava/util/List;
+    invoke-virtual {v1, v6}, Lzd/b0;->i0(Ljava/util/List;)V
     return-void
+
     :retry
     iget v2, p0, Lcom/evolux/EvoluxNativeCatalogBridge$ApplyListRunnable;->attempt:I
     const/16 v3, 0x8
@@ -41,6 +52,7 @@
     const-wide/16 v5, 0x1f4
     invoke-virtual {v3, v4, v5, v6}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
     return-void
+
     :missing
     const/4 v0, -0x1
     const-string v1, "A tela nativa de canais não foi inicializada."
