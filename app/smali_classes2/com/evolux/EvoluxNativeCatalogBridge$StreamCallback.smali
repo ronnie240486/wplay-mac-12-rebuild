@@ -44,14 +44,6 @@
     invoke-static {v0, v1}, Lorg/bitspark/android/Spark;->p0(ILjava/lang/String;)V
     return-void
     :post_apply
-    new-instance v0, Landroid/os/Handler;
-    invoke-static {}, Landroid/os/Looper;->getMainLooper()Landroid/os/Looper;
-    move-result-object v1
-    invoke-direct {v0, v1}, Landroid/os/Handler;-><init>(Landroid/os/Looper;)V
-    new-instance v1, Lcom/evolux/EvoluxNativeCatalogBridge$ApplyRunnable;
-    iget-object v2, p0, Lcom/evolux/EvoluxNativeCatalogBridge$StreamCallback;->spark:Lorg/bitspark/android/Spark;
-    invoke-direct {v1, v2, v4}, Lcom/evolux/EvoluxNativeCatalogBridge$ApplyRunnable;-><init>(Lorg/bitspark/android/Spark;Ljava/util/List;)V
-    invoke-virtual {v0, v1}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
     return-void
     :catch
     move-exception v0
