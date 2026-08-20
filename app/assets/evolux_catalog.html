@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Evolux</title>
+<style>
+:root{--bg:#070b24;--card:#101735;--accent:#ffc107;--text:#fff;--muted:#b5c7d9}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#070b24,#101a4d);color:var(--text);font-family:Arial,sans-serif;min-height:100vh}header{text-align:center;padding:22px 20px 14px}h1{margin:0;font-size:30px}#status{color:var(--accent);font-size:16px;margin-top:8px;min-height:24px}.tabs{display:flex;gap:10px;padding:0 20px 16px}.tabs button{flex:1;min-height:54px;border:0;border-radius:5px;background:#eee;color:#111;font-size:18px;font-weight:700}.tabs button.active{background:var(--accent)}main{margin:0 20px 22px;padding:14px;background:rgba(16,23,53,.92);border-radius:8px;min-height:450px}.item{padding:13px 8px;border-bottom:1px solid #2e3a63;font-size:17px}.empty{color:var(--muted);font-size:18px;padding:25px 8px}.small{color:var(--muted);font-size:13px;padding:8px}
+</style>
+</head>
+<body>
+<header><h1>EVOLUX</h1><div id="status">0% — Consultando lista no aparelho...</div></header>
+<div class="tabs"><button id="tabChannels" class="active">CANAIS</button><button id="tabMovies">FILMES</button><button id="tabSeries">SÉRIES</button></div>
+<main id="list"><div class="empty">Aguardando a lista...</div></main>
+<script>
+(function(){
+  const qs=new URLSearchParams(location.search), playlist=qs.get('playlist');
+  const status=document.getElementById('status'), list=document.getElementById('list');
+  const data={channels:[],movies:[],series:[]}; let current='channels';
+  function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));}
+  function category(group){const g=(group||'').toLowerCase();if(g.includes('movie')||g.includes('filme')||g.includes('cinema'))return'movies';if(g.includes('series')||g.includes('série')||g.includes('seriado'))return'series';return'channels';}
+  function render(){const a=data[current];if(!a.length){list.innerHTML='<div class="empty">Nenhum item encontrado nesta categoria.</div>';return;}list.innerHTML=a.slice(0,500).map(x=>'<div class="item">'+esc(x.name)+'</div>').join('')+'<div class="small">Itens exibidos: '+a.length+'</div>';}
+  function tab(name,id){current=name;document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');render();}
+  document.getElementById('tabChannels').onclick=()=>tab('channels','tabChannels');document.getElementById('tabMovies').onclick=()=>tab('movies','tabMovies');document.getElementById('tabSeries').onclick=()=>tab('series','tabSeries');
+  if(!playlist){status.textContent='Erro: playlist não recebida pelo painel.';list.innerHTML='<div class="empty">Volte e tente novamente.</div>';return;}
+  status.textContent='25% — Baixando M3U diretamente no aparelho...';
+  fetch(playlist,{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.text();}).then(text=>{if(!text.trim().startsWith('#EXTM3U'))throw new Error('Fonte não iniciou com #EXTM3U');status.textContent='75% — Organizando grupos...';const lines=text.split(/\r?\n/);for(let i=0;i<lines.length;i++){if(lines[i].startsWith('#EXTINF')){const info=lines[i];const name=(info.split(',').slice(1).join(',')||'Sem nome').trim();const m=info.match(/group-title="([^"]*)"/i);data[category(m?m[1]:'')].push({name});}}status.textContent='100% — Catálogo carregado';render();}).catch(e=>{status.textContent='Erro ao carregar lista: '+e.message;list.innerHTML='<div class="empty">A lista não pôde ser carregada neste aparelho.</div>';});
+})();
+</script>
+</body>
+</html>

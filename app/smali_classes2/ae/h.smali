@@ -180,6 +180,8 @@
     new-instance v1, Landroid/content/Intent;
     const-class v2, Lcom/evolux/EvoluxCatalogTestActivity;
     invoke-direct {v1, v0, v2}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
+    const-string v3, "playlist_url"
+    invoke-virtual {v1, v3, p2}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
     invoke-virtual {v0, v1}, Landroid/app/Activity;->startActivity(Landroid/content/Intent;)V
     invoke-virtual {v0}, Landroid/app/Activity;->finish()V
     :navigation_done
