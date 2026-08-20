@@ -81,7 +81,7 @@ Your plan expires in %s days!"</string>
     <string name="abc_searchview_description_submit">Submit query</string>
     <string name="abc_searchview_description_voice">Voice search</string>
     <string name="abc_toolbar_collapse_description">Collapse</string>
-    <string name="about_us">Sobre a Evolux</string>
+    <string name="about_us">About RedBeanTV</string>
     <string name="about_us_text" />
     <string name="advise_delete_outdated_programs">The resource has been removed，please delete the collection.</string>
     <string name="already_latest_version">Already latest version!</string>
@@ -309,12 +309,11 @@ Your plan expires in %s days!"</string>
     <string name="load_end">没有更多数据</string>
     <string name="load_failed">加载失败，请点我重试</string>
     <string name="loading">Loading ...</string>
-    <string name="login">Entrar</string>
+    <string name="login">Login</string>
     <string name="login_error_msg">Can not login now, try again later,</string>
-    <string name="login_with_device_id">Identificador do painel</string>
-    <string name="login_with_username">IDENTIFICADOR DO PAINEL</string>
-    <string name="mac_copy_hint">Toque no identificador para copiar</string>
-    <string name="mac_hint">Identificador retornado pelo painel</string>
+    <string name="login_with_device_id">Login With Device ID</string>
+    <string name="login_with_username">Login With Username</string>
+    <string name="evolux_mac_identifier">MAC do aparelho</string>
     <string name="logout">Logout</string>
     <string name="m3_ref_typeface_brand_regular">sans-serif</string>
     <string name="m3_ref_typeface_plain_medium">sans-serif-medium</string>
@@ -493,8 +492,8 @@ Your plan expires in %s days!"</string>
     <string name="user_status_disabled">Disabled</string>
     <string name="user_status_enabled">Enabled</string>
     <string name="user_status_registered">Registered</string>
-    <string name="username_cannot_blank">Informe o MAC do dispositivo.</string>
-    <string name="username_too_short">O MAC deve conter exatamente %1$d caracteres hexadecimais.</string>
+    <string name="username_cannot_blank">Username can not be blank!</string>
+    <string name="username_too_short">Username must include at least %1$d characters or numbers!</string>
     <string name="video_live">Live</string>
     <string name="video_play_back">Playback</string>
     <string name="video_playback_auto_start_next">Auto start next</string>

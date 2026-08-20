@@ -4060,16 +4060,6 @@
     .line 33
     .line 34
     move-result-object v1
-    goto :evolux_url_ok
-
-    const-string v4, "http://"
-    invoke-virtual {v1, v4}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
-    move-result v4
-    if-nez v4, :evolux_url_ok
-    const-string v4, "https://"
-    invoke-virtual {v1, v4}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
-    move-result v4
-    if-nez v4, :evolux_url_ok
 
     .line 35
     sget-object v4, Lorg/bitspark/android/Spark;->w3:[Ljava/lang/String;
@@ -4144,7 +4134,6 @@
     .line 65
     if-eqz v7, :cond_14
 
-    :evolux_url_ok
     .line 66
     .line 67
     iget-object v1, p0, Lorg/bitspark/android/Spark;->g0:Landroid/widget/ImageView;

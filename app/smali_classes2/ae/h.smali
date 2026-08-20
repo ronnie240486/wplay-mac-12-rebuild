@@ -4,7 +4,6 @@
 # interfaces
 .implements Landroid/view/View$OnClickListener;
 .implements Landroid/view/View$OnKeyListener;
-.implements Lcom/evolux/EvoluxBackend$Callback;
 
 
 # static fields
@@ -50,6 +49,97 @@
 
 .field public y0:Z
 
+
+.method public final continueOriginalLogin()V
+    .locals 5
+    iget-object p1, p0, Lae/h;->n0:Ljava/lang/String;
+    const-string v0, "pA==\n"
+    const-string v2, "5C5rCCwICb8=\n"
+    invoke-static {v0, v2}, Lcom/bumptech/glide/e;->u(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v0
+    invoke-virtual {p1, v0}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
+    move-result p1
+    if-nez p1, :original_credentials_ready
+    new-instance p1, Ljava/lang/StringBuilder;
+    invoke-direct {p1}, Ljava/lang/StringBuilder;-><init>()V
+    iget-object v0, p0, Lae/h;->n0:Ljava/lang/String;
+    invoke-virtual {p1, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    sget-object v0, Lorg/bitspark/android/h;->d:Ljava/lang/String;
+    invoke-virtual {p1, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {p1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    move-result-object p1
+    iput-object p1, p0, Lae/h;->n0:Ljava/lang/String;
+
+    :original_credentials_ready
+    sget-object p1, Lae/h;->z0:Ljava/lang/String;
+    new-instance v0, Ljava/lang/StringBuilder;
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+    const-string v2, "Z9ReDE1JzAEUzFAZUAeUTkHTWgxXCNULDoA=\n"
+    const-string v3, "NKA/fjlpuG4=\n"
+    invoke-static {v2, v3}, Lcom/bumptech/glide/e;->u(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v2
+    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    iget-object v2, p0, Lae/h;->n0:Ljava/lang/String;
+    const-string v3, "7ovVZDe5x6aqwZQ=\n"
+    const-string v4, "zvu0F0TOqNQ=\n"
+    invoke-static {v2, v3, v4, v0}, Lq2/a;->q(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/StringBuilder;)V
+    iget-object v2, p0, Lae/h;->o0:Ljava/lang/String;
+    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    move-result-object v0
+    sget-boolean v2, Lorg/bitspark/android/utils/i0;->b:Z
+    invoke-static {p1, v0}, Lcom/tencent/mars/xlog/Log;->i(Ljava/lang/String;Ljava/lang/String;)V
+    const/4 v1, 0x1
+    sget-object p1, Lorg/bitspark/android/g;->b:Ljava/lang/String;
+    invoke-static {v1, p1}, Lorg/bitspark/android/utils/i0;->u(ILjava/lang/String;)V
+    sget-object p1, Lorg/bitspark/android/g;->e:Ljava/lang/String;
+    iget-object v0, p0, Lae/h;->n0:Ljava/lang/String;
+    invoke-static {p1, v0}, Lorg/bitspark/android/utils/i0;->v(Ljava/lang/String;Ljava/lang/String;)V
+    sget-object p1, Lorg/bitspark/android/g;->f:Ljava/lang/String;
+    iget-object v0, p0, Lae/h;->o0:Ljava/lang/String;
+    invoke-static {p1, v0}, Lorg/bitspark/android/utils/i0;->v(Ljava/lang/String;Ljava/lang/String;)V
+    sget-object p1, Lorg/bitspark/android/Spark;->U2:Lorg/bitspark/android/c1;
+    const/16 v0, 0xd
+    invoke-virtual {p1, v0}, Landroid/os/Handler;->sendEmptyMessage(I)Z
+    return-void
+.end method
+
+.method public final finishPanelCheck()V
+    .locals 2
+    iget-object v0, p0, Lae/h;->m0:Landroid/widget/Button;
+    if-eqz v0, :finish_done
+    const/4 v1, 0x1
+    invoke-virtual {v0, v1}, Landroid/view/View;->setEnabled(Z)V
+    :finish_done
+    return-void
+.end method
+
+.method public final startPanelCheck()V
+    .locals 4
+    iget-object v0, p0, Lae/h;->m0:Landroid/widget/Button;
+    if-eqz v0, :button_ready
+    const/4 v1, 0x0
+    invoke-virtual {v0, v1}, Landroid/view/View;->setEnabled(Z)V
+    :button_ready
+    invoke-virtual {p0}, Landroidx/fragment/app/u;->i()Landroidx/fragment/app/FragmentActivity;
+    move-result-object v0
+    if-eqz v0, :panel_context_missing
+    invoke-virtual {v0}, Landroid/content/Context;->getApplicationContext()Landroid/content/Context;
+    move-result-object v1
+    invoke-static {v1}, Lcom/evolux/MacAddressTextView;->readIdentifier(Landroid/content/Context;)Ljava/lang/String;
+    move-result-object v1
+    invoke-static {v1}, Lcom/evolux/EvoluxBackend;->heartbeat(Ljava/lang/String;)V
+    new-instance v2, Lcom/evolux/PanelGateCallback;
+    invoke-direct {v2, p0}, Lcom/evolux/PanelGateCallback;-><init>(Lae/h;)V
+    invoke-static {v1, v2}, Lcom/evolux/EvoluxBackend;->check(Ljava/lang/String;Lcom/evolux/EvoluxBackend$Callback;)V
+    return-void
+    :panel_context_missing
+    const/4 v1, -0x1
+    const-string v2, "Não foi possível consultar o painel Evolux."
+    invoke-static {v1, v2}, Lorg/bitspark/android/Spark;->p0(ILjava/lang/String;)V
+    invoke-virtual {p0}, Lae/h;->finishPanelCheck()V
+    return-void
+.end method
 
 # direct methods
 .method static constructor <clinit>()V
@@ -136,63 +226,6 @@
 
 # virtual methods
 .method public final native A(Landroid/view/LayoutInflater;Landroid/view/ViewGroup;Landroid/os/Bundle;)Landroid/view/View;
-.end method
-
-.method public onBackendResult(ZLjava/lang/String;)V
-    .locals 3
-    new-instance v0, Lcom/evolux/SafeStatusRunnable;
-    invoke-direct {v0, p0, p1, p2}, Lcom/evolux/SafeStatusRunnable;-><init>(Lae/h;ZLjava/lang/String;)V
-    invoke-static {}, Landroid/os/Looper;->getMainLooper()Landroid/os/Looper;
-    move-result-object v1
-    new-instance v2, Landroid/os/Handler;
-    invoke-direct {v2, v1}, Landroid/os/Handler;-><init>(Landroid/os/Looper;)V
-    invoke-virtual {v2, v0}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
-    return-void
-.end method
-
-.method public updateStatus(ZLjava/lang/String;)V
-    .locals 4
-    iget-object v0, p0, Lae/h;->p0:Landroid/widget/TextView;
-    if-eqz v0, :status_done
-    const/4 v1, 0x0
-    invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
-    if-eqz p1, :show_failure
-    const-string v1, "100% — Identificador reconhecido. Abrindo página..."
-    invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
-    iget-object v2, p0, Lae/h;->m0:Landroid/widget/Button;
-    if-eqz v2, :status_done
-    const/4 v3, 0x0
-    invoke-virtual {v2, v3}, Landroid/view/View;->setEnabled(Z)V
-    goto :status_done
-
-    :show_failure
-    invoke-virtual {v0, p2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
-    iget-object v2, p0, Lae/h;->m0:Landroid/widget/Button;
-    if-eqz v2, :status_done
-    const/4 v3, 0x1
-    invoke-virtual {v2, v3}, Landroid/view/View;->setEnabled(Z)V
-
-        :status_done
-    if-eqz p1, :backend_failed
-    invoke-virtual {p0}, Landroidx/fragment/app/u;->i()Landroidx/fragment/app/FragmentActivity;
-    move-result-object v0
-    if-eqz v0, :navigation_done
-    sget-object v1, Lorg/bitspark/android/Spark;->U2:Lorg/bitspark/android/c1;
-    if-eqz v1, :navigation_done
-    const/16 v2, 0xd
-    invoke-virtual {v1, v2}, Landroid/os/Handler;->sendEmptyMessage(I)Z
-    :navigation_done
-    return-void
-
-
-    :backend_failed
-    if-eqz p1, :finish_callback
-    return-void
-
-    :finish_callback
-    const/4 v0, -0x1
-    invoke-static {v0, p2}, Lorg/bitspark/android/Spark;->p0(ILjava/lang/String;)V
-    return-void
 .end method
 
 .method public final native B()V
@@ -332,14 +365,34 @@
     .line 54
     .line 55
     .line 56
-    invoke-virtual {p1}, Landroid/view/View;->getContext()Landroid/content/Context;
-    move-result-object v0
-    invoke-static {v0}, Lcom/evolux/MacAddressTextView;->readIdentifier(Landroid/content/Context;)Ljava/lang/String;
+    iget-object p1, p0, Lae/h;->k0:Landroid/widget/EditText;
 
     .line 57
+    .line 58
+    invoke-virtual {p1}, Landroid/widget/EditText;->getText()Landroid/text/Editable;
+
+    .line 59
+    .line 60
+    .line 61
     move-result-object p1
 
-    .line 58
+    .line 62
+    invoke-virtual {p1}, Ljava/lang/Object;->toString()Ljava/lang/String;
+
+    .line 63
+    .line 64
+    .line 65
+    move-result-object p1
+
+    .line 66
+    invoke-virtual {p1}, Ljava/lang/String;->trim()Ljava/lang/String;
+
+    .line 67
+    .line 68
+    .line 69
+    move-result-object p1
+
+    .line 70
     iput-object p1, p0, Lae/h;->n0:Ljava/lang/String;
 
     .line 71
@@ -372,8 +425,6 @@
     move-result-object p1
 
     .line 86
-    const-string p1, ""
-
     iput-object p1, p0, Lae/h;->o0:Ljava/lang/String;
 
     .line 87
@@ -392,9 +443,36 @@
     .line 94
     if-eqz p1, :cond_3
 
-    const-string p1, "MAC da rede indisponivel. Conecte o aparelho a Ethernet ou Wi-Fi."
-    const/4 v4, -0x1
-    invoke-static {v4, p1}, Lorg/bitspark/android/Spark;->p0(ILjava/lang/String;)V
+    .line 95
+    .line 96
+    iget-object p1, p0, Lae/h;->k0:Landroid/widget/EditText;
+
+    .line 97
+    .line 98
+    invoke-virtual {p1}, Landroid/view/View;->requestFocus()Z
+
+    .line 99
+    .line 100
+    .line 101
+    iget-object p1, p0, Lae/h;->k0:Landroid/widget/EditText;
+
+    .line 102
+    .line 103
+    invoke-virtual {p1}, Landroid/view/View;->requestFocusFromTouch()Z
+
+    .line 104
+    .line 105
+    .line 106
+    const p1, 0x7f12027c
+
+    .line 107
+    .line 108
+    .line 109
+    invoke-static {p1}, Lorg/bitspark/android/Spark;->o0(I)V
+
+    .line 110
+    .line 111
+    .line 112
     goto/16 :goto_0
 
     .line 113
@@ -415,23 +493,7 @@
     const/4 v4, -0x1
 
     .line 121
-    const/16 v2, 0x11
-
-    if-ne p1, v2, :mac_invalid
-
-    iget-object v4, p0, Lae/h;->n0:Ljava/lang/String;
-
-    const-string v3, "^[0-9A-Fa-f]{2}(:[0-9A-Fa-f]{2}){5}$"
-
-    invoke-virtual {v4, v3}, Ljava/lang/String;->matches(Ljava/lang/String;)Z
-
-    move-result v4
-
-    if-eqz v4, :mac_invalid
-
-    goto :cond_4
-
-    :mac_invalid
+    if-ge p1, v2, :cond_4
 
     .line 122
     .line 123
@@ -453,10 +515,35 @@
     .line 131
     .line 132
     .line 133
-    const-string p1, "Identificador invalido: use o valor exibido no cartao."
+    const p1, 0x7f12027d
 
-    const/4 v4, -0x1
+    .line 134
+    .line 135
+    .line 136
+    invoke-virtual {p0, p1}, Landroidx/fragment/app/u;->o(I)Ljava/lang/String;
 
+    .line 137
+    .line 138
+    .line 139
+    move-result-object p1
+
+    .line 140
+    new-array v1, v1, [Ljava/lang/Object;
+
+    .line 141
+    .line 142
+    aput-object v3, v1, v0
+
+    .line 143
+    .line 144
+    invoke-static {p1, v1}, Ljava/lang/String;->format(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+
+    .line 145
+    .line 146
+    .line 147
+    move-result-object p1
+
+    .line 148
     invoke-static {v4, p1}, Lorg/bitspark/android/Spark;->p0(ILjava/lang/String;)V
 
     .line 149
@@ -467,10 +554,6 @@
     .line 152
     .line 153
     :cond_4
-    iget-object p1, p0, Lae/h;->n0:Ljava/lang/String;
-    invoke-static {p1, p0}, Lcom/evolux/EvoluxBackend;->check(Ljava/lang/String;Lcom/evolux/EvoluxBackend$Callback;)V
-    goto/16 :goto_0
-
     iget-object p1, p0, Lae/h;->o0:Ljava/lang/String;
 
     .line 154
@@ -593,208 +676,9 @@
     .line 216
     .line 217
     :cond_6
-    goto :cond_7
-
-    iget-object p1, p0, Lae/h;->n0:Ljava/lang/String;
-
-    .line 218
-    .line 219
-    const-string v0, "pA==\n"
-
-    .line 220
-    .line 221
-    const-string v2, "5C5rCCwICb8=\n"
-
-    .line 222
-    .line 223
-    invoke-static {v0, v2}, Lcom/bumptech/glide/e;->u(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
-
-    .line 224
-    .line 225
-    .line 226
-    move-result-object v0
-
-    .line 227
-    invoke-virtual {p1, v0}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
-
-    .line 228
-    .line 229
-    .line 230
-    move-result p1
-
-    .line 231
-    if-nez p1, :cond_7
-
-    .line 232
-    .line 233
-    new-instance p1, Ljava/lang/StringBuilder;
-
-    .line 234
-    .line 235
-    invoke-direct {p1}, Ljava/lang/StringBuilder;-><init>()V
-
-    .line 236
-    .line 237
-    .line 238
-    iget-object v0, p0, Lae/h;->n0:Ljava/lang/String;
-
-    .line 239
-    .line 240
-    invoke-virtual {p1, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    .line 241
-    .line 242
-    .line 243
-    sget-object v0, Lorg/bitspark/android/h;->d:Ljava/lang/String;
-
-    .line 244
-    .line 245
-    invoke-virtual {p1, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    .line 246
-    .line 247
-    .line 248
-    invoke-virtual {p1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    .line 249
-    .line 250
-    .line 251
-    move-result-object p1
-
-    .line 252
-    iput-object p1, p0, Lae/h;->n0:Ljava/lang/String;
-
-    .line 253
-    .line 254
-    :cond_7
-    sget-object p1, Lae/h;->z0:Ljava/lang/String;
-
-    .line 255
-    .line 256
-    new-instance v0, Ljava/lang/StringBuilder;
-
-    .line 257
-    .line 258
-    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
-
-    .line 259
-    .line 260
-    .line 261
-    const-string v2, "Z9ReDE1JzAEUzFAZUAeUTkHTWgxXCNULDoA=\n"
-
-    .line 262
-    .line 263
-    const-string v3, "NKA/fjlpuG4=\n"
-
-    .line 264
-    .line 265
-    invoke-static {v2, v3}, Lcom/bumptech/glide/e;->u(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
-
-    .line 266
-    .line 267
-    .line 268
-    move-result-object v2
-
-    .line 269
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    .line 270
-    .line 271
-    .line 272
-    iget-object v2, p0, Lae/h;->n0:Ljava/lang/String;
-
-    .line 273
-    .line 274
-    const-string v3, "7ovVZDe5x6aqwZQ=\n"
-
-    .line 275
-    .line 276
-    const-string v4, "zvu0F0TOqNQ=\n"
-
-    .line 277
-    .line 278
-    invoke-static {v2, v3, v4, v0}, Lq2/a;->q(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/StringBuilder;)V
-
-    .line 279
-    .line 280
-    .line 281
-    iget-object v2, p0, Lae/h;->o0:Ljava/lang/String;
-
-    .line 282
-    .line 283
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    .line 284
-    .line 285
-    .line 286
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    .line 287
-    .line 288
-    .line 289
-    move-result-object v0
-
-    .line 290
-    sget-boolean v2, Lorg/bitspark/android/utils/i0;->b:Z
-
-    .line 291
-    .line 292
-    invoke-static {p1, v0}, Lcom/tencent/mars/xlog/Log;->i(Ljava/lang/String;Ljava/lang/String;)V
-
-    .line 293
-    .line 294
-    .line 295
-    sget-object p1, Lorg/bitspark/android/g;->b:Ljava/lang/String;
-
-    .line 296
-    .line 297
-    invoke-static {v1, p1}, Lorg/bitspark/android/utils/i0;->u(ILjava/lang/String;)V
-
-    .line 298
-    .line 299
-    .line 300
-    sget-object p1, Lorg/bitspark/android/g;->e:Ljava/lang/String;
-
-    .line 301
-    .line 302
-    iget-object v0, p0, Lae/h;->n0:Ljava/lang/String;
-
-    .line 303
-    .line 304
-    invoke-static {p1, v0}, Lorg/bitspark/android/utils/i0;->v(Ljava/lang/String;Ljava/lang/String;)V
-
-    .line 305
-    .line 306
-    .line 307
-    sget-object p1, Lorg/bitspark/android/g;->f:Ljava/lang/String;
-
-    .line 308
-    .line 309
-    iget-object v0, p0, Lae/h;->o0:Ljava/lang/String;
-
-    .line 310
-    .line 311
-    invoke-static {p1, v0}, Lorg/bitspark/android/utils/i0;->v(Ljava/lang/String;Ljava/lang/String;)V
-
-    .line 312
-    .line 313
-    .line 314
-    sget-object p1, Lorg/bitspark/android/Spark;->U2:Lorg/bitspark/android/c1;
-
-    .line 315
-    .line 316
-    const/16 v0, 0xd
-
-    .line 317
-    .line 318
-    invoke-virtual {p1, v0}, Landroid/os/Handler;->sendEmptyMessage(I)Z
-
-    .line 319
-    .line 320
-    .line 321
+    invoke-virtual {p0}, Lae/h;->startPanelCheck()V
     goto :goto_0
 
-    .line 322
     :cond_8
     iget-object v1, p0, Lae/h;->i0:Landroid/widget/Button;
 
