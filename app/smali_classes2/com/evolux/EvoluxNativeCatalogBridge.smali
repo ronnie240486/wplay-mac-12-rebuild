@@ -5,7 +5,7 @@
 .source "EvoluxNativeCatalogBridge.java"
 
 .method public static activateAndOpen(Lorg/bitspark/android/Spark;)V
-    .locals 3
+    .locals 5
     sget-boolean v0, Lcom/evolux/EvoluxNativeCatalogBridge;->active:Z
     if-nez v0, :already_open
     iget-object v1, p0, Lorg/bitspark/android/Spark;->F:Lorg/bitspark/android/view/MyViewPager;
@@ -18,9 +18,17 @@
     invoke-virtual {v0}, Lsd/m;->j()V
     invoke-virtual {v2}, Lorg/bitspark/android/viewmodel/SparkViewModel;->initMenu()V
     :open_native_page
-    const/4 v0, 0x0
+    sget v0, Lorg/bitspark/android/g;->p:I
     const/4 v2, 0x1
     invoke-virtual {v1, v0, v2}, Landroidx/viewpager/widget/ViewPager;->v(IZ)V
+    new-instance v3, Landroid/os/Handler;
+    invoke-static {}, Landroid/os/Looper;->getMainLooper()Landroid/os/Looper;
+    move-result-object v4
+    invoke-direct {v3, v4}, Landroid/os/Handler;-><init>(Landroid/os/Looper;)V
+    new-instance v4, Lcom/evolux/ForceCatalogPageRunnable;
+    invoke-direct {v4, p0}, Lcom/evolux/ForceCatalogPageRunnable;-><init>(Lorg/bitspark/android/Spark;)V
+    const-wide/16 v0, 0x1f4
+    invoke-virtual {v3, v4, v0, v1}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
     sput-boolean v2, Lcom/evolux/EvoluxNativeCatalogBridge;->active:Z
     :already_open
     return-void
