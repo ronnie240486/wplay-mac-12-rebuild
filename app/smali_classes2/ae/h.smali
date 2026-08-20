@@ -155,13 +155,7 @@
 .end method
 
 .method public final startPanelCheck()V
-    .locals 4
-    invoke-virtual {p0}, Lae/h;->hideLegacyLogin()V
-    iget-object v0, p0, Lae/h;->m0:Landroid/widget/Button;
-    if-eqz v0, :button_ready
-    const/4 v1, 0x0
-    invoke-virtual {v0, v1}, Landroid/view/View;->setEnabled(Z)V
-    :button_ready
+    .locals 8
     invoke-virtual {p0}, Landroidx/fragment/app/u;->i()Landroidx/fragment/app/FragmentActivity;
     move-result-object v0
     if-eqz v0, :panel_context_missing
@@ -170,10 +164,48 @@
     invoke-static {v1}, Lcom/evolux/MacAddressTextView;->readIdentifier(Landroid/content/Context;)Ljava/lang/String;
     move-result-object v1
     invoke-static {v1}, Lcom/evolux/EvoluxBackend;->heartbeat(Ljava/lang/String;)V
-    new-instance v2, Lcom/evolux/PanelGateCallback;
-    invoke-direct {v2, p0}, Lcom/evolux/PanelGateCallback;-><init>(Lae/h;)V
-    invoke-static {v1, v2}, Lcom/evolux/EvoluxBackend;->check(Ljava/lang/String;Lcom/evolux/EvoluxBackend$Callback;)V
+
+    iget-object v2, p0, Lae/h;->k0:Landroid/widget/EditText;
+    if-eqz v2, :credentials_missing
+    invoke-virtual {v2}, Landroid/widget/EditText;->getText()Landroid/text/Editable;
+    move-result-object v2
+    invoke-virtual {v2}, Ljava/lang/Object;->toString()Ljava/lang/String;
+    move-result-object v2
+    invoke-virtual {v2}, Ljava/lang/String;->trim()Ljava/lang/String;
+    move-result-object v2
+    iput-object v2, p0, Lae/h;->n0:Ljava/lang/String;
+
+    iget-object v3, p0, Lae/h;->l0:Landroid/widget/EditText;
+    if-eqz v3, :credentials_missing
+    invoke-virtual {v3}, Landroid/widget/EditText;->getText()Landroid/text/Editable;
+    move-result-object v3
+    invoke-virtual {v3}, Ljava/lang/Object;->toString()Ljava/lang/String;
+    move-result-object v3
+    invoke-virtual {v3}, Ljava/lang/String;->trim()Ljava/lang/String;
+    move-result-object v3
+    iput-object v3, p0, Lae/h;->o0:Ljava/lang/String;
+
+    invoke-static {v2}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+    move-result v4
+    if-nez v4, :credentials_missing
+    invoke-static {v3}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+    move-result v4
+    if-nez v4, :credentials_missing
+
+    iget-object v4, p0, Lae/h;->m0:Landroid/widget/Button;
+    if-eqz v4, :button_ready
+    const/4 v5, 0x0
+    invoke-virtual {v4, v5}, Landroid/view/View;->setEnabled(Z)V
+    :button_ready
+    new-instance v4, Lcom/evolux/PanelGateCallback;
+    invoke-direct {v4, p0}, Lcom/evolux/PanelGateCallback;-><init>(Lae/h;)V
+    invoke-static {v2, v3, v1, v4}, Lcom/evolux/EvoluxBackend;->check(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/evolux/EvoluxBackend$Callback;)V
     return-void
+
+    :credentials_missing
+    invoke-virtual {p0}, Lae/h;->finishPanelCheck()V
+    return-void
+
     :panel_context_missing
     const/4 v1, -0x1
     const-string v2, "Não foi possível consultar o painel Evolux."
@@ -185,14 +217,12 @@
 .method public onStart()V
     .locals 0
     invoke-super {p0}, Landroidx/fragment/app/u;->onStart()V
-    invoke-virtual {p0}, Lae/h;->scheduleLegacyLoginHide()V
     return-void
 .end method
 
 .method public onResume()V
     .locals 0
     invoke-super {p0}, Landroidx/fragment/app/u;->onResume()V
-    invoke-virtual {p0}, Lae/h;->scheduleLegacyLoginHide()V
     invoke-virtual {p0}, Lae/h;->startPanelCheck()V
     return-void
 .end method
