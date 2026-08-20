@@ -165,9 +165,15 @@
     :add_events
     invoke-virtual {v0, v1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
     :notify_adapter
-    iget-object v1, p0, Lorg/bitspark/android/Spark;->Y:Lje/k;
-    if-eqz v1, :ensure_done
-    invoke-virtual {v1}, Ln5/a;->b()V
+    invoke-virtual {p0}, Landroidx/fragment/app/FragmentActivity;->m()Landroidx/fragment/app/p0;
+    move-result-object v1
+    new-instance v2, Lje/k;
+    const/4 v3, 0x0
+    invoke-direct {v2, v1, v3}, Lje/k;-><init>(Landroidx/fragment/app/o0;I)V
+    iput-object v2, p0, Lorg/bitspark/android/Spark;->Y:Lje/k;
+    iput-object v0, v2, Lje/k;->h:Ljava/util/ArrayList;
+    iget-object v1, p0, Lorg/bitspark/android/Spark;->F:Lorg/bitspark/android/view/MyViewPager;
+    invoke-virtual {v1, v2}, Landroidx/viewpager/widget/ViewPager;->setAdapter(Ln5/a;)V
     :ensure_done
     return-void
 .end method

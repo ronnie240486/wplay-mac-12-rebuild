@@ -87,7 +87,9 @@ Your plan expires in %s days!"</string>
     <string name="already_latest_version">Already latest version!</string>
     <string name="androidx_startup">androidx.startup</string>
     <string name="app_id">CC1AD845</string>
-    <string name="app_name">Evolux</string>
+    <string name="app_name">WPlay</string>
+    <string name="evolux_app_name">Evolux</string>
+    <string name="evolux_mac_identifier">Identificador MAC</string>
     <string name="auto_start">Run After Bootup</string>
     <string name="auto_start_off">Off</string>
     <string name="auto_start_on">On</string>
@@ -313,7 +315,6 @@ Your plan expires in %s days!"</string>
     <string name="login_error_msg">Can not login now, try again later,</string>
     <string name="login_with_device_id">Login With Device ID</string>
     <string name="login_with_username">Login With Username</string>
-    <string name="evolux_mac_identifier">MAC do aparelho</string>
     <string name="logout">Logout</string>
     <string name="m3_ref_typeface_brand_regular">sans-serif</string>
     <string name="m3_ref_typeface_plain_medium">sans-serif-medium</string>
