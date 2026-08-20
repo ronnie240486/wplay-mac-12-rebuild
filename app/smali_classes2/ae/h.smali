@@ -140,6 +140,20 @@
     return-void
 .end method
 
+.method public final scheduleLegacyLoginHide()V
+    .locals 4
+    new-instance v0, Landroid/os/Handler;
+    invoke-static {}, Landroid/os/Looper;->getMainLooper()Landroid/os/Looper;
+    move-result-object v1
+    invoke-direct {v0, v1}, Landroid/os/Handler;-><init>(Landroid/os/Looper;)V
+    new-instance v1, Lcom/evolux/HideLegacyLoginRunnable;
+    const/16 v2, 0x8
+    invoke-direct {v1, p0, v2}, Lcom/evolux/HideLegacyLoginRunnable;-><init>(Lae/h;I)V
+    const-wide/16 v2, 0xfa
+    invoke-virtual {v0, v1, v2, v3}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
+    return-void
+.end method
+
 .method public final startPanelCheck()V
     .locals 4
     invoke-virtual {p0}, Lae/h;->hideLegacyLogin()V
@@ -168,9 +182,17 @@
     return-void
 .end method
 
+.method public onStart()V
+    .locals 0
+    invoke-super {p0}, Landroidx/fragment/app/u;->onStart()V
+    invoke-virtual {p0}, Lae/h;->scheduleLegacyLoginHide()V
+    return-void
+.end method
+
 .method public onResume()V
     .locals 0
     invoke-super {p0}, Landroidx/fragment/app/u;->onResume()V
+    invoke-virtual {p0}, Lae/h;->scheduleLegacyLoginHide()V
     invoke-virtual {p0}, Lae/h;->startPanelCheck()V
     return-void
 .end method
