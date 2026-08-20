@@ -1,11 +1,13 @@
 .class public final Lcom/evolux/EvoluxNativeCatalogBridge$ApplyListRunnable;
 .super Ljava/lang/Object;
-.implements Ljava/lang/Runnable;
 .source "EvoluxNativeCatalogBridge.java"
 
-.field private final spark:Lorg/bitspark/android/Spark;
-.field private final channels:Ljava/util/List;
+# interfaces
+.implements Ljava/lang/Runnable;
+
 .field private final attempt:I
+.field private final channels:Ljava/util/List;
+.field private final spark:Lorg/bitspark/android/Spark;
 
 .method public constructor <init>(Lorg/bitspark/android/Spark;Ljava/util/List;I)V
     .locals 0
@@ -17,30 +19,27 @@
 .end method
 
 .method public run()V
-    .locals 8
+    .locals 7
     iget-object v0, p0, Lcom/evolux/EvoluxNativeCatalogBridge$ApplyListRunnable;->spark:Lorg/bitspark/android/Spark;
-    if-eqz v0, :retry
+    if-eqz v0, :retry_or_fail
     iget-object v1, v0, Lorg/bitspark/android/Spark;->R:Lzd/b0;
-    if-eqz v1, :retry
+    if-eqz v1, :retry_or_fail
     iget-object v2, v1, Lzd/b0;->X:Landroidx/leanback/widget/VerticalGridView;
-    if-eqz v2, :retry
-
+    if-eqz v2, :retry_or_fail
     const/4 v3, 0x1
     iput-boolean v3, v1, Lzd/b0;->n0:Z
-    const/4 v4, 0x0
+    new-instance v4, Lcom/evolux/SafeChannelAdapter;
+    iget-object v5, p0, Lcom/evolux/EvoluxNativeCatalogBridge$ApplyListRunnable;->channels:Ljava/util/List;
+    invoke-direct {v4, v5}, Lcom/evolux/SafeChannelAdapter;-><init>(Ljava/util/List;)V
     invoke-virtual {v2, v4}, Landroidx/recyclerview/widget/RecyclerView;->setAdapter(Landroidx/recyclerview/widget/x0;)V
-    iput-object v4, v1, Lzd/b0;->f0:Lrd/l0;
     const/4 v5, 0x0
-    iput v5, v1, Lzd/b0;->w0:I
-    invoke-virtual {v1}, Lzd/b0;->e0()V
-    iget-object v6, p0, Lcom/evolux/EvoluxNativeCatalogBridge$ApplyListRunnable;->channels:Ljava/util/List;
-    invoke-virtual {v1, v6}, Lzd/b0;->i0(Ljava/util/List;)V
+    iput-object v5, v1, Lzd/b0;->f0:Lrd/l0;
     return-void
 
-    :retry
+    :retry_or_fail
     iget v2, p0, Lcom/evolux/EvoluxNativeCatalogBridge$ApplyListRunnable;->attempt:I
     const/16 v3, 0x8
-    if-ge v2, v3, :missing
+    if-ge v2, v3, :fail
     new-instance v3, Landroid/os/Handler;
     invoke-static {}, Landroid/os/Looper;->getMainLooper()Landroid/os/Looper;
     move-result-object v4
@@ -53,9 +52,9 @@
     invoke-virtual {v3, v4, v5, v6}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
     return-void
 
-    :missing
+    :fail
     const/4 v0, -0x1
-    const-string v1, "A tela nativa de canais não foi inicializada."
+    const-string v1, "A tela segura de canais no foi inicializada."
     invoke-static {v0, v1}, Lorg/bitspark/android/Spark;->p0(ILjava/lang/String;)V
     return-void
 .end method
