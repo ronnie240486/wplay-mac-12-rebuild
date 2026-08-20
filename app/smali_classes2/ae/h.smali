@@ -131,6 +131,7 @@
     invoke-virtual {v3, v4, v5, v6}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
     invoke-static {v0, p1, v1, v2}, Lcom/evolux/EvoluxNativeCatalogBridge;->start(Lorg/bitspark/android/Spark;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
     invoke-virtual {p0}, Lae/h;->finishPanelCheck()V
+    invoke-virtual {p0}, Lae/h;->scheduleLegacyLoginHide()V
     return-void
 .end method
 
@@ -281,6 +282,11 @@
     .locals 1
     invoke-super {p0}, Landroidx/fragment/app/u;->onResume()V
     sput-object p0, Lae/h;->current:Lae/h;
+    sget-boolean v0, Lcom/evolux/EvoluxNativeCatalogBridge;->active:Z
+    if-eqz v0, :resume_login_normal
+    invoke-virtual {p0}, Lae/h;->hideLegacyLogin()V
+    return-void
+    :resume_login_normal
     iget-object v0, p0, Lae/h;->m0:Landroid/widget/Button;
     if-eqz v0, :resume_done
     invoke-virtual {v0, p0}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
