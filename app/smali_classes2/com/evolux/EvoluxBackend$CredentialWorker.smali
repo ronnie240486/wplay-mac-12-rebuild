@@ -64,7 +64,7 @@
     iget-object v2, p0, Lcom/evolux/EvoluxBackend$CredentialWorker;->mac:Ljava/lang/String;
     invoke-static {v2}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
     move-result v3
-    if-eqz v3, :put_mac
+    if-nez v3, :put_mac
     goto :body_ready
 
     :put_mac
