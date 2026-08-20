@@ -116,7 +116,7 @@
     const v1, 0x7f0b0223
     invoke-virtual {v0, v1}, Landroid/view/View;->findViewById(I)Landroid/view/View;
     move-result-object v1
-    if-eqz v1, :header_done
+    if-eqz v1, :hide_loading
     check-cast v1, Landroid/widget/TextView;
     new-instance v2, Ljava/text/SimpleDateFormat;
     const-string v3, "yyyy/MM/dd"
@@ -128,6 +128,13 @@
     invoke-virtual {v2, v3}, Ljava/text/Format;->format(Ljava/lang/Object;)Ljava/lang/String;
     move-result-object v2
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+    :hide_loading
+    const v1, 0x7f0b0225
+    invoke-virtual {v0, v1}, Landroid/view/View;->findViewById(I)Landroid/view/View;
+    move-result-object v1
+    if-eqz v1, :header_done
+    const/16 v2, 0x8
+    invoke-virtual {v1, v2}, Landroid/view/View;->setVisibility(I)V
     :header_done
     return-void
 .end method
