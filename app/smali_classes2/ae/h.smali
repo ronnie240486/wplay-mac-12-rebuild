@@ -172,18 +172,21 @@
     const/4 v3, 0x1
     invoke-virtual {v2, v3}, Landroid/view/View;->setEnabled(Z)V
 
-    :status_done
+        :status_done
     if-eqz p1, :backend_failed
-    sget-object v2, Lorg/bitspark/android/Spark;->U2:Lorg/bitspark/android/c1;
-    const/16 v3, 0xd
-    invoke-virtual {v2, v3}, Landroid/os/Handler;->sendEmptyMessage(I)Z
-    invoke-virtual {p0}, Landroidx/fragment/app/u;->m()Landroidx/fragment/app/o0;
-    move-result-object v0
+    iget-object v0, p0, Lae/h;->p0:Landroid/widget/TextView;
     if-eqz v0, :navigation_done
-    invoke-virtual {v0}, Landroidx/fragment/app/o0;->O()Z
-
+    invoke-virtual {v0}, Landroid/view/View;->getContext()Landroid/content/Context;
+    move-result-object v0
+    check-cast v0, Landroid/app/Activity;
+    new-instance v1, Landroid/content/Intent;
+    const-class v2, Lcom/evolux/EvoluxCatalogTestActivity;
+    invoke-direct {v1, v0, v2}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
+    invoke-virtual {v0, v1}, Landroid/app/Activity;->startActivity(Landroid/content/Intent;)V
+    invoke-virtual {v0}, Landroid/app/Activity;->finish()V
     :navigation_done
     return-void
+
 
     :backend_failed
     if-eqz p1, :finish_callback
