@@ -17,13 +17,6 @@
 .method private deliver(ZLjava/lang/String;)V
     .locals 1
     iget-object v0, p0, Lcom/evolux/EvoluxBackend$CredentialWorker;->callback:Lcom/evolux/EvoluxBackend$Callback;
-    if-eqz v0, :global_callback
-    goto :callback_ready
-
-    :global_callback
-    sget-object v0, Lcom/evolux/EvoluxBackend;->callback:Lcom/evolux/EvoluxBackend$Callback;
-
-    :callback_ready
     if-eqz v0, :done
     invoke-interface {v0, p1, p2}, Lcom/evolux/EvoluxBackend$Callback;->onBackendResult(ZLjava/lang/String;)V
 
