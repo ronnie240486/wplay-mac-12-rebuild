@@ -122,8 +122,27 @@
     return-void
 .end method
 
+.method public final hideLegacyLogin()V
+    .locals 2
+    const/16 v1, 0x8
+    iget-object v0, p0, Lae/h;->j0:Landroid/widget/RelativeLayout;
+    if-eqz v0, :hide_buttons
+    invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
+    :hide_buttons
+    iget-object v0, p0, Lae/h;->h0:Landroid/widget/Button;
+    if-eqz v0, :hide_username_button
+    invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
+    :hide_username_button
+    iget-object v0, p0, Lae/h;->i0:Landroid/widget/Button;
+    if-eqz v0, :hide_done
+    invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
+    :hide_done
+    return-void
+.end method
+
 .method public final startPanelCheck()V
     .locals 4
+    invoke-virtual {p0}, Lae/h;->hideLegacyLogin()V
     iget-object v0, p0, Lae/h;->m0:Landroid/widget/Button;
     if-eqz v0, :button_ready
     const/4 v1, 0x0
