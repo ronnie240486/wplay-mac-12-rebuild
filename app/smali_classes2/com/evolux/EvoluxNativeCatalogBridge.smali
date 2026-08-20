@@ -18,7 +18,7 @@
     invoke-virtual {v0}, Lsd/m;->j()V
     invoke-virtual {v2}, Lorg/bitspark/android/viewmodel/SparkViewModel;->initMenu()V
     :open_native_page
-    sget v0, Lorg/bitspark/android/g;->p:I
+    const/4 v0, 0x0
     const/4 v2, 0x1
     invoke-virtual {v1, v0, v2}, Landroidx/viewpager/widget/ViewPager;->v(IZ)V
     new-instance v3, Landroid/os/Handler;
