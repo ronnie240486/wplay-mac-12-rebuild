@@ -18,6 +18,12 @@
     invoke-virtual {v0}, Lsd/m;->j()V
     invoke-virtual {v2}, Lorg/bitspark/android/viewmodel/SparkViewModel;->initMenu()V
     :open_native_page
+    invoke-virtual {p0}, Lorg/bitspark/android/Spark;->u()V
+    iget-object v3, p0, Lorg/bitspark/android/Spark;->B0:Landroid/widget/LinearLayout;
+    if-eqz v3, :drawer_ready
+    const/4 v4, 0x0
+    invoke-virtual {v3, v4}, Landroid/view/View;->setVisibility(I)V
+    :drawer_ready
     sget v0, Lorg/bitspark/android/g;->k:I
     if-ltz v0, :fallback_live_page
     goto :open_catalog_page
