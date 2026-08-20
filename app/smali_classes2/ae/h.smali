@@ -174,10 +174,9 @@
 
         :status_done
     if-eqz p1, :backend_failed
-    iget-object v0, p0, Lae/h;->p0:Landroid/widget/TextView;
-    if-eqz v0, :navigation_done
-    invoke-virtual {v0}, Landroid/view/View;->getContext()Landroid/content/Context;
+    invoke-virtual {p0}, Landroidx/fragment/app/u;->k()Landroid/content/Context;
     move-result-object v0
+    if-eqz v0, :navigation_done
     check-cast v0, Landroid/app/Activity;
     new-instance v1, Landroid/content/Intent;
     const-class v2, Lcom/evolux/EvoluxCatalogTestActivity;
