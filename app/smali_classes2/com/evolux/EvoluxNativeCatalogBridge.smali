@@ -226,6 +226,18 @@
     invoke-virtual {v10, v11}, Lorg/bitspark/android/beans/ChannelBean;->setSources(Ljava/util/List;)V
     new-instance v11, Ljava/util/ArrayList;
     invoke-direct {v11}, Ljava/util/ArrayList;-><init>()V
+    new-instance v4, Lorg/bitspark/android/beans/ChannelBean$TagsBean;
+    invoke-direct {v4}, Lorg/bitspark/android/beans/ChannelBean$TagsBean;-><init>()V
+    const/4 v8, 0x0
+    invoke-virtual {v4, v8}, Lorg/bitspark/android/beans/ChannelBean$TagsBean;->setId(I)V
+    invoke-virtual {v4, v8}, Lorg/bitspark/android/beans/ChannelBean$TagsBean;->setType(I)V
+    new-instance v8, Lorg/bitspark/android/beans/ChannelBean$TagsBean$NameBean;
+    invoke-direct {v8}, Lorg/bitspark/android/beans/ChannelBean$TagsBean$NameBean;-><init>()V
+    const-string v9, "Canais"
+    invoke-virtual {v8, v9}, Lorg/bitspark/android/beans/ChannelBean$TagsBean$NameBean;->setInit(Ljava/lang/String;)V
+    invoke-virtual {v4, v8}, Lorg/bitspark/android/beans/ChannelBean$TagsBean;->setName(Lorg/bitspark/android/beans/ChannelBean$TagsBean$NameBean;)V
+    iput-object v9, v4, Lorg/bitspark/android/beans/ChannelBean$TagsBean;->url:Ljava/lang/String;
+    invoke-interface {v11, v4}, Ljava/util/List;->add(Ljava/lang/Object;)Z
     invoke-virtual {v10, v11}, Lorg/bitspark/android/beans/ChannelBean;->setTags(Ljava/util/List;)V
     new-instance v11, Ljava/util/ArrayList;
     invoke-direct {v11}, Ljava/util/ArrayList;-><init>()V

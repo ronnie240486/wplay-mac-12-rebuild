@@ -78,3 +78,8 @@ O artefato assinado está em `artifacts/Evolux-WPlay-DirectCatalog.apk`, com SHA
 A captura de teste mostrou que a autenticação e o cabeçalho estavam corretos, mas o botão customizado ainda abria `HOME` antes da resposta do painel. Essa navegação prematura foi removida. Depois da autorização, o APK agora abre a primeira página nativa `LIVE` do WPlay e entrega a lista retornada por `get_live_streams` ao fragmento original `zd.b0`, por meio de `i0(list)`. Assim, o carregamento de Canais é concluído pelo próprio fluxo nativo; Filmes e Séries permanecem disponíveis pelas páginas originais do ViewPager.
 
 O novo artefato é `artifacts/Evolux-WPlay-LiveCatalogFix.apk`, e seu SHA-256 está em `artifacts/SHA256-EVOLUX-WPLAY-LIVE-CATALOG-FIX`.
+
+
+## Correção do NPE no bind dos canais
+
+O log de teste confirmou `java.lang.NullPointerException` em `rd.l0.onBindViewHolder`, durante a montagem da grade nativa. A causa encontrada no bridge era a criação de cada `ChannelBean` com `tags` vazio, embora o adapter LIVE do WPlay acesse o primeiro grupo do canal durante o bind. A conversão LIVE agora inclui um `TagsBean` completo, com id, tipo, nome e URL `Canais`, além das estruturas de logo, nome, fonte HLS e EPG vazia. O novo artefato é `artifacts/Evolux-WPlay-LiveCatalogFix2.apk`, com SHA-256 em `artifacts/SHA256-EVOLUX-WPLAY-LIVE-CATALOG-FIX2`.
