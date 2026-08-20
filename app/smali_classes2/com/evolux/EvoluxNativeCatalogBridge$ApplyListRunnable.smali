@@ -21,6 +21,8 @@
     iget-object v0, p0, Lcom/evolux/EvoluxNativeCatalogBridge$ApplyListRunnable;->spark:Lorg/bitspark/android/Spark;
     iget-object v1, v0, Lorg/bitspark/android/Spark;->R:Lzd/b0;
     if-eqz v1, :retry
+    iget-object v2, v1, Lzd/b0;->f0:Lrd/l0;
+    if-eqz v2, :retry
     iget-object v2, p0, Lcom/evolux/EvoluxNativeCatalogBridge$ApplyListRunnable;->channels:Ljava/util/List;
     invoke-virtual {v1, v2}, Lzd/b0;->i0(Ljava/util/List;)V
     return-void
