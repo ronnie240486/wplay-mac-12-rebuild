@@ -19,19 +19,14 @@
 .method public run()V
     .locals 7
     iget-object v0, p0, Lcom/evolux/EvoluxNativeCatalogBridge$ApplyListRunnable;->spark:Lorg/bitspark/android/Spark;
-    iget-object v1, v0, Lorg/bitspark/android/Spark;->S:Lzd/z0;
+    iget-object v1, v0, Lorg/bitspark/android/Spark;->R:Lzd/b0;
     if-eqz v1, :retry
     iget-object v2, p0, Lcom/evolux/EvoluxNativeCatalogBridge$ApplyListRunnable;->channels:Ljava/util/List;
-    const/4 v3, 0x0
-    const/4 v4, 0x0
-    invoke-virtual {v1, v2, v3, v4}, Lzd/z0;->h0(Ljava/util/List;IZ)V
-    const/16 v3, 0x16
-    sget-object v4, Lorg/bitspark/android/Spark;->U2:Lorg/bitspark/android/c1;
-    invoke-virtual {v4, v3}, Landroid/os/Handler;->sendEmptyMessage(I)Z
+    invoke-virtual {v1, v2}, Lzd/b0;->i0(Ljava/util/List;)V
     return-void
     :retry
     iget v2, p0, Lcom/evolux/EvoluxNativeCatalogBridge$ApplyListRunnable;->attempt:I
-    const/4 v3, 0x6
+    const/16 v3, 0x8
     if-ge v2, v3, :missing
     new-instance v3, Landroid/os/Handler;
     invoke-static {}, Landroid/os/Looper;->getMainLooper()Landroid/os/Looper;

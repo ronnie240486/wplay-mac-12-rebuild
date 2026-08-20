@@ -71,3 +71,10 @@ A Activity lançável continua sendo `org.bitspark.android.Spark`, o rótulo é 
 Na versão `Evolux-WPlay-DirectCatalog.apk`, o botão **LOGIN** inicia a validação no painel. Se a resposta for autorizada, o APK chama o `ViewPager` original do WPlay e abre imediatamente a página nativa do catálogo, onde ficam as áreas de **Canais, Filmes e Séries**. A tela, o player e a navegação não foram substituídos por uma interface nova; o carregamento de dados Xtream ocorre em paralelo depois da transição visual.
 
 O artefato assinado está em `artifacts/Evolux-WPlay-DirectCatalog.apk`, com SHA-256 registrado em `artifacts/SHA256-EVOLUX-WPLAY-DIRECT-CATALOG`. A assinatura v1, v2 e v3 foi verificada com sucesso. Como a assinatura é de desenvolvimento, uma instalação sobre uma versão assinada por outra chave pode exigir a desinstalação da versão anterior.
+
+
+## Correção do carregamento do catálogo LIVE
+
+A captura de teste mostrou que a autenticação e o cabeçalho estavam corretos, mas o botão customizado ainda abria `HOME` antes da resposta do painel. Essa navegação prematura foi removida. Depois da autorização, o APK agora abre a primeira página nativa `LIVE` do WPlay e entrega a lista retornada por `get_live_streams` ao fragmento original `zd.b0`, por meio de `i0(list)`. Assim, o carregamento de Canais é concluído pelo próprio fluxo nativo; Filmes e Séries permanecem disponíveis pelas páginas originais do ViewPager.
+
+O novo artefato é `artifacts/Evolux-WPlay-LiveCatalogFix.apk`, e seu SHA-256 está em `artifacts/SHA256-EVOLUX-WPLAY-LIVE-CATALOG-FIX`.
