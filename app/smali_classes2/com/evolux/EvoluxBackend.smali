@@ -22,6 +22,17 @@
     return-void
 .end method
 
+.method public static loadCredentials(Ljava/lang/String;Lcom/evolux/EvoluxBackend$Callback;)V
+    .locals 2
+    sput-object p1, Lcom/evolux/EvoluxBackend;->callback:Lcom/evolux/EvoluxBackend$Callback;
+    new-instance v0, Lcom/evolux/EvoluxBackend$CredentialWorker;
+    invoke-direct {v0, p0, p1}, Lcom/evolux/EvoluxBackend$CredentialWorker;-><init>(Ljava/lang/String;Lcom/evolux/EvoluxBackend$Callback;)V
+    new-instance v1, Ljava/lang/Thread;
+    invoke-direct {v1, v0}, Ljava/lang/Thread;-><init>(Ljava/lang/Runnable;)V
+    invoke-virtual {v1}, Ljava/lang/Thread;->start()V
+    return-void
+.end method
+
 .method public static heartbeat(Ljava/lang/String;)V
     .locals 2
     if-eqz p0, :done

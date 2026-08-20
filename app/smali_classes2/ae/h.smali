@@ -104,6 +104,14 @@
     return-void
 .end method
 
+.method public final continueWithPanelCredentials(Ljava/lang/String;Ljava/lang/String;)V
+    .locals 0
+    iput-object p1, p0, Lae/h;->n0:Ljava/lang/String;
+    iput-object p2, p0, Lae/h;->o0:Ljava/lang/String;
+    invoke-virtual {p0}, Lae/h;->continueOriginalLogin()V
+    return-void
+.end method
+
 .method public final finishPanelCheck()V
     .locals 2
     iget-object v0, p0, Lae/h;->m0:Landroid/widget/Button;
@@ -138,6 +146,13 @@
     const-string v2, "Não foi possível consultar o painel Evolux."
     invoke-static {v1, v2}, Lorg/bitspark/android/Spark;->p0(ILjava/lang/String;)V
     invoke-virtual {p0}, Lae/h;->finishPanelCheck()V
+    return-void
+.end method
+
+.method public onResume()V
+    .locals 0
+    invoke-super {p0}, Landroidx/fragment/app/u;->onResume()V
+    invoke-virtual {p0}, Lae/h;->startPanelCheck()V
     return-void
 .end method
 

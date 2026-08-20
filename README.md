@@ -1,145 +1,68 @@
-# Evolux — APK autorizado com MAC da rede
+# Evolux — WPlay original com login automático por MAC
 
-Este repositório contém a atualização autorizada do APK originalmente fornecido como `WPlay11.8.6d.apk`. A versão atual se chama **Evolux**, usa uma identidade visual futurística com logo, ícone e fundo renovados e apresenta o MAC da rede diretamente na tela inicial.
+Este repositório contém uma modificação autorizada do APK `WPlay11.8.6d.apk`. A base continua sendo o WPlay original: a Activity `org.bitspark.android.Spark`, os fragments, o ViewModel, o catálogo, o player e a navegação não foram substituídos por WebView, Activity de teste ou catálogo artificial.
 
-> **Estado atual:** o APK Evolux foi recompilado sem cache, alinhado e assinado para desenvolvimento. O MAC é procurado primeiro em `eth0`, `eno1`, `en0` e `wlan0` por meio de `/sys/class/net/*/address`; depois há fallback para interfaces não-loopback. O valor é formatado como `AA:BB:CC:DD:EE:FF`, exibido em fonte grande e copiado para a área de transferência ao tocar no cartão. A autenticação real com o backend continua pendente dos dados da API.
+## Fluxo da versão atual
 
-## Resultado entregue
+Ao abrir a tela de login, o aplicativo lê o identificador disponível no aparelho, priorizando MAC de rede e usando identificador persistente como fallback. O valor é mostrado em destaque e pode ser copiado ao toque ou pelo controle remoto. O aplicativo envia heartbeat e consulta o painel Rencia usando esse mesmo valor.
 
-| Item | Localização | Situação |
-|---|---|---|
-| APK Evolux assinado | `artifacts/Evolux-mac-signed.apk` | Pronto para instalação de desenvolvimento |
-| Código decodificado e reconstruível | `app/` | Smali, recursos, manifesto e bibliotecas preservados |
-| Componente de MAC | `app/smali_classes2/com/evolux/MacAddressTextView.smali` | Leitura, formatação e cópia ao toque |
-| Assets da marca | `assets/brand/` e `app/res/` | Logo, ícone, logo de login e fundo futurístico |
-| Contrato do backend | `docs/BACKEND-CONTRACT.md` | Pronto para receber a API real |
-| Hash do APK | `artifacts/SHA256SUMS` | Disponível para conferência |
+Depois que o painel retorna `allowed: true`, o APK consulta `GET /api/guim.php?mac=...`. Essa rota devolve a fonte cadastrada para o aparelho, incluindo servidor, usuário e senha. Esses dados são usados somente em memória para preencher o estado interno necessário ao login original do WPlay; não são gravados no código-fonte nem incorporados ao APK. O usuário não precisa digitar login ou senha.
 
-## Identidade visual Evolux
+Quando a fonte retornada pelo painel é válida, o fragmento original chama o bloco nativo de autenticação do WPlay e envia o Handler original `0x0D`. Assim, a home, o catálogo, o player e a navegação continuam sendo os do aplicativo original. Se o MAC estiver bloqueado, se não houver fonte válida ou se a rede falhar, o aplicativo não abre uma home vazia nem envia uma transição artificial.
 
-O nome público foi alterado de WPlay para **Evolux**. O manifesto continua usando a estrutura técnica e os IDs internos originais para preservar compatibilidade com as classes protegidas, mas o rótulo exibido ao usuário, a tela de login, o ícone do aplicativo e os principais banners foram atualizados.
+> **Limitação importante:** o APK não contém credenciais fixas. O funcionamento depende de o painel devolver uma fonte ativa em `guim.php` para o MAC cadastrado e de essa fonte estar acessível a partir do aparelho Android/TV Box.
 
-Os arquivos-fonte da identidade visual ficam em `assets/brand/`. A aplicação usa `evolux_logo.png` na tela de acesso, `evolux_splash.png` no splash de abertura, os ícones Evolux nos recursos `mipmap-xhdpi` e `mipmap-xxhdpi`, e o fundo neon azul-violeta em `res/drawable/banner.jpg` e `res/mipmap-xhdpi/home_banner.png`. As variantes `values-pt` e `values-pt-rBR` também foram atualizadas para não reintroduzir o título antigo de usuário.
+## Endpoints usados
 
-## MAC da rede
+| Finalidade | Rota |
+|---|---|
+| Autorização do aparelho | `GET https://renciaapp.manus.space/api/v5/apps/evolux/config?mac=AA:BB:CC:DD:EE:FF` |
+| Busca da fonte e credenciais por MAC | `GET https://renciaapp.manus.space/api/guim.php?mac=AA:BB:CC:DD:EE:FF` |
+| Presença online | `GET https://renciaapp.manus.space/api/v5/heartbeat?mac=AA:BB:CC:DD:EE:FF` |
 
-O componente `com.evolux.MacAddressTextView` tenta primeiro ler o endereço físico das interfaces `eth0`, `eno1`, `en0` e `wlan0`, que são as interfaces mais comuns para Ethernet e Wi‑Fi em Android TV. Se não conseguir, percorre as interfaces de rede disponíveis, ignora a interface loopback e seleciona uma interface com endereço físico de seis bytes. Quando o Android não libera nenhum MAC físico, o componente usa o `Settings.Secure.ANDROID_ID`; se ele também não estiver disponível, cria e salva um UUID local. Nos dois casos, os primeiros 12 caracteres são formatados como identificador estável do aparelho.
+O contrato oficial do painel define `guim.php` como uma resposta com `data[]`, contendo `url`, `username`, `password` e `type`. Os valores retornados são tratados em tempo de execução e não aparecem no repositório.
 
-O formato apresentado é:
+## Identificador do aparelho
+
+O componente `com.evolux.MacAddressTextView` tenta ler endereços físicos de `eth0`, `eno1`, `en0` e `wlan0`. Se o Android ocultar o MAC físico, usa `ANDROID_ID`; se esse valor também não estiver disponível, cria um UUID persistente. O valor é normalizado no formato:
 
 ```text
 AA:BB:CC:DD:EE:FF
 ```
 
-Esse valor corresponde a 12 caracteres hexadecimais e cinco separadores. A aplicação não trata esse identificador como IMEI: IMEI e MAC são identificadores diferentes. Se o sistema Android ocultar o MAC físico, a tela ainda exibirá um identificador de 12 caracteres estável para cadastro no painel, mas esse valor deve ser tratado pelo backend como **ID do aparelho**, não como MAC físico.
+O fallback deve ser cadastrado no painel como identificador do aparelho, não como MAC físico real. O cartão exibido na tela é copiável e usa a mesma identificação nas chamadas ao painel.
 
-O cartão do MAC fica grande e visível na tela Evolux. Ele é focável para Android TV e possui um listener de clique. Ao tocar ou selecionar o cartão, o valor exibido é colocado na área de transferência com o rótulo `Evolux MAC` e a aplicação mostra a confirmação `MAC copiado`.
+## Preservação do WPlay original
 
-## Fluxo de acesso
+A tela de usuário e senha permanece presente internamente apenas para que as classes protegidas e os IDs originais continuem compatíveis, mas o formulário e os botões ficam ocultos para o usuário. O fluxo automático ocorre no ciclo de vida do fragmento original. Nenhuma Activity auxiliar, WebView, tela de catálogo ou player alternativo foi incluído.
 
-O botão **Entrar** usa o mesmo identificador que aparece no cartão, seja MAC físico ou fallback do aparelho, sem pedir usuário ou senha. O campo manual legado continua oculto no layout para que o código protegido encontre os IDs originais, mas não participa mais da leitura do identificador. O segundo valor legado é mantido vazio e o sufixo automático antigo não é aplicado.
+## Build e artefatos
 
-A leitura e a cópia do MAC são funcionalidades locais. O fluxo de autorização de conteúdo ainda passa pelo componente de rede protegido herdado do APK. Portanto, **o fato de o MAC aparecer e ser copiado não significa que o backend já esteja autenticando o dispositivo**. A integração real deve ser feita quando você fornecer a URL, o endpoint, o corpo JSON, os cabeçalhos e o formato das respostas.
+O APK entregue está em `artifacts/Evolux-WPlay-MAC-Only.apk`. O hash SHA-256 correspondente está em `artifacts/SHA256-EVOLUX-WPLAY-MAC-ONLY`. A versão foi recompilada com Apktool 3.0.3, alinhada com `zipalign` e assinada com v1, v2 e v3 usando uma chave de desenvolvimento que não está no repositório.
 
-## Como gerar o APK
-
-O diretório `app/` é uma árvore de saída do Apktool. Para reconstruir e assinar com uma chave própria, execute:
+Para reconstruir com uma chave autorizada:
 
 ```bash
-./scripts/rebuild-signed-apk.sh caminho/para/sua-chave.jks seu-alias senha-da-chave
-```
-
-O script executa `apktool`, `zipalign`, `apksigner` e gera o hash em `artifacts/SHA256SUMS`. A chave utilizada na sandbox não foi incluída no repositório. Para distribuição real, use a chave oficial autorizada pelo proprietário do aplicativo. Como o pacote foi modificado, uma assinatura nova pode exigir a remoção da versão original antes da instalação.
-
-Também é possível executar os comandos manualmente:
-
-```bash
-apktool b app -o artifacts/Evolux-mac-unsigned.apk
-zipalign -p -f 4 artifacts/Evolux-mac-unsigned.apk artifacts/Evolux-mac-aligned.apk
+apktool b app -o artifacts/Evolux-WPlay-MAC-Only-unsigned.apk
+zipalign -p -f 4 artifacts/Evolux-WPlay-MAC-Only-unsigned.apk artifacts/Evolux-WPlay-MAC-Only-aligned.apk
 apksigner sign --ks caminho/para/sua-chave.jks \
   --ks-key-alias seu-alias \
-  --out artifacts/Evolux-mac-signed.apk \
-  artifacts/Evolux-mac-aligned.apk
-apksigner verify --verbose artifacts/Evolux-mac-signed.apk
+  --out artifacts/Evolux-WPlay-MAC-Only.apk \
+  artifacts/Evolux-WPlay-MAC-Only-aligned.apk
+apksigner verify --verbose artifacts/Evolux-WPlay-MAC-Only.apk
 ```
 
-A documentação oficial do Apktool descreve a reconstrução de APKs [1], e a documentação oficial do `apksigner` descreve a assinatura e a verificação do pacote Android [2].
+Como o APK foi modificado e assinado com outra chave, pode ser necessário desinstalar a versão anterior antes da instalação.
 
-## Estrutura do projeto
+## Verificações realizadas
 
-| Diretório | Conteúdo |
-|---|---|
-| `app/smali/` e `app/smali_classes2/` | Bytecode smali das duas classes DEX |
-| `app/res/` | Layouts, strings, imagens, fontes e recursos Evolux |
-| `app/lib/` | Bibliotecas nativas para `arm64-v8a` e `armeabi-v7a` |
-| `app/AndroidManifest.xml` | Manifesto decodificado e componentes preservados |
-| `app/smali_classes2/com/evolux/` | Componente customizado de MAC e cópia |
-| `assets/brand/` | Fontes dos assets visuais Evolux |
-| `analysis/jadx-relevant/` | Classes Java de referência para auditoria |
-| `artifacts/` | APK assinado e hash SHA-256 |
-| `docs/` | Contrato futuro do backend e notas técnicas |
-| `scripts/` | Scripts de processamento de assets e reconstrução |
+A assinatura Android v1/v2/v3 foi verificada. A Activity lançável continua sendo `org.bitspark.android.Spark`. O APK não contém as Activities, layouts ou assets de placeholder das tentativas anteriores. O hash foi calculado após a assinatura. A consulta de autorização do MAC de teste retornou `registered: true` e `allowed: true`; a consulta `guim.php` retornou uma fonte cadastrada, com os valores sensíveis omitidos deste documento.
 
-## Validação realizada
-
-A versão Evolux foi recompilada sem erros pelo Apktool 3.0.3 após a remoção do cache de build. O VerifyError causado pela chamada incorreta de `Character.digit` e pelo intervalo de exceção vazio em `readFileMac` foi corrigido, e o APK final foi alinhado e validado com assinatura Android v1, v2 e v3. A inspeção do DEX confirmou `readNetworkMac`, `readIdentifier`, `ANDROID_ID`, o fallback persistente de 12 caracteres, o serviço de área de transferência e o uso do mesmo valor pelo botão Entrar. Os recursos `splash.jpeg`, `home_logo.png`, `broadcasts_logo_4x.png` e `hdplayer_icon.png` foram substituídos pelas variantes Evolux.
-
-Ainda é necessário testar em um aparelho ou Android TV real, porque a disponibilidade do MAC físico depende do sistema, do fabricante e da interface de rede usada. O teste deve verificar Ethernet, Wi‑Fi, ausência de rede, cópia pelo controle remoto, cópia por toque e o comportamento do backend após o fornecimento do contrato.
-
-## Próximos dados do backend
-
-Para conectar o backend sem adivinhações, forneça a URL base, o endpoint, o método HTTP, os cabeçalhos, o JSON de requisição, o JSON de sucesso, o JSON de erro, o token de sessão, o prazo de validade e as regras para MAC autorizado, bloqueado ou expirado. O valor recomendado para envio é o mesmo MAC normalizado sem separadores, por exemplo `AABBCCDDEEFF`, caso essa seja a convenção do servidor.
+Ainda é necessário instalar a versão anexada em um aparelho real para validar a resposta do servidor de listas, a acessibilidade do provedor a partir da rede do aparelho e a abertura completa do catálogo original.
 
 ## Referências
 
-[1]: https://apktool.org/docs/build/ "Apktool — Build Guide"
-[2]: https://developer.android.com/tools/apksigner "Android Developers — apksigner"
-[3]: https://cli.github.com/manual/gh_repo_create "GitHub CLI — gh repo create"
-
-## Integração Evolux com o painel Rencia
-
-O fluxo de entrada consulta em segundo plano a rota oficial definida no guia fornecido:
-
-```text
-GET https://renciaapp.manus.space/api/v5/apps/evolux/config?mac=AA:BB:CC:DD:EE:FF
-```
-
-A consulta usa o mesmo identificador exibido no cartão. Se a resposta contiver `allowed: true`, o APK continua para o fluxo nativo do player; se contiver `allowed: false` ou a chamada falhar, o APK interrompe a entrada e exibe a mensagem recebida de indisponibilidade. A resposta de configuração fica sob o contrato do PDF, incluindo `playlist_urls`, `server_api_url`, `app_name`, `logo_url`, `background_url` e `apk_version`. A aceitação do dispositivo é integrada; a aplicação de uma lista M3U/Xtream específica depende do parser/player protegido herdado do APK original e deve ser validada com a resposta real do MAC cadastrado.
-
-A implementação usa uma thread de rede para não bloquear a tela e define timeout de conexão e leitura de 15 segundos. O teste público com um MAC não cadastrado retornou `{"registered":false,"error":"MAC não cadastrado."}`, confirmando que a rota está ativa e que o APK deve usar exatamente o identificador cadastrado no painel.
-
-## Correção do crash de contexto
-
-O clique não usa mais `getContext()` diretamente na classe Fragment incompatível. Ele obtém o contexto pela `View` da tela e usa `getActivity()` apenas como fallback, evitando o `NoSuchMethodError` apresentado no relatório do aparelho.
-
-## Presença online ao abrir
-
-Ao inflar o cartão de identificação na tela inicial, o aplicativo lê o mesmo valor exibido ao usuário e envia, em segundo plano:
-
-```text
-GET https://renciaapp.manus.space/api/v5/heartbeat?mac=AA:BB:CC:DD:EE:FF
-```
-
-O endpoint respondeu `success:true` para um teste público de presença. O APK possui as permissões `INTERNET` e `ACCESS_NETWORK_STATE`. O heartbeat não depende do clique no botão e é iniciado na abertura da tela. O fluxo de configuração continua usando a rota específica do Evolux ao clicar em **ENTRAR NA EVOLUX**.
-
-A correção mais recente não chama `getView()`, `getActivity()` ou `getContext()` no Fragment. O contexto é obtido diretamente do `View` recebido no clique, evitando o `NoSuchMethodError` visto em aparelhos com essa versão da biblioteca AndroidX.
-
-## Verificação automática de cadastro
-
-A tela inicia uma consulta imediata e mantém um único ciclo em segundo plano que consulta a configuração do Evolux a cada **5 segundos**:
-
-```text
-GET https://renciaapp.manus.space/api/v5/apps/evolux/config?mac=AA:BB:CC:DD:EE:FF
-```
-
-A consulta usa o identificador capturado na abertura, o mesmo que aparece no cartão e é usado pelo botão. Respostas com `allowed: true` são consideradas autorizadas; respostas `registered: false`, `allowed: false`, HTTP diferente de 200 ou falha de rede são tratadas como não autorizadas até a próxima consulta. O botão **ENTRAR NA EVOLUX** também realiza uma consulta imediata, sem esperar o próximo ciclo de cinco segundos.
-
-## Correção do botão Entrar
-
-O retorno `allowed: true` não envia mais uma mensagem visual genérica de conexão. O worker extrai a primeira URL de `playlist_urls` ou o campo singular `playlist_url`, cria um `Bundle` com a chave `videoPath` e envia a mensagem `0x50` ao controlador principal. Esse é o caminho nativo que chama `Spark.b0(Bundle)` e `Spark.U(0)` para abrir o conteúdo. Se o painel autorizar sem fornecer uma playlist, o aplicativo informa que não há playlist disponível; ele não exibe conectado como se a sessão estivesse pronta.
-
-## Fonte oficial do identificador
-
-O APK não trata mais o MAC físico da interface como fonte principal. No primeiro bootstrap, ele usa o identificador local disponível apenas para consultar o painel. Quando a resposta contém `mac_address`, o valor é normalizado para `AA:BB:CC:DD:EE:FF`, salvo em `SharedPreferences` no arquivo lógico `evolux_panel`, chave `mac_address`, e passa a ser a fonte usada nas consultas seguintes de configuração, heartbeat e comandos.
-
-Essa ordem reproduz o fluxo esperado: o painel devolve os dados da conta, o aplicativo lê o campo `mac_address`, persiste o valor e o gerenciador de comandos reutiliza o valor persistido. Em caso de limpeza de dados ou primeiro uso sem resposta do painel, o APK usa temporariamente o identificador local para o bootstrap.
+[1]: https://github.com/ronnie240486/rencia_app "Código do painel Rencia"
+[2]: https://apktool.org/docs/build/ "Apktool — Build Guide"
+[3]: https://developer.android.com/tools/apksigner "Android Developers — apksigner"
+[4]: https://renciaapp.manus.space "Painel Rencia em produção"

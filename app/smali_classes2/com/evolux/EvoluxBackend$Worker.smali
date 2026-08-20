@@ -112,8 +112,9 @@
     move-result-object v8
 
     :playlist_ready
-    const/4 v10, 0x1
-    invoke-direct {p0, v10, v8}, Lcom/evolux/EvoluxBackend$Worker;->deliver(ZLjava/lang/String;)V
+    iget-object v10, p0, Lcom/evolux/EvoluxBackend$Worker;->mac:Ljava/lang/String;
+    iget-object v11, p0, Lcom/evolux/EvoluxBackend$Worker;->callback:Lcom/evolux/EvoluxBackend$Callback;
+    invoke-static {v10, v11}, Lcom/evolux/EvoluxBackend;->loadCredentials(Ljava/lang/String;Lcom/evolux/EvoluxBackend$Callback;)V
     return-void
 
     :blocked
