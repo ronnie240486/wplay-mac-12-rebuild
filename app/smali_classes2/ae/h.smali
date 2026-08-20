@@ -177,7 +177,7 @@
 .end method
 
 .method public final startPanelCheck()V
-    .locals 8
+    .locals 10
     invoke-virtual {p0}, Landroidx/fragment/app/u;->i()Landroidx/fragment/app/FragmentActivity;
     move-result-object v0
     if-eqz v0, :panel_context_missing
@@ -187,7 +187,15 @@
     move-result-object v1
     invoke-static {v1}, Lcom/evolux/EvoluxBackend;->heartbeat(Ljava/lang/String;)V
 
-    iget-object v2, p0, Lae/h;->k0:Landroid/widget/EditText;
+    invoke-virtual {p0}, Landroidx/fragment/app/u;->P()Landroid/view/View;
+    move-result-object v5
+    if-eqz v5, :credentials_missing
+
+    const v6, 0x7f0b017c
+    invoke-virtual {v5, v6}, Landroid/view/View;->findViewById(I)Landroid/view/View;
+    move-result-object v2
+    check-cast v2, Landroid/widget/EditText;
+    iput-object v2, p0, Lae/h;->k0:Landroid/widget/EditText;
     if-eqz v2, :credentials_missing
     invoke-virtual {v2}, Landroid/widget/EditText;->getText()Landroid/text/Editable;
     move-result-object v2
@@ -197,7 +205,11 @@
     move-result-object v2
     iput-object v2, p0, Lae/h;->n0:Ljava/lang/String;
 
-    iget-object v3, p0, Lae/h;->l0:Landroid/widget/EditText;
+    const v6, 0x7f0b037e
+    invoke-virtual {v5, v6}, Landroid/view/View;->findViewById(I)Landroid/view/View;
+    move-result-object v3
+    check-cast v3, Landroid/widget/EditText;
+    iput-object v3, p0, Lae/h;->l0:Landroid/widget/EditText;
     if-eqz v3, :credentials_missing
     invoke-virtual {v3}, Landroid/widget/EditText;->getText()Landroid/text/Editable;
     move-result-object v3
@@ -214,10 +226,14 @@
     move-result v4
     if-nez v4, :credentials_missing
 
-    iget-object v4, p0, Lae/h;->m0:Landroid/widget/Button;
+    const v6, 0x7f0b051e
+    invoke-virtual {v5, v6}, Landroid/view/View;->findViewById(I)Landroid/view/View;
+    move-result-object v4
     if-eqz v4, :button_ready
-    const/4 v5, 0x0
-    invoke-virtual {v4, v5}, Landroid/view/View;->setEnabled(Z)V
+    check-cast v4, Landroid/widget/Button;
+    iput-object v4, p0, Lae/h;->m0:Landroid/widget/Button;
+    const/4 v6, 0x0
+    invoke-virtual {v4, v6}, Landroid/view/View;->setEnabled(Z)V
     :button_ready
     new-instance v4, Lcom/evolux/PanelGateCallback;
     invoke-direct {v4, p0}, Lcom/evolux/PanelGateCallback;-><init>(Lae/h;)V
