@@ -65,6 +65,8 @@
 
     :success_without_body
     iget-object v1, p0, Lcom/evolux/PanelGateRunnable;->fragment:Lae/h;
+    const-string v2, "PAINEL OK - ABRINDO"
+    invoke-virtual {v1, v2}, Lae/h;->showPanelDiagnostic(Ljava/lang/String;)V
     iget-object v2, p0, Lcom/evolux/PanelGateRunnable;->message:Ljava/lang/String;
     invoke-virtual {v1, v2}, Lae/h;->openPanelCatalog(Ljava/lang/String;)V
     return-void
@@ -76,6 +78,9 @@
     return-void
 
     :blocked
+    iget-object v0, p0, Lcom/evolux/PanelGateRunnable;->fragment:Lae/h;
+    const-string v1, "PAINEL NEGOU OU ERROU"
+    invoke-virtual {v0, v1}, Lae/h;->showPanelDiagnostic(Ljava/lang/String;)V
     iget-object v0, p0, Lcom/evolux/PanelGateRunnable;->message:Ljava/lang/String;
     invoke-direct {p0, v0}, Lcom/evolux/PanelGateRunnable;->fail(Ljava/lang/String;)V
     return-void

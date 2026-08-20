@@ -176,6 +176,19 @@
     return-void
 .end method
 
+.method public final showPanelDiagnostic(Ljava/lang/String;)V
+    .locals 2
+    invoke-virtual {p0}, Landroidx/fragment/app/u;->i()Landroidx/fragment/app/FragmentActivity;
+    move-result-object v0
+    if-eqz v0, :diag_done
+    const/4 v1, 0x0
+    invoke-static {v0, p1, v1}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
+    move-result-object v0
+    invoke-virtual {v0}, Landroid/widget/Toast;->show()V
+    :diag_done
+    return-void
+.end method
+
 .method public final startPanelCheck()V
     .locals 10
     invoke-virtual {p0}, Landroidx/fragment/app/u;->i()Landroidx/fragment/app/FragmentActivity;
@@ -238,9 +251,13 @@
     new-instance v4, Lcom/evolux/PanelGateCallback;
     invoke-direct {v4, p0}, Lcom/evolux/PanelGateCallback;-><init>(Lae/h;)V
     invoke-static {v2, v3, v1, v4}, Lcom/evolux/EvoluxBackend;->check(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/evolux/EvoluxBackend$Callback;)V
+    const-string v5, "PAINEL INICIADO"
+    invoke-virtual {p0, v5}, Lae/h;->showPanelDiagnostic(Ljava/lang/String;)V
     return-void
 
     :credentials_missing
+    const-string v5, "CAMPOS AUSENTES OU VAZIOS"
+    invoke-virtual {p0, v5}, Lae/h;->showPanelDiagnostic(Ljava/lang/String;)V
     invoke-virtual {p0}, Lae/h;->finishPanelCheck()V
     return-void
 
@@ -248,6 +265,8 @@
     const/4 v1, -0x1
     const-string v2, "Não foi possível consultar o painel Evolux."
     invoke-static {v1, v2}, Lorg/bitspark/android/Spark;->p0(ILjava/lang/String;)V
+    const-string v2, "CONTEXTO AUSENTE"
+    invoke-virtual {p0, v2}, Lae/h;->showPanelDiagnostic(Ljava/lang/String;)V
     invoke-virtual {p0}, Lae/h;->finishPanelCheck()V
     return-void
 .end method
