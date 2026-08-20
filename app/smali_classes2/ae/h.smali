@@ -52,26 +52,26 @@
 
 .method public final continueOriginalLogin()V
     .locals 5
-    iget-object p1, p0, Lae/h;->n0:Ljava/lang/String;
+    iget-object v1, p0, Lae/h;->n0:Ljava/lang/String;
     const-string v0, "pA==\n"
     const-string v2, "5C5rCCwICb8=\n"
     invoke-static {v0, v2}, Lcom/bumptech/glide/e;->u(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
     move-result-object v0
-    invoke-virtual {p1, v0}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
-    move-result p1
-    if-nez p1, :original_credentials_ready
-    new-instance p1, Ljava/lang/StringBuilder;
-    invoke-direct {p1}, Ljava/lang/StringBuilder;-><init>()V
-    iget-object v0, p0, Lae/h;->n0:Ljava/lang/String;
-    invoke-virtual {p1, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-    sget-object v0, Lorg/bitspark/android/h;->d:Ljava/lang/String;
-    invoke-virtual {p1, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-    invoke-virtual {p1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-    move-result-object p1
-    iput-object p1, p0, Lae/h;->n0:Ljava/lang/String;
+    invoke-virtual {v1, v0}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
+    move-result v1
+    if-nez v1, :original_credentials_ready
+    new-instance v1, Ljava/lang/StringBuilder;
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+    iget-object v2, p0, Lae/h;->n0:Ljava/lang/String;
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    sget-object v2, Lorg/bitspark/android/h;->d:Ljava/lang/String;
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    move-result-object v1
+    iput-object v1, p0, Lae/h;->n0:Ljava/lang/String;
 
     :original_credentials_ready
-    sget-object p1, Lae/h;->z0:Ljava/lang/String;
+    sget-object v1, Lae/h;->z0:Ljava/lang/String;
     new-instance v0, Ljava/lang/StringBuilder;
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
     const-string v2, "Z9ReDE1JzAEUzFAZUAeUTkHTWgxXCNULDoA=\n"
@@ -88,19 +88,19 @@
     invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
     move-result-object v0
     sget-boolean v2, Lorg/bitspark/android/utils/i0;->b:Z
-    invoke-static {p1, v0}, Lcom/tencent/mars/xlog/Log;->i(Ljava/lang/String;Ljava/lang/String;)V
-    const/4 v1, 0x1
-    sget-object p1, Lorg/bitspark/android/g;->b:Ljava/lang/String;
-    invoke-static {v1, p1}, Lorg/bitspark/android/utils/i0;->u(ILjava/lang/String;)V
-    sget-object p1, Lorg/bitspark/android/g;->e:Ljava/lang/String;
+    invoke-static {v1, v0}, Lcom/tencent/mars/xlog/Log;->i(Ljava/lang/String;Ljava/lang/String;)V
+    const/4 v2, 0x1
+    sget-object v1, Lorg/bitspark/android/g;->b:Ljava/lang/String;
+    invoke-static {v2, v1}, Lorg/bitspark/android/utils/i0;->u(ILjava/lang/String;)V
+    sget-object v1, Lorg/bitspark/android/g;->e:Ljava/lang/String;
     iget-object v0, p0, Lae/h;->n0:Ljava/lang/String;
-    invoke-static {p1, v0}, Lorg/bitspark/android/utils/i0;->v(Ljava/lang/String;Ljava/lang/String;)V
-    sget-object p1, Lorg/bitspark/android/g;->f:Ljava/lang/String;
+    invoke-static {v1, v0}, Lorg/bitspark/android/utils/i0;->v(Ljava/lang/String;Ljava/lang/String;)V
+    sget-object v1, Lorg/bitspark/android/g;->f:Ljava/lang/String;
     iget-object v0, p0, Lae/h;->o0:Ljava/lang/String;
-    invoke-static {p1, v0}, Lorg/bitspark/android/utils/i0;->v(Ljava/lang/String;Ljava/lang/String;)V
-    sget-object p1, Lorg/bitspark/android/Spark;->U2:Lorg/bitspark/android/c1;
+    invoke-static {v1, v0}, Lorg/bitspark/android/utils/i0;->v(Ljava/lang/String;Ljava/lang/String;)V
+    sget-object v1, Lorg/bitspark/android/Spark;->U2:Lorg/bitspark/android/c1;
     const/16 v0, 0xd
-    invoke-virtual {p1, v0}, Landroid/os/Handler;->sendEmptyMessage(I)Z
+    invoke-virtual {v1, v0}, Landroid/os/Handler;->sendEmptyMessage(I)Z
     return-void
 .end method
 
