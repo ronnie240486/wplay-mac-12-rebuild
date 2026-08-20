@@ -64,3 +64,10 @@ A Activity lançável continua sendo `org.bitspark.android.Spark`, o rótulo é 
 [1]: https://renciaapp.manus.space "Painel Rencia"
 [2]: https://apktool.org/docs/build/ "Apktool — Build Guide"
 [3]: https://developer.android.com/tools/apksigner "Android Developers — apksigner"
+
+
+## Correção do fluxo pós-login
+
+Na versão `Evolux-WPlay-DirectCatalog.apk`, o botão **LOGIN** inicia a validação no painel. Se a resposta for autorizada, o APK chama o `ViewPager` original do WPlay e abre imediatamente a página nativa do catálogo, onde ficam as áreas de **Canais, Filmes e Séries**. A tela, o player e a navegação não foram substituídos por uma interface nova; o carregamento de dados Xtream ocorre em paralelo depois da transição visual.
+
+O artefato assinado está em `artifacts/Evolux-WPlay-DirectCatalog.apk`, com SHA-256 registrado em `artifacts/SHA256-EVOLUX-WPLAY-DIRECT-CATALOG`. A assinatura v1, v2 e v3 foi verificada com sucesso. Como a assinatura é de desenvolvimento, uma instalação sobre uma versão assinada por outra chave pode exigir a desinstalação da versão anterior.

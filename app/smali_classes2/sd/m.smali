@@ -104,6 +104,15 @@
 .method public final e()V
     .locals 11
 
+    sget-boolean v0, Lcom/evolux/EvoluxNativeCatalogBridge;->active:Z
+    if-eqz v0, :legacy_mode_reset
+    return-void
+
+    :legacy_mode_reset
+    const/4 v0, 0x0
+    sget-object v1, Lorg/bitspark/android/g;->b:Ljava/lang/String;
+    invoke-static {v0, v1}, Lorg/bitspark/android/utils/i0;->u(ILjava/lang/String;)V
+
     .line 1
     new-instance v0, Lcom/lzy/okgo/model/HttpParams;
 

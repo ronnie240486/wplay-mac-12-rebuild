@@ -2869,15 +2869,16 @@
 
     invoke-static {v0, v1}, Lorg/bitspark/android/utils/i0;->o(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 353
+        .line 353
+    sget-boolean v0, Lcom/evolux/EvoluxNativeCatalogBridge;->active:Z
+    if-eqz v0, :evolux_legacy_login
+    invoke-virtual {v5}, Lorg/bitspark/android/Spark;->c0()V
+    goto/16 :goto_16
+    :evolux_legacy_login
     iget-object v0, v5, Lorg/bitspark/android/Spark;->A0:Lorg/bitspark/android/viewmodel/SparkViewModel;
-
     invoke-virtual {v0}, Lorg/bitspark/android/viewmodel/SparkViewModel;->getUser()Lsd/m;
-
     move-result-object v0
-
     invoke-virtual {v0}, Lsd/m;->j()V
-
     goto/16 :goto_16
 
     .line 354

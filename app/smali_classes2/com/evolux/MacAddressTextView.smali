@@ -258,6 +258,13 @@
     if-eqz p0, :format_null
     invoke-virtual {p0}, Ljava/lang/String;->toUpperCase()Ljava/lang/String;
     move-result-object p0
+    const-string v0, ":"
+    const-string v1, ""
+    invoke-virtual {p0, v0, v1}, Ljava/lang/String;->replace(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Ljava/lang/String;
+    move-result-object p0
+    const-string v0, "-"
+    invoke-virtual {p0, v0, v1}, Ljava/lang/String;->replace(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Ljava/lang/String;
+    move-result-object p0
     invoke-virtual {p0}, Ljava/lang/String;->length()I
     move-result v0
     const/16 v1, 0xc

@@ -108,7 +108,28 @@
     .locals 0
     iput-object p1, p0, Lae/h;->n0:Ljava/lang/String;
     iput-object p2, p0, Lae/h;->o0:Ljava/lang/String;
-    invoke-virtual {p0}, Lae/h;->continueOriginalLogin()V
+    return-void
+.end method
+
+.method public final openPanelCatalog(Ljava/lang/String;)V
+    .locals 7
+    invoke-virtual {p0}, Landroidx/fragment/app/u;->i()Landroidx/fragment/app/FragmentActivity;
+    move-result-object v0
+    check-cast v0, Lorg/bitspark/android/Spark;
+    iget-object v1, p0, Lae/h;->n0:Ljava/lang/String;
+    iget-object v2, p0, Lae/h;->o0:Ljava/lang/String;
+    invoke-static {p1, v1, v2}, Lcom/evolux/EvoluxNativeCatalogBridge;->prepareSession(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+    invoke-static {}, Lcom/evolux/EvoluxNativeCatalogBridge;->prepareLiveGroup()V
+    invoke-static {v0}, Lcom/evolux/EvoluxNativeCatalogBridge;->activateAndOpen(Lorg/bitspark/android/Spark;)V
+    invoke-static {v0, v1}, Lcom/evolux/EvoluxNativeCatalogBridge;->refreshHomeHeader(Lorg/bitspark/android/Spark;Ljava/lang/String;)V
+    new-instance v3, Landroid/os/Handler;
+    invoke-direct {v3}, Landroid/os/Handler;-><init>()V
+    new-instance v4, Lcom/evolux/RefreshHomeHeaderRunnable;
+    invoke-direct {v4, v0, v1}, Lcom/evolux/RefreshHomeHeaderRunnable;-><init>(Lorg/bitspark/android/Spark;Ljava/lang/String;)V
+    const-wide/16 v5, 0x1f4
+    invoke-virtual {v3, v4, v5, v6}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
+    invoke-static {v0, p1, v1, v2}, Lcom/evolux/EvoluxNativeCatalogBridge;->start(Lorg/bitspark/android/Spark;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+    invoke-virtual {p0}, Lae/h;->finishPanelCheck()V
     return-void
 .end method
 
@@ -400,6 +421,9 @@
 
     .line 30
     if-ne p1, v2, :cond_8
+
+    invoke-virtual {p0}, Lae/h;->startPanelCheck()V
+    goto :goto_0
 
     .line 31
     .line 32

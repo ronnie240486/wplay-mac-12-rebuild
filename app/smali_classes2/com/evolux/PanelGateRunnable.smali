@@ -65,7 +65,8 @@
 
     :success_without_body
     iget-object v1, p0, Lcom/evolux/PanelGateRunnable;->fragment:Lae/h;
-    invoke-virtual {v1}, Lae/h;->continueOriginalLogin()V
+    iget-object v2, p0, Lcom/evolux/PanelGateRunnable;->message:Ljava/lang/String;
+    invoke-virtual {v1, v2}, Lae/h;->openPanelCatalog(Ljava/lang/String;)V
     return-void
 
     :parse_error
