@@ -138,43 +138,7 @@
 .end method
 
 .method public static ensureContentPages(Lorg/bitspark/android/Spark;)V
-    .locals 4
-    iget-object v0, p0, Lorg/bitspark/android/Spark;->H:Ljava/util/ArrayList;
-    if-eqz v0, :ensure_done
-    iget-object v1, p0, Lorg/bitspark/android/Spark;->R:Lzd/b0;
-    invoke-virtual {v0, v1}, Ljava/util/ArrayList;->contains(Ljava/lang/Object;)Z
-    move-result v2
-    if-eqz v2, :add_live
-    goto :check_vod
-    :add_live
-    invoke-virtual {v0, v1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
-    :check_vod
-    iget-object v1, p0, Lorg/bitspark/android/Spark;->S:Lzd/z0;
-    invoke-virtual {v0, v1}, Ljava/util/ArrayList;->contains(Ljava/lang/Object;)Z
-    move-result v2
-    if-eqz v2, :add_vod
-    goto :check_events
-    :add_vod
-    invoke-virtual {v0, v1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
-    :check_events
-    iget-object v1, p0, Lorg/bitspark/android/Spark;->V:Lzd/h0;
-    invoke-virtual {v0, v1}, Ljava/util/ArrayList;->contains(Ljava/lang/Object;)Z
-    move-result v2
-    if-eqz v2, :add_events
-    goto :notify_adapter
-    :add_events
-    invoke-virtual {v0, v1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
-    :notify_adapter
-    invoke-virtual {p0}, Landroidx/fragment/app/FragmentActivity;->m()Landroidx/fragment/app/p0;
-    move-result-object v1
-    new-instance v2, Lje/k;
-    const/4 v3, 0x0
-    invoke-direct {v2, v1, v3}, Lje/k;-><init>(Landroidx/fragment/app/o0;I)V
-    iput-object v2, p0, Lorg/bitspark/android/Spark;->Y:Lje/k;
-    iput-object v0, v2, Lje/k;->h:Ljava/util/ArrayList;
-    iget-object v1, p0, Lorg/bitspark/android/Spark;->F:Lorg/bitspark/android/view/MyViewPager;
-    invoke-virtual {v1, v2}, Landroidx/viewpager/widget/ViewPager;->setAdapter(Ln5/a;)V
-    :ensure_done
+    .locals 0
     return-void
 .end method
 
