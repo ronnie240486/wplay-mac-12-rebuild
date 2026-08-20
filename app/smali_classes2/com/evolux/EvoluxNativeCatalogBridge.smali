@@ -18,11 +18,7 @@
     invoke-virtual {v0}, Lsd/m;->j()V
     invoke-virtual {v2}, Lorg/bitspark/android/viewmodel/SparkViewModel;->initMenu()V
     :open_native_page
-    iget-object v3, p0, Lorg/bitspark/android/Spark;->B0:Landroid/widget/LinearLayout;
-    if-eqz v3, :drawer_ready
-    const/4 v4, 0x0
-    invoke-virtual {v3, v4}, Landroid/view/View;->setVisibility(I)V
-    :drawer_ready
+    invoke-static {p0}, Lcom/evolux/EvoluxNativeCatalogBridge;->showCatalogMenu(Lorg/bitspark/android/Spark;)V
     sget v0, Lorg/bitspark/android/g;->k:I
     if-ltz v0, :fallback_live_page
     goto :open_catalog_page
@@ -41,6 +37,48 @@
     invoke-virtual {v3, v4, v0, v1}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
     sput-boolean v2, Lcom/evolux/EvoluxNativeCatalogBridge;->active:Z
     :already_open
+    return-void
+.end method
+
+.method public static showCatalogMenu(Lorg/bitspark/android/Spark;)V
+    .locals 3
+    const v0, 0x7f0b01cc
+    invoke-virtual {p0, v0}, Landroidx/appcompat/app/AppCompatActivity;->findViewById(I)Landroid/view/View;
+    move-result-object v0
+    const/4 v1, 0x0
+    if-eqz v0, :menu_match
+    invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
+    :menu_match
+    const v0, 0x7f0b03c1
+    invoke-virtual {p0, v0}, Landroidx/appcompat/app/AppCompatActivity;->findViewById(I)Landroid/view/View;
+    move-result-object v0
+    if-eqz v0, :menu_live
+    invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
+    :menu_live
+    const v0, 0x7f0b03c2
+    invoke-virtual {p0, v0}, Landroidx/appcompat/app/AppCompatActivity;->findViewById(I)Landroid/view/View;
+    move-result-object v0
+    if-eqz v0, :menu_vod
+    invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
+    :menu_vod
+    const v0, 0x7f0b03c6
+    invoke-virtual {p0, v0}, Landroidx/appcompat/app/AppCompatActivity;->findViewById(I)Landroid/view/View;
+    move-result-object v0
+    if-eqz v0, :menu_history
+    invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
+    :menu_history
+    const v0, 0x7f0b03bf
+    invoke-virtual {p0, v0}, Landroidx/appcompat/app/AppCompatActivity;->findViewById(I)Landroid/view/View;
+    move-result-object v0
+    if-eqz v0, :menu_user
+    invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
+    :menu_user
+    const v0, 0x7f0b03c5
+    invoke-virtual {p0, v0}, Landroidx/appcompat/app/AppCompatActivity;->findViewById(I)Landroid/view/View;
+    move-result-object v0
+    if-eqz v0, :menu_done
+    invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
+    :menu_done
     return-void
 .end method
 
