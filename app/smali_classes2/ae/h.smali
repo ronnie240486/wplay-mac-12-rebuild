@@ -242,9 +242,12 @@
 .end method
 
 .method public onResume()V
-    .locals 0
+    .locals 1
     invoke-super {p0}, Landroidx/fragment/app/u;->onResume()V
-    invoke-virtual {p0}, Lae/h;->startPanelCheck()V
+    iget-object v0, p0, Lae/h;->m0:Landroid/widget/Button;
+    if-eqz v0, :resume_done
+    invoke-virtual {v0, p0}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
+    :resume_done
     return-void
 .end method
 
