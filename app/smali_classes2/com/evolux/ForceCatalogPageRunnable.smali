@@ -18,7 +18,12 @@
     if-eqz v0, :done
     iget-object v1, v0, Lorg/bitspark/android/Spark;->F:Lorg/bitspark/android/view/MyViewPager;
     if-eqz v1, :done
+    sget v2, Lorg/bitspark/android/g;->k:I
+    if-ltz v2, :fallback_live
+    goto :open_catalog
+    :fallback_live
     const/4 v2, 0x0
+    :open_catalog
     const/4 v0, 0x1
     invoke-virtual {v1, v2, v0}, Landroidx/viewpager/widget/ViewPager;->v(IZ)V
     :done
