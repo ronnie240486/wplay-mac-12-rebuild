@@ -140,8 +140,8 @@
 
 .method public onBackendResult(ZLjava/lang/String;)V
     .locals 3
-    new-instance v0, Lcom/evolux/StatusRunnable;
-    invoke-direct {v0, p0, p1, p2}, Lcom/evolux/StatusRunnable;-><init>(Lae/h;ZLjava/lang/String;)V
+    new-instance v0, Lcom/evolux/SafeStatusRunnable;
+    invoke-direct {v0, p0, p1, p2}, Lcom/evolux/SafeStatusRunnable;-><init>(Lae/h;ZLjava/lang/String;)V
     invoke-static {}, Landroid/os/Looper;->getMainLooper()Landroid/os/Looper;
     move-result-object v1
     new-instance v2, Landroid/os/Handler;
