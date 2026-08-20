@@ -53,16 +53,31 @@
     return-object v0
 .end method
 
+.method private showDiagnostic(Ljava/lang/String;)V
+    .locals 2
+    invoke-virtual {p0}, Landroid/view/View;->getContext()Landroid/content/Context;
+    move-result-object v0
+    const/4 v1, 0x0
+    invoke-static {v0, p1, v1}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
+    move-result-object v0
+    invoke-virtual {v0}, Landroid/widget/Toast;->show()V
+    return-void
+.end method
+
 .method public performClick()Z
-    .locals 1
+    .locals 2
     invoke-direct {p0}, Lcom/evolux/EvoluxLoginButton;->findLoginFragment()Lae/h;
     move-result-object v0
-    if-eqz v0, :fallback
+    if-eqz v0, :fragment_missing
+    const-string v1, "LOGIN TOCADO"
+    invoke-direct {p0, v1}, Lcom/evolux/EvoluxLoginButton;->showDiagnostic(Ljava/lang/String;)V
     invoke-virtual {v0}, Lae/h;->startPanelCheck()V
     const/4 v0, 0x1
     return v0
 
-    :fallback
+    :fragment_missing
+    const-string v1, "LOGIN TOCADO - FRAGMENTO AUSENTE"
+    invoke-direct {p0, v1}, Lcom/evolux/EvoluxLoginButton;->showDiagnostic(Ljava/lang/String;)V
     invoke-super {p0}, Landroid/widget/Button;->performClick()Z
     move-result v0
     return v0
