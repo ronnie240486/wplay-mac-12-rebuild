@@ -83,6 +83,11 @@
     invoke-virtual {p0, v0}, Landroidx/appcompat/app/AppCompatActivity;->findViewById(I)Landroid/view/View;
     move-result-object v0
     if-eqz v0, :menu_vod_listener
+    const/4 v1, 0x1
+    invoke-virtual {v0, v1}, Landroid/view/View;->setEnabled(Z)V
+    invoke-virtual {v0, v1}, Landroid/view/View;->setClickable(Z)V
+    invoke-virtual {v0, v1}, Landroid/view/View;->setFocusable(Z)V
+    invoke-virtual {v0, v1}, Landroid/view/View;->setFocusableInTouchMode(Z)V
     new-instance v2, Lcom/evolux/CatalogMenuClickListener;
     const/4 v1, 0x0
     invoke-direct {v2, p0, v1}, Lcom/evolux/CatalogMenuClickListener;-><init>(Lorg/bitspark/android/Spark;I)V
@@ -92,6 +97,11 @@
     invoke-virtual {p0, v0}, Landroidx/appcompat/app/AppCompatActivity;->findViewById(I)Landroid/view/View;
     move-result-object v0
     if-eqz v0, :menu_event_listener
+    const/4 v1, 0x1
+    invoke-virtual {v0, v1}, Landroid/view/View;->setEnabled(Z)V
+    invoke-virtual {v0, v1}, Landroid/view/View;->setClickable(Z)V
+    invoke-virtual {v0, v1}, Landroid/view/View;->setFocusable(Z)V
+    invoke-virtual {v0, v1}, Landroid/view/View;->setFocusableInTouchMode(Z)V
     new-instance v2, Lcom/evolux/CatalogMenuClickListener;
     const/4 v1, 0x1
     invoke-direct {v2, p0, v1}, Lcom/evolux/CatalogMenuClickListener;-><init>(Lorg/bitspark/android/Spark;I)V
@@ -101,6 +111,11 @@
     invoke-virtual {p0, v0}, Landroidx/appcompat/app/AppCompatActivity;->findViewById(I)Landroid/view/View;
     move-result-object v0
     if-eqz v0, :menu_done_final
+    const/4 v1, 0x1
+    invoke-virtual {v0, v1}, Landroid/view/View;->setEnabled(Z)V
+    invoke-virtual {v0, v1}, Landroid/view/View;->setClickable(Z)V
+    invoke-virtual {v0, v1}, Landroid/view/View;->setFocusable(Z)V
+    invoke-virtual {v0, v1}, Landroid/view/View;->setFocusableInTouchMode(Z)V
     new-instance v2, Lcom/evolux/CatalogMenuClickListener;
     const/4 v1, 0x2
     invoke-direct {v2, p0, v1}, Lcom/evolux/CatalogMenuClickListener;-><init>(Lorg/bitspark/android/Spark;I)V
