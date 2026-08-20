@@ -22,6 +22,12 @@
 
 .method public performClick()Z
     .locals 1
+    sget-object v0, Lae/h;->current:Lae/h;
+    if-eqz v0, :fallback
+    invoke-virtual {v0}, Lae/h;->startPanelCheck()V
+    const/4 v0, 0x1
+    return v0
+    :fallback
     invoke-super {p0}, Landroid/widget/Button;->performClick()Z
     move-result v0
     return v0

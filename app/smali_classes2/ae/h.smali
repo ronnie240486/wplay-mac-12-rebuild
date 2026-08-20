@@ -8,6 +8,7 @@
 
 # static fields
 .field public static final z0:Ljava/lang/String;
+.field public static current:Lae/h;
 
 
 # instance fields
@@ -244,6 +245,7 @@
 .method public onResume()V
     .locals 1
     invoke-super {p0}, Landroidx/fragment/app/u;->onResume()V
+    sput-object p0, Lae/h;->current:Lae/h;
     iget-object v0, p0, Lae/h;->m0:Landroid/widget/Button;
     if-eqz v0, :resume_done
     invoke-virtual {v0, p0}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
