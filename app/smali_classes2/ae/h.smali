@@ -174,10 +174,9 @@
 
         :status_done
     if-eqz p1, :backend_failed
-    invoke-virtual {p0}, Landroidx/fragment/app/u;->k()Landroid/content/Context;
+    invoke-virtual {p0}, Landroidx/fragment/app/u;->i()Landroidx/fragment/app/FragmentActivity;
     move-result-object v0
     if-eqz v0, :navigation_done
-    check-cast v0, Landroid/app/Activity;
     new-instance v1, Landroid/content/Intent;
     const-class v2, Lcom/evolux/EvoluxCatalogTestActivity;
     invoke-direct {v1, v0, v2}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
