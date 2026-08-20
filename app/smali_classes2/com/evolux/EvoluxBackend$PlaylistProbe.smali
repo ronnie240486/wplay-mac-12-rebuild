@@ -55,6 +55,6 @@
 
     :invalid_stream
     invoke-virtual {v0}, Ljava/net/HttpURLConnection;->disconnect()V
-    const-string v0, "Lista indisponivel ou credenciais invalidas."
+    const-string v0, "75% — Lista indisponível ou credenciais inválidas."
     return-object v0
 .end method

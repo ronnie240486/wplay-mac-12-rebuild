@@ -116,7 +116,7 @@
     move-result v10
     if-eqz v10, :playlist_ok
     const/4 v10, 0x0
-    const-string v11, "Painel autorizou, mas nao retornou playlist."
+    const-string v11, "75% — Painel sem playlist válida."
     invoke-direct {p0, v10, v11}, Lcom/evolux/EvoluxBackend$Worker;->deliver(ZLjava/lang/String;)V
     return-void
 
@@ -134,7 +134,7 @@
 
     :blocked
     const/4 v10, 0x0
-    const-string v11, "Aparelho nao autorizado pelo painel Evolux."
+    const-string v11, "50% — Aparelho não autorizado pelo painel."
     invoke-direct {p0, v10, v11}, Lcom/evolux/EvoluxBackend$Worker;->deliver(ZLjava/lang/String;)V
     return-void
 
@@ -142,7 +142,7 @@
     invoke-virtual {v1}, Ljava/net/HttpURLConnection;->disconnect()V
     const/4 v3, 0x0
     new-instance v4, Ljava/lang/StringBuilder;
-    const-string v5, "Backend Evolux HTTP "
+    const-string v5, "25% — Backend Evolux HTTP "
     invoke-direct {v4, v5}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
     invoke-virtual {v4, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
     invoke-virtual {v4}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
@@ -155,7 +155,7 @@
     invoke-virtual {v0}, Ljava/lang/Throwable;->toString()Ljava/lang/String;
     move-result-object v1
     new-instance v2, Ljava/lang/StringBuilder;
-    const-string v3, "Erro no painel: "
+    const-string v3, "25% — Erro no painel: "
     invoke-direct {v2, v3}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
     invoke-virtual {v2, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
     invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;

@@ -157,7 +157,7 @@
     const/4 v1, 0x0
     invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
     if-eqz p1, :show_failure
-    const-string v1, "Identificador cadastrado. Abrindo lista..."
+    const-string v1, "100% — Cadastrado. Abrindo lista..."
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
     iget-object v2, p0, Lae/h;->m0:Landroid/widget/Button;
     if-eqz v2, :status_done
