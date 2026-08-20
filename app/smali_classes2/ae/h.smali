@@ -157,7 +157,7 @@
     const/4 v1, 0x0
     invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
     if-eqz p1, :show_failure
-    const-string v1, "100% — Cadastrado. Abrindo lista..."
+    const-string v1, "100% — Identificador reconhecido. Abrindo página..."
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
     iget-object v2, p0, Lae/h;->m0:Landroid/widget/Button;
     if-eqz v2, :status_done
@@ -175,25 +175,8 @@
     :status_done
     if-eqz p1, :backend_failed
     sget-object v2, Lorg/bitspark/android/Spark;->U2:Lorg/bitspark/android/c1;
-    iget-object v3, v2, Lorg/bitspark/android/c1;->a:Ljava/lang/ref/WeakReference;
-    invoke-virtual {v3}, Ljava/lang/ref/Reference;->get()Ljava/lang/Object;
-    move-result-object v3
-    check-cast v3, Lorg/bitspark/android/Spark;
-    sget-object v2, Lorg/bitspark/android/Constants$VIDEO_TYPE;->BSLIVE:Lorg/bitspark/android/Constants$VIDEO_TYPE;
-    iput-object v2, v3, Lorg/bitspark/android/Spark;->u2:Lorg/bitspark/android/Constants$VIDEO_TYPE;
-    invoke-static {}, Landroid/os/Message;->obtain()Landroid/os/Message;
-    move-result-object v0
-    new-instance v1, Landroid/os/Bundle;
-    invoke-direct {v1}, Landroid/os/Bundle;-><init>()V
-    const-string v2, "videoPath"
-    invoke-virtual {v1, v2, p2}, Landroid/os/BaseBundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
-    invoke-virtual {v0, v1}, Landroid/os/Message;->setData(Landroid/os/Bundle;)V
-    const/16 v2, 0x51
-    iput v2, v0, Landroid/os/Message;->what:I
-    sget-object v3, Lorg/bitspark/android/Spark;->U2:Lorg/bitspark/android/c1;
-    invoke-virtual {v3, v0}, Landroid/os/Handler;->sendMessage(Landroid/os/Message;)Z
-    const/16 v2, 0xd
-    invoke-virtual {v3, v2}, Landroid/os/Handler;->sendEmptyMessage(I)Z
+    const/16 v3, 0xd
+    invoke-virtual {v2, v3}, Landroid/os/Handler;->sendEmptyMessage(I)Z
     invoke-virtual {p0}, Landroidx/fragment/app/u;->m()Landroidx/fragment/app/o0;
     move-result-object v0
     if-eqz v0, :navigation_done

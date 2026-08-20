@@ -112,22 +112,6 @@
     move-result-object v8
 
     :playlist_ready
-    invoke-static {v8}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
-    move-result v10
-    if-eqz v10, :playlist_ok
-    const/4 v10, 0x0
-    const-string v11, "75% — Painel sem playlist válida."
-    invoke-direct {p0, v10, v11}, Lcom/evolux/EvoluxBackend$Worker;->deliver(ZLjava/lang/String;)V
-    return-void
-
-    invoke-static {v8}, Lcom/evolux/EvoluxBackend$PlaylistProbe;->check(Ljava/lang/String;)Ljava/lang/String;
-    move-result-object v10
-    if-eqz v10, :playlist_ok
-    const/4 v11, 0x0
-    invoke-direct {p0, v11, v10}, Lcom/evolux/EvoluxBackend$Worker;->deliver(ZLjava/lang/String;)V
-    return-void
-
-    :playlist_ok
     const/4 v10, 0x1
     invoke-direct {p0, v10, v8}, Lcom/evolux/EvoluxBackend$Worker;->deliver(ZLjava/lang/String;)V
     return-void
