@@ -18,6 +18,7 @@
     invoke-virtual {v0}, Lsd/m;->j()V
     invoke-virtual {v2}, Lorg/bitspark/android/viewmodel/SparkViewModel;->initMenu()V
     :open_native_page
+    invoke-static {p0}, Lcom/evolux/EvoluxNativeCatalogBridge;->ensureContentPages(Lorg/bitspark/android/Spark;)V
     invoke-static {p0}, Lcom/evolux/EvoluxNativeCatalogBridge;->showCatalogMenu(Lorg/bitspark/android/Spark;)V
     sget v0, Lorg/bitspark/android/g;->k:I
     if-ltz v0, :fallback_live_page
@@ -88,6 +89,10 @@
     invoke-virtual {v0, v1}, Landroid/view/View;->setClickable(Z)V
     invoke-virtual {v0, v1}, Landroid/view/View;->setFocusable(Z)V
     invoke-virtual {v0, v1}, Landroid/view/View;->setFocusableInTouchMode(Z)V
+    new-instance v2, Lorg/bitspark/android/l0;
+    const/4 v1, 0x0
+    invoke-direct {v2, p0, v1}, Lorg/bitspark/android/l0;-><init>(Lorg/bitspark/android/Spark;I)V
+    invoke-virtual {v0, v2}, Landroid/view/View;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
     new-instance v2, Lcom/evolux/CatalogMenuClickListener;
     const/4 v1, 0x0
     invoke-direct {v2, p0, v1}, Lcom/evolux/CatalogMenuClickListener;-><init>(Lorg/bitspark/android/Spark;I)V
@@ -102,8 +107,12 @@
     invoke-virtual {v0, v1}, Landroid/view/View;->setClickable(Z)V
     invoke-virtual {v0, v1}, Landroid/view/View;->setFocusable(Z)V
     invoke-virtual {v0, v1}, Landroid/view/View;->setFocusableInTouchMode(Z)V
-    new-instance v2, Lcom/evolux/CatalogMenuClickListener;
+    new-instance v2, Lorg/bitspark/android/l0;
     const/4 v1, 0x1
+    invoke-direct {v2, p0, v1}, Lorg/bitspark/android/l0;-><init>(Lorg/bitspark/android/Spark;I)V
+    invoke-virtual {v0, v2}, Landroid/view/View;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
+    new-instance v2, Lcom/evolux/CatalogMenuClickListener;
+    const/4 v1, 0x2
     invoke-direct {v2, p0, v1}, Lcom/evolux/CatalogMenuClickListener;-><init>(Lorg/bitspark/android/Spark;I)V
     invoke-virtual {v0, v2}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
     :menu_event_listener
@@ -116,11 +125,50 @@
     invoke-virtual {v0, v1}, Landroid/view/View;->setClickable(Z)V
     invoke-virtual {v0, v1}, Landroid/view/View;->setFocusable(Z)V
     invoke-virtual {v0, v1}, Landroid/view/View;->setFocusableInTouchMode(Z)V
-    new-instance v2, Lcom/evolux/CatalogMenuClickListener;
+    new-instance v2, Lorg/bitspark/android/l0;
     const/4 v1, 0x2
+    invoke-direct {v2, p0, v1}, Lorg/bitspark/android/l0;-><init>(Lorg/bitspark/android/Spark;I)V
+    invoke-virtual {v0, v2}, Landroid/view/View;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
+    new-instance v2, Lcom/evolux/CatalogMenuClickListener;
+    const/4 v1, 0x1
     invoke-direct {v2, p0, v1}, Lcom/evolux/CatalogMenuClickListener;-><init>(Lorg/bitspark/android/Spark;I)V
     invoke-virtual {v0, v2}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
     :menu_done_final
+    return-void
+.end method
+
+.method public static ensureContentPages(Lorg/bitspark/android/Spark;)V
+    .locals 4
+    iget-object v0, p0, Lorg/bitspark/android/Spark;->H:Ljava/util/ArrayList;
+    if-eqz v0, :ensure_done
+    iget-object v1, p0, Lorg/bitspark/android/Spark;->R:Lzd/b0;
+    invoke-virtual {v0, v1}, Ljava/util/ArrayList;->contains(Ljava/lang/Object;)Z
+    move-result v2
+    if-eqz v2, :add_live
+    goto :check_vod
+    :add_live
+    invoke-virtual {v0, v1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+    :check_vod
+    iget-object v1, p0, Lorg/bitspark/android/Spark;->S:Lzd/z0;
+    invoke-virtual {v0, v1}, Ljava/util/ArrayList;->contains(Ljava/lang/Object;)Z
+    move-result v2
+    if-eqz v2, :add_vod
+    goto :check_events
+    :add_vod
+    invoke-virtual {v0, v1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+    :check_events
+    iget-object v1, p0, Lorg/bitspark/android/Spark;->V:Lzd/h0;
+    invoke-virtual {v0, v1}, Ljava/util/ArrayList;->contains(Ljava/lang/Object;)Z
+    move-result v2
+    if-eqz v2, :add_events
+    goto :notify_adapter
+    :add_events
+    invoke-virtual {v0, v1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+    :notify_adapter
+    iget-object v1, p0, Lorg/bitspark/android/Spark;->Y:Lje/k;
+    if-eqz v1, :ensure_done
+    invoke-virtual {v1}, Ln5/a;->b()V
+    :ensure_done
     return-void
 .end method
 
