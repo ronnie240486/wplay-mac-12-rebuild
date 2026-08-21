@@ -60,23 +60,7 @@
 
     invoke-virtual {v1, v0, v2}, Landroidx/viewpager/widget/ViewPager;->v(IZ)V
 
-    new-instance v3, Landroid/os/Handler;
-
-    invoke-static {}, Landroid/os/Looper;->getMainLooper()Landroid/os/Looper;
-
-    move-result-object v4
-
-    invoke-direct {v3, v4}, Landroid/os/Handler;-><init>(Landroid/os/Looper;)V
-
-    new-instance v4, Lcom/evolux/ForceCatalogPageRunnable;
-
-    invoke-direct {v4, p0}, Lcom/evolux/ForceCatalogPageRunnable;-><init>(Lorg/bitspark/android/Spark;)V
-
-    const-wide/16 v0, 0x1f4
-
-    invoke-virtual {v3, v4, v0, v1}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
-
-    sput-boolean v2, Lcom/evolux/EvoluxNativeCatalogBridge;->active:Z
+        sput-boolean v2, Lcom/evolux/EvoluxNativeCatalogBridge;->active:Z
 
     :cond_2
     return-void

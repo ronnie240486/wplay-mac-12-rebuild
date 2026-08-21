@@ -124,7 +124,7 @@
     :page_resolved
     if-ltz v3, :page_missing
 
-    const/4 v4, 0x1
+    const/4 v4, 0x0
     invoke-virtual {v1, v3, v4}, Landroidx/viewpager/widget/ViewPager;->v(IZ)V
     invoke-virtual {v1}, Landroidx/viewpager/widget/ViewPager;->getCurrentItem()I
     move-result v5
