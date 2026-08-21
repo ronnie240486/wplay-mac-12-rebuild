@@ -106,6 +106,7 @@
     iget-object v0, p0, Lcom/evolux/EvoluxNativeCatalogBridge$StreamCallback;->password:Ljava/lang/String;
 
     invoke-static {v5, v6, v7, v0}, Lcom/evolux/EvoluxNativeCatalogBridge;->loadVod(Lorg/bitspark/android/Spark;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+    invoke-static {v5, v6, v7, v0}, Lcom/evolux/EvoluxNativeCatalogBridge;->loadSeries(Lorg/bitspark/android/Spark;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
 
     return-void
     :try_end_0

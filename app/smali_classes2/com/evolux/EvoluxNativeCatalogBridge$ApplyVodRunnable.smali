@@ -24,11 +24,12 @@
     if-eqz v0, :retry_or_fail
     iget-object v1, v0, Lorg/bitspark/android/Spark;->S:Lzd/z0;
     if-eqz v1, :retry_or_fail
-    iget-object v2, v1, Lzd/z0;->X:Landroidx/recyclerview/widget/RecyclerView;
+    sget-object v2, Lzd/z0;->Z0:Landroidx/recyclerview/widget/RecyclerView;
     if-eqz v2, :retry_or_fail
     new-instance v3, Lcom/evolux/SafeChannelAdapter;
     iget-object v4, p0, Lcom/evolux/EvoluxNativeCatalogBridge$ApplyVodRunnable;->movies:Ljava/util/List;
-    invoke-direct {v3, v4}, Lcom/evolux/SafeChannelAdapter;-><init>(Ljava/util/List;)V
+    const/4 v5, 0x1
+    invoke-direct {v3, v4, v0, v5}, Lcom/evolux/SafeChannelAdapter;-><init>(Ljava/util/List;Lorg/bitspark/android/Spark;I)V
     invoke-virtual {v2, v3}, Landroidx/recyclerview/widget/RecyclerView;->setAdapter(Landroidx/recyclerview/widget/x0;)V
     const-string v5, "EVOLUX DIAG: lista VOD aplicada na grade"
     invoke-static {v0, v5}, Lcom/evolux/CatalogMenuClickListener;->showDiagnostic(Landroid/content/Context;Ljava/lang/String;)V

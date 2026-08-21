@@ -5,6 +5,10 @@
 
 # static fields
 .field public static active:Z
+.field private static vodItems:Ljava/util/List;
+.field private static sessionBase:Ljava/lang/String;
+.field private static sessionUsername:Ljava/lang/String;
+.field private static sessionPassword:Ljava/lang/String;
 
 
 # direct methods
@@ -144,7 +148,16 @@
 
     invoke-virtual {v10, v5}, Lorg/bitspark/android/beans/ChannelBean;->setId(Ljava/lang/String;)V
 
-    invoke-virtual {v10, v6}, Lorg/bitspark/android/beans/ChannelBean;->setDescription(Ljava/lang/String;)V
+    move-object v11, v4
+    const-string v4, "category_name"
+    invoke-virtual {v11, v4}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v4
+    invoke-static {v4}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+    move-result v11
+    if-eqz v11, :category_ready
+    const-string v4, "Canais"
+    :category_ready
+    invoke-virtual {v10, v4}, Lorg/bitspark/android/beans/ChannelBean;->setDescription(Ljava/lang/String;)V
 
     const/4 v4, 0x0
 
@@ -391,7 +404,8 @@
 
     invoke-virtual {v10, v5}, Lorg/bitspark/android/beans/ChannelBean;->setId(Ljava/lang/String;)V
 
-    invoke-virtual {v10, v6}, Lorg/bitspark/android/beans/ChannelBean;->setDescription(Ljava/lang/String;)V
+    const-string v4, "Filmes"
+    invoke-virtual {v10, v4}, Lorg/bitspark/android/beans/ChannelBean;->setDescription(Ljava/lang/String;)V
 
     const/4 v4, 0x1
 
@@ -1095,7 +1109,10 @@
 .end method
 .method public static start(Lorg/bitspark/android/Spark;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
     .locals 2
-
+    invoke-static {}, Lcom/evolux/EvoluxNativeCatalogBridge;->resetVodItems()V
+    sput-object p1, Lcom/evolux/EvoluxNativeCatalogBridge;->sessionBase:Ljava/lang/String;
+    sput-object p2, Lcom/evolux/EvoluxNativeCatalogBridge;->sessionUsername:Ljava/lang/String;
+    sput-object p3, Lcom/evolux/EvoluxNativeCatalogBridge;->sessionPassword:Ljava/lang/String;
     new-instance v0, Lcom/evolux/EvoluxNativeCatalogBridge$Worker;
 
     invoke-direct {v0, p0, p1, p2, p3}, Lcom/evolux/EvoluxNativeCatalogBridge$Worker;-><init>(Lorg/bitspark/android/Spark;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
@@ -1106,5 +1123,239 @@
 
     invoke-virtual {v1}, Ljava/lang/Thread;->start()V
 
+    return-void
+.end method
+
+.method private static resetVodItems()V
+    .locals 1
+    new-instance v0, Ljava/util/ArrayList;
+    invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
+    sput-object v0, Lcom/evolux/EvoluxNativeCatalogBridge;->vodItems:Ljava/util/List;
+    return-void
+.end method
+
+.method public static appendVodItems(Ljava/util/List;)V
+    .locals 1
+    if-eqz p0, :done
+    sget-object v0, Lcom/evolux/EvoluxNativeCatalogBridge;->vodItems:Ljava/util/List;
+    if-nez v0, :add
+    invoke-static {}, Lcom/evolux/EvoluxNativeCatalogBridge;->resetVodItems()V
+    sget-object v0, Lcom/evolux/EvoluxNativeCatalogBridge;->vodItems:Ljava/util/List;
+    :add
+    invoke-interface {v0, p0}, Ljava/util/List;->addAll(Ljava/util/Collection;)Z
+    :done
+    return-void
+.end method
+
+.method public static getVodItems()Ljava/util/List;
+    .locals 1
+    sget-object v0, Lcom/evolux/EvoluxNativeCatalogBridge;->vodItems:Ljava/util/List;
+    return-object v0
+.end method
+
+.method public static buildSeries(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/util/List;
+    .locals 11
+    new-instance v0, Ljava/util/ArrayList;
+    invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
+    new-instance v1, Lorg/json/JSONArray;
+    invoke-direct {v1, p0}, Lorg/json/JSONArray;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v1}, Lorg/json/JSONArray;->length()I
+    move-result v2
+    const/4 v3, 0x0
+    :loop
+    if-ge v3, v2, :done
+    invoke-virtual {v1, v3}, Lorg/json/JSONArray;->optJSONObject(I)Lorg/json/JSONObject;
+    move-result-object v4
+    if-eqz v4, :next
+    const-string v5, "series_id"
+    invoke-virtual {v4, v5}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v5
+    invoke-static {v5}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+    move-result v6
+    if-eqz v6, :have_id
+    const-string v5, "stream_id"
+    invoke-virtual {v4, v5}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v5
+    :have_id
+    invoke-static {v5}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+    move-result v6
+    if-nez v6, :next
+    const-string v6, "name"
+    const-string v7, "Serie"
+    invoke-virtual {v4, v6, v7}, Lorg/json/JSONObject;->optString(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v6
+    const-string v7, "cover"
+    invoke-virtual {v4, v7}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v7
+    new-instance v8, Lorg/bitspark/android/beans/ChannelBean;
+    invoke-direct {v8}, Lorg/bitspark/android/beans/ChannelBean;-><init>()V
+    const-string v9, "series_id"
+    invoke-virtual {v4, v9}, Lorg/json/JSONObject;->optInt(Ljava/lang/String;)I
+    move-result v9
+    invoke-virtual {v8, v9}, Lorg/bitspark/android/beans/ChannelBean;->setChid(I)V
+    invoke-virtual {v8, v5}, Lorg/bitspark/android/beans/ChannelBean;->setId(Ljava/lang/String;)V
+    const-string v4, "Séries"
+    invoke-virtual {v8, v4}, Lorg/bitspark/android/beans/ChannelBean;->setDescription(Ljava/lang/String;)V
+    const/4 v4, 0x2
+    invoke-virtual {v8, v4}, Lorg/bitspark/android/beans/ChannelBean;->setType(I)V
+    invoke-virtual {v8, v7}, Lorg/bitspark/android/beans/ChannelBean;->setImage_logo(Ljava/lang/String;)V
+    invoke-virtual {v8, v7}, Lorg/bitspark/android/beans/ChannelBean;->setImage_backdrop(Ljava/lang/String;)V
+    invoke-virtual {v8, v6}, Lorg/bitspark/android/beans/ChannelBean;->setSearch(Ljava/lang/String;)V
+    new-instance v4, Lorg/bitspark/android/beans/ChannelBean$NameBean;
+    invoke-direct {v4}, Lorg/bitspark/android/beans/ChannelBean$NameBean;-><init>()V
+    invoke-virtual {v4, v6}, Lorg/bitspark/android/beans/ChannelBean$NameBean;->setInit(Ljava/lang/String;)V
+    invoke-virtual {v8, v4}, Lorg/bitspark/android/beans/ChannelBean;->setName(Lorg/bitspark/android/beans/ChannelBean$NameBean;)V
+    new-instance v4, Ljava/util/ArrayList;
+    invoke-direct {v4}, Ljava/util/ArrayList;-><init>()V
+    invoke-virtual {v8, v4}, Lorg/bitspark/android/beans/ChannelBean;->setSources(Ljava/util/List;)V
+    new-instance v4, Ljava/util/ArrayList;
+    invoke-direct {v4}, Ljava/util/ArrayList;-><init>()V
+    invoke-virtual {v8, v4}, Lorg/bitspark/android/beans/ChannelBean;->setTags(Ljava/util/List;)V
+    new-instance v4, Ljava/util/ArrayList;
+    invoke-direct {v4}, Ljava/util/ArrayList;-><init>()V
+    invoke-virtual {v8, v4}, Lorg/bitspark/android/beans/ChannelBean;->setEpg(Ljava/util/List;)V
+    const/4 v4, 0x1
+    invoke-virtual {v8, v4}, Lorg/bitspark/android/beans/ChannelBean;->setHasPlayBack(Z)V
+    invoke-interface {v0, v8}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    :next
+    add-int/lit8 v3, v3, 0x1
+    goto :loop
+    :done
+    return-object v0
+.end method
+
+.method public static loadSeries(Lorg/bitspark/android/Spark;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+    .locals 4
+    new-instance v0, Ljava/lang/StringBuilder;
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-virtual {v0, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    const-string v1, "/player_api.php?username="
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v0, p2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    const-string v1, "&password="
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v0, p3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    const-string v1, "&action=get_series"
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    move-result-object v1
+    invoke-static {v1}, Lcom/lzy/okgo/OkGo;->get(Ljava/lang/String;)Lcom/lzy/okgo/request/GetRequest;
+    move-result-object v1
+    new-instance v2, Lcom/evolux/EvoluxNativeCatalogBridge$SeriesCallback;
+    invoke-direct {v2, p0, p1, p2, p3}, Lcom/evolux/EvoluxNativeCatalogBridge$SeriesCallback;-><init>(Lorg/bitspark/android/Spark;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+    invoke-virtual {v1, v2}, Lcom/lzy/okgo/request/base/Request;->execute(Lcom/lzy/okgo/callback/Callback;)V
+    return-void
+.end method
+
+.method public static loadSeriesInfo(Lorg/bitspark/android/Spark;Lorg/bitspark/android/beans/ChannelBean;)V
+    .locals 4
+    sget-object v0, Lcom/evolux/EvoluxNativeCatalogBridge;->sessionBase:Ljava/lang/String;
+    if-eqz v0, :missing
+    new-instance v1, Ljava/lang/StringBuilder;
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-virtual {v1, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    const-string v0, "/player_api.php?username="
+    invoke-virtual {v1, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    sget-object v0, Lcom/evolux/EvoluxNativeCatalogBridge;->sessionUsername:Ljava/lang/String;
+    invoke-virtual {v1, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    const-string v0, "&password="
+    invoke-virtual {v1, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    sget-object v0, Lcom/evolux/EvoluxNativeCatalogBridge;->sessionPassword:Ljava/lang/String;
+    invoke-virtual {v1, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    const-string v0, "&action=get_series_info&series_id="
+    invoke-virtual {v1, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {p1}, Lorg/bitspark/android/beans/ChannelBean;->getId()Ljava/lang/String;
+    move-result-object v0
+    invoke-virtual {v1, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    move-result-object v0
+    invoke-static {v0}, Lcom/lzy/okgo/OkGo;->get(Ljava/lang/String;)Lcom/lzy/okgo/request/GetRequest;
+    move-result-object v0
+    new-instance v1, Lcom/evolux/EvoluxNativeCatalogBridge$SeriesInfoCallback;
+    invoke-direct {v1, p0}, Lcom/evolux/EvoluxNativeCatalogBridge$SeriesInfoCallback;-><init>(Lorg/bitspark/android/Spark;)V
+    invoke-virtual {v0, v1}, Lcom/lzy/okgo/request/base/Request;->execute(Lcom/lzy/okgo/callback/Callback;)V
+    return-void
+    :missing
+    const-string v0, "EVOLUX DIAG ERRO: sessao Xtream indisponivel para serie"
+    invoke-static {p0, v0}, Lcom/evolux/CatalogMenuClickListener;->showDiagnostic(Landroid/content/Context;Ljava/lang/String;)V
+.end method
+
+.method public static buildLiveGroups(Ljava/util/List;)Ljava/util/List;
+    .locals 6
+    new-instance v0, Ljava/util/ArrayList;
+    invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
+    if-eqz p0, :done
+    invoke-interface {p0}, Ljava/util/List;->iterator()Ljava/util/Iterator;
+    move-result-object v1
+    :loop
+    invoke-interface {v1}, Ljava/util/Iterator;->hasNext()Z
+    move-result v2
+    if-eqz v2, :done
+    invoke-interface {v1}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+    move-result-object v2
+    instance-of v3, v2, Lorg/bitspark/android/beans/ChannelBean;
+    if-eqz v3, :loop
+    check-cast v2, Lorg/bitspark/android/beans/ChannelBean;
+    invoke-virtual {v2}, Lorg/bitspark/android/beans/ChannelBean;->getDescription()Ljava/lang/String;
+    move-result-object v3
+    invoke-static {v3}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+    move-result v4
+    if-eqz v4, :group_ready
+    const-string v3, "Canais"
+    :group_ready
+    invoke-interface {v0, v3}, Ljava/util/List;->contains(Ljava/lang/Object;)Z
+    move-result v4
+    if-eqz v4, :loop
+    invoke-interface {v0, v3}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    goto :loop
+    :done
+    return-object v0
+.end method
+
+.method public static showLiveGroup(Lorg/bitspark/android/Spark;Ljava/util/List;Ljava/lang/String;)V
+    .locals 6
+    if-eqz p0, :done
+    iget-object v0, p0, Lorg/bitspark/android/Spark;->R:Lzd/b0;
+    if-eqz v0, :done
+    new-instance v1, Ljava/util/ArrayList;
+    invoke-direct {v1}, Ljava/util/ArrayList;-><init>()V
+    if-eqz p1, :apply
+    invoke-interface {p1}, Ljava/util/List;->iterator()Ljava/util/Iterator;
+    move-result-object v2
+    :loop
+    invoke-interface {v2}, Ljava/util/Iterator;->hasNext()Z
+    move-result v3
+    if-eqz v3, :apply
+    invoke-interface {v2}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+    move-result-object v3
+    instance-of v4, v3, Lorg/bitspark/android/beans/ChannelBean;
+    if-eqz v4, :loop
+    move-object v4, v3
+    check-cast v4, Lorg/bitspark/android/beans/ChannelBean;
+    invoke-virtual {v4}, Lorg/bitspark/android/beans/ChannelBean;->getDescription()Ljava/lang/String;
+    move-result-object v5
+    invoke-virtual {p2, v5}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+    move-result v5
+    if-eqz v5, :loop
+    invoke-interface {v1, v4}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    goto :loop
+    :apply
+    iget-object v2, v0, Lzd/b0;->X:Landroidx/leanback/widget/VerticalGridView;
+    if-eqz v2, :done
+    new-instance v3, Lcom/evolux/SafeChannelAdapter;
+    const/4 v4, 0x0
+    invoke-direct {v3, v1, p0, v4}, Lcom/evolux/SafeChannelAdapter;-><init>(Ljava/util/List;Lorg/bitspark/android/Spark;I)V
+    invoke-virtual {v2, v3}, Landroidx/recyclerview/widget/RecyclerView;->setAdapter(Landroidx/recyclerview/widget/x0;)V
+    new-instance v2, Ljava/lang/StringBuilder;
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+    const-string v3, "EVOLUX DIAG: categoria LIVE selecionada; itens="
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-interface {v1}, Ljava/util/List;->size()I
+    move-result v3
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    move-result-object v2
+    invoke-static {p0, v2}, Lcom/evolux/CatalogMenuClickListener;->showDiagnostic(Landroid/content/Context;Ljava/lang/String;)V
+    :done
     return-void
 .end method
