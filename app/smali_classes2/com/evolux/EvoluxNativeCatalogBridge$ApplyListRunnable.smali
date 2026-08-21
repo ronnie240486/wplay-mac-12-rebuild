@@ -32,6 +32,8 @@
     iget-object v5, p0, Lcom/evolux/EvoluxNativeCatalogBridge$ApplyListRunnable;->channels:Ljava/util/List;
     invoke-direct {v4, v5}, Lcom/evolux/SafeChannelAdapter;-><init>(Ljava/util/List;)V
     invoke-virtual {v2, v4}, Landroidx/recyclerview/widget/RecyclerView;->setAdapter(Landroidx/recyclerview/widget/x0;)V
+    const-string v6, "EVOLUX DIAG: lista de Canais aplicada na grade"
+    invoke-static {v0, v6}, Lcom/evolux/CatalogMenuClickListener;->showDiagnostic(Landroid/content/Context;Ljava/lang/String;)V
     const/4 v5, 0x0
     iput-object v5, v1, Lzd/b0;->f0:Lrd/l0;
     return-void

@@ -30,6 +30,8 @@
     iget-object v4, p0, Lcom/evolux/EvoluxNativeCatalogBridge$ApplyVodRunnable;->movies:Ljava/util/List;
     invoke-direct {v3, v4}, Lcom/evolux/SafeChannelAdapter;-><init>(Ljava/util/List;)V
     invoke-virtual {v2, v3}, Landroidx/recyclerview/widget/RecyclerView;->setAdapter(Landroidx/recyclerview/widget/x0;)V
+    const-string v5, "EVOLUX DIAG: lista VOD aplicada na grade"
+    invoke-static {v0, v5}, Lcom/evolux/CatalogMenuClickListener;->showDiagnostic(Landroid/content/Context;Ljava/lang/String;)V
     return-void
 
     :retry_or_fail

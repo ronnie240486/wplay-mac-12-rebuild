@@ -1028,6 +1028,8 @@
 
     invoke-virtual {v0, v2}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
+    invoke-virtual {v0, v2}, Landroid/view/View;->setOnTouchListener(Landroid/view/View$OnTouchListener;)V
+
     :cond_6
     const v0, 0x7f0b03c6
 
@@ -1062,6 +1064,8 @@
     invoke-direct {v2, p0, v1}, Lcom/evolux/CatalogMenuClickListener;-><init>(Lorg/bitspark/android/Spark;I)V
 
     invoke-virtual {v0, v2}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
+
+    invoke-virtual {v0, v2}, Landroid/view/View;->setOnTouchListener(Landroid/view/View$OnTouchListener;)V
 
     :cond_7
     const v0, 0x7f0b03c1
@@ -1098,10 +1102,13 @@
 
     invoke-virtual {v0, v2}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    :cond_8
+    invoke-virtual {v0, v2}, Landroid/view/View;->setOnTouchListener(Landroid/view/View$OnTouchListener;)V
+
+        :cond_8
+    const-string v0, "EVOLUX DIAG: listeners de Canais, VOD e Eventos instalados"
+    invoke-static {p0, v0}, Lcom/evolux/CatalogMenuClickListener;->showDiagnostic(Landroid/content/Context;Ljava/lang/String;)V
     return-void
 .end method
-
 .method public static start(Lorg/bitspark/android/Spark;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
     .locals 2
 
