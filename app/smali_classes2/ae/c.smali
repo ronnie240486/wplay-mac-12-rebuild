@@ -172,34 +172,31 @@
 .method public onDismiss()V
     .locals 3
 
-    .line 1
     iget-object v0, p0, Lae/c;->a:Lae/h;
 
-    .line 2
-    .line 3
     iget-object v1, v0, Lae/h;->j0:Landroid/widget/RelativeLayout;
 
-    .line 4
-    .line 5
     if-eqz v1, :cond_0
 
-    .line 6
-    .line 7
-    const/4 v2, 0x0
+    sget-boolean v2, Lcom/evolux/EvoluxNativeCatalogBridge;->active:Z
 
-    .line 8
+    if-eqz v2, :show_legacy
+
+    const/16 v2, 0x8
+
     invoke-virtual {v1, v2}, Landroid/view/View;->setVisibility(I)V
 
-    .line 9
-    .line 10
-    .line 11
+    goto :cond_0
+
+    :show_legacy
+    const/4 v2, 0x0
+
+    invoke-virtual {v1, v2}, Landroid/view/View;->setVisibility(I)V
+
     :cond_0
     const/4 v1, 0x0
 
-    .line 12
     iput-object v1, v0, Lae/h;->w0:Lte/y;
 
-    .line 13
-    .line 14
     return-void
 .end method

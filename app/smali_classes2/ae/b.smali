@@ -206,25 +206,25 @@
     .line 80
     check-cast p1, Lae/h;
 
-    .line 81
-    .line 82
     iget-object p2, p1, Lae/h;->j0:Landroid/widget/RelativeLayout;
 
-    .line 83
-    .line 84
     const/4 v0, 0x0
 
-    .line 85
+    sget-boolean v1, Lcom/evolux/EvoluxNativeCatalogBridge;->active:Z
+
+    if-eqz v1, :show_legacy
+
+    const/16 v1, 0x8
+
+    invoke-virtual {p2, v1}, Landroid/view/View;->setVisibility(I)V
+
+    return v0
+
+    :show_legacy
     invoke-virtual {p2, v0}, Landroid/view/View;->setVisibility(I)V
 
-    .line 86
-    .line 87
-    .line 88
     invoke-virtual {p1}, Lae/h;->Y()V
 
-    .line 89
-    .line 90
-    .line 91
     return v0
 
     .line 92

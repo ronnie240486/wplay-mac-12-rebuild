@@ -7,8 +7,9 @@
 
 
 # static fields
-.field public static final z0:Ljava/lang/String;
 .field public static current:Lae/h;
+
+.field public static final z0:Ljava/lang/String;
 
 
 # instance fields
@@ -50,249 +51,6 @@
 
 .field public y0:Z
 
-
-.method public final continueOriginalLogin()V
-    .locals 5
-    iget-object v1, p0, Lae/h;->n0:Ljava/lang/String;
-    const-string v0, "pA==\n"
-    const-string v2, "5C5rCCwICb8=\n"
-    invoke-static {v0, v2}, Lcom/bumptech/glide/e;->u(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
-    move-result-object v0
-    invoke-virtual {v1, v0}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
-    move-result v1
-    if-nez v1, :original_credentials_ready
-    new-instance v1, Ljava/lang/StringBuilder;
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-    iget-object v2, p0, Lae/h;->n0:Ljava/lang/String;
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-    sget-object v2, Lorg/bitspark/android/h;->d:Ljava/lang/String;
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-    move-result-object v1
-    iput-object v1, p0, Lae/h;->n0:Ljava/lang/String;
-
-    :original_credentials_ready
-    sget-object v1, Lae/h;->z0:Ljava/lang/String;
-    new-instance v0, Ljava/lang/StringBuilder;
-    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
-    const-string v2, "Z9ReDE1JzAEUzFAZUAeUTkHTWgxXCNULDoA=\n"
-    const-string v3, "NKA/fjlpuG4=\n"
-    invoke-static {v2, v3}, Lcom/bumptech/glide/e;->u(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
-    move-result-object v2
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-    iget-object v2, p0, Lae/h;->n0:Ljava/lang/String;
-    const-string v3, "7ovVZDe5x6aqwZQ=\n"
-    const-string v4, "zvu0F0TOqNQ=\n"
-    invoke-static {v2, v3, v4, v0}, Lq2/a;->q(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/StringBuilder;)V
-    iget-object v2, p0, Lae/h;->o0:Ljava/lang/String;
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-    move-result-object v0
-    sget-boolean v2, Lorg/bitspark/android/utils/i0;->b:Z
-    invoke-static {v1, v0}, Lcom/tencent/mars/xlog/Log;->i(Ljava/lang/String;Ljava/lang/String;)V
-    const/4 v2, 0x1
-    sget-object v1, Lorg/bitspark/android/g;->b:Ljava/lang/String;
-    invoke-static {v2, v1}, Lorg/bitspark/android/utils/i0;->u(ILjava/lang/String;)V
-    sget-object v1, Lorg/bitspark/android/g;->e:Ljava/lang/String;
-    iget-object v0, p0, Lae/h;->n0:Ljava/lang/String;
-    invoke-static {v1, v0}, Lorg/bitspark/android/utils/i0;->v(Ljava/lang/String;Ljava/lang/String;)V
-    sget-object v1, Lorg/bitspark/android/g;->f:Ljava/lang/String;
-    iget-object v0, p0, Lae/h;->o0:Ljava/lang/String;
-    invoke-static {v1, v0}, Lorg/bitspark/android/utils/i0;->v(Ljava/lang/String;Ljava/lang/String;)V
-    sget-object v1, Lorg/bitspark/android/Spark;->U2:Lorg/bitspark/android/c1;
-    const/16 v0, 0xd
-    invoke-virtual {v1, v0}, Landroid/os/Handler;->sendEmptyMessage(I)Z
-    return-void
-.end method
-
-.method public final continueWithPanelCredentials(Ljava/lang/String;Ljava/lang/String;)V
-    .locals 0
-    iput-object p1, p0, Lae/h;->n0:Ljava/lang/String;
-    iput-object p2, p0, Lae/h;->o0:Ljava/lang/String;
-    return-void
-.end method
-
-.method public final openPanelCatalog(Ljava/lang/String;)V
-    .locals 7
-    invoke-virtual {p0}, Landroidx/fragment/app/u;->i()Landroidx/fragment/app/FragmentActivity;
-    move-result-object v0
-    check-cast v0, Lorg/bitspark/android/Spark;
-    iget-object v1, p0, Lae/h;->n0:Ljava/lang/String;
-    iget-object v2, p0, Lae/h;->o0:Ljava/lang/String;
-    invoke-static {p1, v1, v2}, Lcom/evolux/EvoluxNativeCatalogBridge;->prepareSession(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
-    invoke-static {}, Lcom/evolux/EvoluxNativeCatalogBridge;->prepareLiveGroup()V
-    invoke-static {v0}, Lcom/evolux/EvoluxNativeCatalogBridge;->activateAndOpen(Lorg/bitspark/android/Spark;)V
-    invoke-static {v0, v1}, Lcom/evolux/EvoluxNativeCatalogBridge;->refreshHomeHeader(Lorg/bitspark/android/Spark;Ljava/lang/String;)V
-    new-instance v3, Landroid/os/Handler;
-    invoke-direct {v3}, Landroid/os/Handler;-><init>()V
-    new-instance v4, Lcom/evolux/RefreshHomeHeaderRunnable;
-    invoke-direct {v4, v0, v1}, Lcom/evolux/RefreshHomeHeaderRunnable;-><init>(Lorg/bitspark/android/Spark;Ljava/lang/String;)V
-    const-wide/16 v5, 0x1f4
-    invoke-virtual {v3, v4, v5, v6}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
-    invoke-static {v0, p1, v1, v2}, Lcom/evolux/EvoluxNativeCatalogBridge;->start(Lorg/bitspark/android/Spark;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
-    invoke-virtual {p0}, Lae/h;->finishPanelCheck()V
-    invoke-virtual {p0}, Lae/h;->scheduleLegacyLoginHide()V
-    return-void
-.end method
-
-.method public final finishPanelCheck()V
-    .locals 2
-    iget-object v0, p0, Lae/h;->m0:Landroid/widget/Button;
-    if-eqz v0, :finish_done
-    const/4 v1, 0x1
-    invoke-virtual {v0, v1}, Landroid/view/View;->setEnabled(Z)V
-    :finish_done
-    return-void
-.end method
-
-.method public final hideLegacyLogin()V
-    .locals 2
-    const/16 v1, 0x8
-    iget-object v0, p0, Lae/h;->j0:Landroid/widget/RelativeLayout;
-    if-eqz v0, :hide_buttons
-    invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
-    :hide_buttons
-    iget-object v0, p0, Lae/h;->h0:Landroid/widget/Button;
-    if-eqz v0, :hide_username_button
-    invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
-    :hide_username_button
-    iget-object v0, p0, Lae/h;->i0:Landroid/widget/Button;
-    if-eqz v0, :hide_done
-    invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
-    :hide_done
-    return-void
-.end method
-
-.method public final scheduleLegacyLoginHide()V
-    .locals 4
-    new-instance v0, Landroid/os/Handler;
-    invoke-static {}, Landroid/os/Looper;->getMainLooper()Landroid/os/Looper;
-    move-result-object v1
-    invoke-direct {v0, v1}, Landroid/os/Handler;-><init>(Landroid/os/Looper;)V
-    new-instance v1, Lcom/evolux/HideLegacyLoginRunnable;
-    const/16 v2, 0x8
-    invoke-direct {v1, p0, v2}, Lcom/evolux/HideLegacyLoginRunnable;-><init>(Lae/h;I)V
-    const-wide/16 v2, 0xfa
-    invoke-virtual {v0, v1, v2, v3}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
-    return-void
-.end method
-
-.method public final showPanelDiagnostic(Ljava/lang/String;)V
-    .locals 2
-    invoke-virtual {p0}, Landroidx/fragment/app/u;->i()Landroidx/fragment/app/FragmentActivity;
-    move-result-object v0
-    if-eqz v0, :diag_done
-    const/4 v1, 0x0
-    invoke-static {v0, p1, v1}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
-    move-result-object v0
-    invoke-virtual {v0}, Landroid/widget/Toast;->show()V
-    :diag_done
-    return-void
-.end method
-
-.method public final startPanelCheck()V
-    .locals 10
-    invoke-virtual {p0}, Landroidx/fragment/app/u;->i()Landroidx/fragment/app/FragmentActivity;
-    move-result-object v0
-    if-eqz v0, :panel_context_missing
-    invoke-virtual {v0}, Landroid/content/Context;->getApplicationContext()Landroid/content/Context;
-    move-result-object v1
-    invoke-static {v1}, Lcom/evolux/MacAddressTextView;->readIdentifier(Landroid/content/Context;)Ljava/lang/String;
-    move-result-object v1
-    invoke-static {v1}, Lcom/evolux/EvoluxBackend;->heartbeat(Ljava/lang/String;)V
-
-    invoke-virtual {p0}, Landroidx/fragment/app/u;->P()Landroid/view/View;
-    move-result-object v5
-    if-eqz v5, :credentials_missing
-
-    const v6, 0x7f0b017c
-    invoke-virtual {v5, v6}, Landroid/view/View;->findViewById(I)Landroid/view/View;
-    move-result-object v2
-    check-cast v2, Landroid/widget/EditText;
-    iput-object v2, p0, Lae/h;->k0:Landroid/widget/EditText;
-    if-eqz v2, :credentials_missing
-    invoke-virtual {v2}, Landroid/widget/EditText;->getText()Landroid/text/Editable;
-    move-result-object v2
-    invoke-virtual {v2}, Ljava/lang/Object;->toString()Ljava/lang/String;
-    move-result-object v2
-    invoke-virtual {v2}, Ljava/lang/String;->trim()Ljava/lang/String;
-    move-result-object v2
-    iput-object v2, p0, Lae/h;->n0:Ljava/lang/String;
-
-    const v6, 0x7f0b037e
-    invoke-virtual {v5, v6}, Landroid/view/View;->findViewById(I)Landroid/view/View;
-    move-result-object v3
-    check-cast v3, Landroid/widget/EditText;
-    iput-object v3, p0, Lae/h;->l0:Landroid/widget/EditText;
-    if-eqz v3, :credentials_missing
-    invoke-virtual {v3}, Landroid/widget/EditText;->getText()Landroid/text/Editable;
-    move-result-object v3
-    invoke-virtual {v3}, Ljava/lang/Object;->toString()Ljava/lang/String;
-    move-result-object v3
-    invoke-virtual {v3}, Ljava/lang/String;->trim()Ljava/lang/String;
-    move-result-object v3
-    iput-object v3, p0, Lae/h;->o0:Ljava/lang/String;
-
-    invoke-static {v2}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
-    move-result v4
-    if-nez v4, :credentials_missing
-    invoke-static {v3}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
-    move-result v4
-    if-nez v4, :credentials_missing
-
-    const v6, 0x7f0b051e
-    invoke-virtual {v5, v6}, Landroid/view/View;->findViewById(I)Landroid/view/View;
-    move-result-object v4
-    if-eqz v4, :button_ready
-    check-cast v4, Landroid/widget/Button;
-    iput-object v4, p0, Lae/h;->m0:Landroid/widget/Button;
-    const/4 v6, 0x0
-    invoke-virtual {v4, v6}, Landroid/view/View;->setEnabled(Z)V
-    :button_ready
-    new-instance v4, Lcom/evolux/PanelGateCallback;
-    invoke-direct {v4, p0}, Lcom/evolux/PanelGateCallback;-><init>(Lae/h;)V
-    invoke-static {v2, v3, v1, v4}, Lcom/evolux/EvoluxBackend;->check(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/evolux/EvoluxBackend$Callback;)V
-    const-string v5, "PAINEL INICIADO"
-    invoke-virtual {p0, v5}, Lae/h;->showPanelDiagnostic(Ljava/lang/String;)V
-    return-void
-
-    :credentials_missing
-    const-string v5, "CAMPOS AUSENTES OU VAZIOS"
-    invoke-virtual {p0, v5}, Lae/h;->showPanelDiagnostic(Ljava/lang/String;)V
-    invoke-virtual {p0}, Lae/h;->finishPanelCheck()V
-    return-void
-
-    :panel_context_missing
-    const/4 v1, -0x1
-    const-string v2, "Não foi possível consultar o painel Evolux."
-    invoke-static {v1, v2}, Lorg/bitspark/android/Spark;->p0(ILjava/lang/String;)V
-    const-string v2, "CONTEXTO AUSENTE"
-    invoke-virtual {p0, v2}, Lae/h;->showPanelDiagnostic(Ljava/lang/String;)V
-    invoke-virtual {p0}, Lae/h;->finishPanelCheck()V
-    return-void
-.end method
-
-.method public onStart()V
-    .locals 0
-    invoke-super {p0}, Landroidx/fragment/app/u;->onStart()V
-    return-void
-.end method
-
-.method public onResume()V
-    .locals 1
-    invoke-super {p0}, Landroidx/fragment/app/u;->onResume()V
-    sput-object p0, Lae/h;->current:Lae/h;
-    sget-boolean v0, Lcom/evolux/EvoluxNativeCatalogBridge;->active:Z
-    if-eqz v0, :resume_login_normal
-    invoke-virtual {p0}, Lae/h;->hideLegacyLogin()V
-    return-void
-    :resume_login_normal
-    iget-object v0, p0, Lae/h;->m0:Landroid/widget/Button;
-    if-eqz v0, :resume_done
-    invoke-virtual {v0, p0}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
-    :resume_done
-    return-void
-.end method
 
 # direct methods
 .method static constructor <clinit>()V
@@ -402,6 +160,161 @@
 .method public final native Z(Ljava/lang/String;)V
 .end method
 
+.method public final continueOriginalLogin()V
+    .locals 5
+
+    iget-object v1, p0, Lae/h;->n0:Ljava/lang/String;
+
+    const-string v0, "pA==\n"
+
+    const-string v2, "5C5rCCwICb8=\n"
+
+    invoke-static {v0, v2}, Lcom/bumptech/glide/e;->u(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-virtual {v1, v0}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
+
+    move-result v1
+
+    if-nez v1, :cond_0
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    iget-object v2, p0, Lae/h;->n0:Ljava/lang/String;
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    sget-object v2, Lorg/bitspark/android/h;->d:Ljava/lang/String;
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    iput-object v1, p0, Lae/h;->n0:Ljava/lang/String;
+
+    :cond_0
+    sget-object v1, Lae/h;->z0:Ljava/lang/String;
+
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "Z9ReDE1JzAEUzFAZUAeUTkHTWgxXCNULDoA=\n"
+
+    const-string v3, "NKA/fjlpuG4=\n"
+
+    invoke-static {v2, v3}, Lcom/bumptech/glide/e;->u(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    iget-object v2, p0, Lae/h;->n0:Ljava/lang/String;
+
+    const-string v3, "7ovVZDe5x6aqwZQ=\n"
+
+    const-string v4, "zvu0F0TOqNQ=\n"
+
+    invoke-static {v2, v3, v4, v0}, Lq2/a;->q(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/StringBuilder;)V
+
+    iget-object v2, p0, Lae/h;->o0:Ljava/lang/String;
+
+    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    sget-boolean v2, Lorg/bitspark/android/utils/i0;->b:Z
+
+    invoke-static {v1, v0}, Lcom/tencent/mars/xlog/Log;->i(Ljava/lang/String;Ljava/lang/String;)V
+
+    const/4 v2, 0x1
+
+    sget-object v1, Lorg/bitspark/android/g;->b:Ljava/lang/String;
+
+    invoke-static {v2, v1}, Lorg/bitspark/android/utils/i0;->u(ILjava/lang/String;)V
+
+    sget-object v1, Lorg/bitspark/android/g;->e:Ljava/lang/String;
+
+    iget-object v0, p0, Lae/h;->n0:Ljava/lang/String;
+
+    invoke-static {v1, v0}, Lorg/bitspark/android/utils/i0;->v(Ljava/lang/String;Ljava/lang/String;)V
+
+    sget-object v1, Lorg/bitspark/android/g;->f:Ljava/lang/String;
+
+    iget-object v0, p0, Lae/h;->o0:Ljava/lang/String;
+
+    invoke-static {v1, v0}, Lorg/bitspark/android/utils/i0;->v(Ljava/lang/String;Ljava/lang/String;)V
+
+    sget-object v1, Lorg/bitspark/android/Spark;->U2:Lorg/bitspark/android/c1;
+
+    const/16 v0, 0xd
+
+    invoke-virtual {v1, v0}, Landroid/os/Handler;->sendEmptyMessage(I)Z
+
+    return-void
+.end method
+
+.method public final continueWithPanelCredentials(Ljava/lang/String;Ljava/lang/String;)V
+    .locals 0
+
+    iput-object p1, p0, Lae/h;->n0:Ljava/lang/String;
+
+    iput-object p2, p0, Lae/h;->o0:Ljava/lang/String;
+
+    return-void
+.end method
+
+.method public final finishPanelCheck()V
+    .locals 2
+
+    iget-object v0, p0, Lae/h;->m0:Landroid/widget/Button;
+
+    if-eqz v0, :cond_0
+
+    const/4 v1, 0x1
+
+    invoke-virtual {v0, v1}, Landroid/view/View;->setEnabled(Z)V
+
+    :cond_0
+    return-void
+.end method
+
+.method public final hideLegacyLogin()V
+    .locals 2
+
+    const/16 v1, 0x8
+
+    iget-object v0, p0, Lae/h;->j0:Landroid/widget/RelativeLayout;
+
+    if-eqz v0, :cond_0
+
+    invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
+
+    :cond_0
+    iget-object v0, p0, Lae/h;->h0:Landroid/widget/Button;
+
+    if-eqz v0, :cond_1
+
+    invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
+
+    :cond_1
+    iget-object v0, p0, Lae/h;->i0:Landroid/widget/Button;
+
+    if-eqz v0, :cond_2
+
+    invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
+
+    :cond_2
+    return-void
+.end method
+
 .method public final onClick(Landroid/view/View;)V
     .locals 5
 
@@ -466,10 +379,11 @@
     move-result v2
 
     .line 30
-    if-ne p1, v2, :cond_8
+    if-ne p1, v2, :cond_7
 
     invoke-virtual {p0}, Lae/h;->startPanelCheck()V
-    goto :goto_0
+
+    goto/16 :goto_0
 
     .line 31
     .line 32
@@ -833,9 +747,10 @@
     .line 217
     :cond_6
     invoke-virtual {p0}, Lae/h;->startPanelCheck()V
+
     goto :goto_0
 
-    :cond_8
+    :cond_7
     iget-object v1, p0, Lae/h;->i0:Landroid/widget/Button;
 
     .line 323
@@ -848,7 +763,11 @@
     move-result v1
 
     .line 328
-    if-ne p1, v1, :cond_9
+    if-ne p1, v1, :cond_8
+
+    sget-boolean v2, Lcom/evolux/EvoluxNativeCatalogBridge;->active:Z
+
+    if-nez v2, :cond_8
 
     .line 329
     .line 330
@@ -866,10 +785,276 @@
     .line 336
     .line 337
     .line 338
-    :cond_9
+    :cond_8
     :goto_0
     return-void
 .end method
 
 .method public final native onKey(Landroid/view/View;ILandroid/view/KeyEvent;)Z
+.end method
+
+.method public onResume()V
+    .locals 1
+
+    invoke-super {p0}, Landroidx/fragment/app/u;->onResume()V
+
+    sput-object p0, Lae/h;->current:Lae/h;
+
+    sget-boolean v0, Lcom/evolux/EvoluxNativeCatalogBridge;->active:Z
+
+    if-eqz v0, :cond_0
+
+    invoke-virtual {p0}, Lae/h;->hideLegacyLogin()V
+
+    return-void
+
+    :cond_0
+    iget-object v0, p0, Lae/h;->m0:Landroid/widget/Button;
+
+    if-eqz v0, :cond_1
+
+    invoke-virtual {v0, p0}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
+
+    :cond_1
+    return-void
+.end method
+
+.method public onStart()V
+    .locals 0
+
+    invoke-super {p0}, Landroidx/fragment/app/u;->onStart()V
+
+    return-void
+.end method
+
+.method public final openPanelCatalog(Ljava/lang/String;)V
+    .locals 7
+
+    invoke-virtual {p0}, Landroidx/fragment/app/u;->i()Landroidx/fragment/app/FragmentActivity;
+
+    move-result-object v0
+
+    check-cast v0, Lorg/bitspark/android/Spark;
+
+    iget-object v1, p0, Lae/h;->n0:Ljava/lang/String;
+
+    iget-object v2, p0, Lae/h;->o0:Ljava/lang/String;
+
+    invoke-static {p1, v1, v2}, Lcom/evolux/EvoluxNativeCatalogBridge;->prepareSession(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+
+    invoke-static {}, Lcom/evolux/EvoluxNativeCatalogBridge;->prepareLiveGroup()V
+
+    invoke-static {v0}, Lcom/evolux/EvoluxNativeCatalogBridge;->activateAndOpen(Lorg/bitspark/android/Spark;)V
+
+    invoke-virtual {p0}, Lae/h;->hideLegacyLogin()V
+
+    invoke-static {v0, v1}, Lcom/evolux/EvoluxNativeCatalogBridge;->refreshHomeHeader(Lorg/bitspark/android/Spark;Ljava/lang/String;)V
+
+    new-instance v3, Landroid/os/Handler;
+
+    invoke-direct {v3}, Landroid/os/Handler;-><init>()V
+
+    new-instance v4, Lcom/evolux/RefreshHomeHeaderRunnable;
+
+    invoke-direct {v4, v0, v1}, Lcom/evolux/RefreshHomeHeaderRunnable;-><init>(Lorg/bitspark/android/Spark;Ljava/lang/String;)V
+
+    const-wide/16 v5, 0x1f4
+
+    invoke-virtual {v3, v4, v5, v6}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
+
+    invoke-static {v0, p1, v1, v2}, Lcom/evolux/EvoluxNativeCatalogBridge;->start(Lorg/bitspark/android/Spark;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+
+    invoke-virtual {p0}, Lae/h;->finishPanelCheck()V
+
+    invoke-virtual {p0}, Lae/h;->scheduleLegacyLoginHide()V
+
+    return-void
+.end method
+
+.method public final scheduleLegacyLoginHide()V
+    .locals 4
+
+    new-instance v0, Landroid/os/Handler;
+
+    invoke-static {}, Landroid/os/Looper;->getMainLooper()Landroid/os/Looper;
+
+    move-result-object v1
+
+    invoke-direct {v0, v1}, Landroid/os/Handler;-><init>(Landroid/os/Looper;)V
+
+    new-instance v1, Lcom/evolux/HideLegacyLoginRunnable;
+
+    const/16 v2, 0x8
+
+    invoke-direct {v1, p0, v2}, Lcom/evolux/HideLegacyLoginRunnable;-><init>(Lae/h;I)V
+
+    const-wide/16 v2, 0xfa
+
+    invoke-virtual {v0, v1, v2, v3}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
+
+    return-void
+.end method
+
+.method public final showPanelDiagnostic(Ljava/lang/String;)V
+    .locals 2
+
+    invoke-virtual {p0}, Landroidx/fragment/app/u;->i()Landroidx/fragment/app/FragmentActivity;
+
+    move-result-object v0
+
+    if-eqz v0, :cond_0
+
+    const/4 v1, 0x0
+
+    invoke-static {v0, p1, v1}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Landroid/widget/Toast;->show()V
+
+    :cond_0
+    return-void
+.end method
+
+.method public final startPanelCheck()V
+    .locals 10
+
+    invoke-virtual {p0}, Landroidx/fragment/app/u;->i()Landroidx/fragment/app/FragmentActivity;
+
+    move-result-object v0
+
+    if-eqz v0, :cond_2
+
+    invoke-virtual {v0}, Landroid/content/Context;->getApplicationContext()Landroid/content/Context;
+
+    move-result-object v1
+
+    invoke-static {v1}, Lcom/evolux/MacAddressTextView;->readIdentifier(Landroid/content/Context;)Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v1}, Lcom/evolux/EvoluxBackend;->heartbeat(Ljava/lang/String;)V
+
+    invoke-virtual {p0}, Landroidx/fragment/app/u;->P()Landroid/view/View;
+
+    move-result-object v5
+
+    if-eqz v5, :cond_1
+
+    const v6, 0x7f0b017c
+
+    invoke-virtual {v5, v6}, Landroid/view/View;->findViewById(I)Landroid/view/View;
+
+    move-result-object v2
+
+    check-cast v2, Landroid/widget/EditText;
+
+    iput-object v2, p0, Lae/h;->k0:Landroid/widget/EditText;
+
+    if-eqz v2, :cond_1
+
+    invoke-virtual {v2}, Landroid/widget/EditText;->getText()Landroid/text/Editable;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/Object;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/String;->trim()Ljava/lang/String;
+
+    move-result-object v2
+
+    iput-object v2, p0, Lae/h;->n0:Ljava/lang/String;
+
+    const v6, 0x7f0b037e
+
+    invoke-virtual {v5, v6}, Landroid/view/View;->findViewById(I)Landroid/view/View;
+
+    move-result-object v3
+
+    check-cast v3, Landroid/widget/EditText;
+
+    iput-object v3, p0, Lae/h;->l0:Landroid/widget/EditText;
+
+    if-eqz v3, :cond_1
+
+    invoke-virtual {v3}, Landroid/widget/EditText;->getText()Landroid/text/Editable;
+
+    move-result-object v3
+
+    invoke-virtual {v3}, Ljava/lang/Object;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-virtual {v3}, Ljava/lang/String;->trim()Ljava/lang/String;
+
+    move-result-object v3
+
+    iput-object v3, p0, Lae/h;->o0:Ljava/lang/String;
+
+    invoke-static {v2}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v4
+
+    if-nez v4, :cond_1
+
+    invoke-static {v3}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v4
+
+    if-nez v4, :cond_1
+
+    const v6, 0x7f0b051e
+
+    invoke-virtual {v5, v6}, Landroid/view/View;->findViewById(I)Landroid/view/View;
+
+    move-result-object v4
+
+    if-eqz v4, :cond_0
+
+    check-cast v4, Landroid/widget/Button;
+
+    iput-object v4, p0, Lae/h;->m0:Landroid/widget/Button;
+
+    const/4 v6, 0x0
+
+    invoke-virtual {v4, v6}, Landroid/view/View;->setEnabled(Z)V
+
+    :cond_0
+    new-instance v4, Lcom/evolux/PanelGateCallback;
+
+    invoke-direct {v4, p0}, Lcom/evolux/PanelGateCallback;-><init>(Lae/h;)V
+
+    invoke-static {v2, v3, v1, v4}, Lcom/evolux/EvoluxBackend;->check(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/evolux/EvoluxBackend$Callback;)V
+
+    const-string v5, "PAINEL INICIADO"
+
+    invoke-virtual {p0, v5}, Lae/h;->showPanelDiagnostic(Ljava/lang/String;)V
+
+    return-void
+
+    :cond_1
+    const-string v5, "CAMPOS AUSENTES OU VAZIOS"
+
+    invoke-virtual {p0, v5}, Lae/h;->showPanelDiagnostic(Ljava/lang/String;)V
+
+    invoke-virtual {p0}, Lae/h;->finishPanelCheck()V
+
+    return-void
+
+    :cond_2
+    const/4 v1, -0x1
+
+    const-string v2, "N\u00e3o foi poss\u00edvel consultar o painel Evolux."
+
+    invoke-static {v1, v2}, Lorg/bitspark/android/Spark;->p0(ILjava/lang/String;)V
+
+    const-string v2, "CONTEXTO AUSENTE"
+
+    invoke-virtual {p0, v2}, Lae/h;->showPanelDiagnostic(Ljava/lang/String;)V
+
+    invoke-virtual {p0}, Lae/h;->finishPanelCheck()V
+
+    return-void
 .end method
