@@ -38,18 +38,24 @@
     if-nez v0, :check_up
     const-string v1, "EVOLUX DIAG: TOQUE DOWN recebido"
     iget-object v2, p0, Lcom/evolux/CatalogMenuClickListener;->spark:Lorg/bitspark/android/Spark;
-    if-eqz v2, :return_false
+    if-eqz v2, :consume_down
     invoke-static {v2, v1}, Lcom/evolux/CatalogMenuClickListener;->showDiagnostic(Landroid/content/Context;Ljava/lang/String;)V
-    goto :return_false
+    :consume_down
+    const/4 v0, 0x1
+    return v0
     :check_up
     const/4 v1, 0x1
-    if-ne v0, v1, :return_false
-    const-string v1, "EVOLUX DIAG: TOQUE UP recebido"
+    if-ne v0, v1, :consume_other
+    const-string v1, "EVOLUX DIAG: TOQUE UP recebido; navegacao direta"
     iget-object v2, p0, Lcom/evolux/CatalogMenuClickListener;->spark:Lorg/bitspark/android/Spark;
-    if-eqz v2, :return_false
+    if-eqz v2, :direct_click
     invoke-static {v2, v1}, Lcom/evolux/CatalogMenuClickListener;->showDiagnostic(Landroid/content/Context;Ljava/lang/String;)V
-    :return_false
-    const/4 v0, 0x0
+    :direct_click
+    invoke-virtual {p0, p1}, Lcom/evolux/CatalogMenuClickListener;->onClick(Landroid/view/View;)V
+    const/4 v0, 0x1
+    return v0
+    :consume_other
+    const/4 v0, 0x1
     return v0
 .end method
 
