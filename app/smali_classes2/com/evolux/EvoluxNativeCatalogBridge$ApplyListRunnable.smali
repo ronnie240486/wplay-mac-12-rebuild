@@ -38,7 +38,7 @@
 
     :retry_or_fail
     iget v2, p0, Lcom/evolux/EvoluxNativeCatalogBridge$ApplyListRunnable;->attempt:I
-    const/16 v3, 0x8
+    const/16 v3, 0x3c
     if-ge v2, v3, :fail
     new-instance v3, Landroid/os/Handler;
     invoke-static {}, Landroid/os/Looper;->getMainLooper()Landroid/os/Looper;

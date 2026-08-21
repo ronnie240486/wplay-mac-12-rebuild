@@ -97,6 +97,16 @@
 
     invoke-virtual {v0, v1}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
 
+    iget-object v5, p0, Lcom/evolux/EvoluxNativeCatalogBridge$StreamCallback;->spark:Lorg/bitspark/android/Spark;
+
+    iget-object v6, p0, Lcom/evolux/EvoluxNativeCatalogBridge$StreamCallback;->base:Ljava/lang/String;
+
+    iget-object v7, p0, Lcom/evolux/EvoluxNativeCatalogBridge$StreamCallback;->username:Ljava/lang/String;
+
+    iget-object v0, p0, Lcom/evolux/EvoluxNativeCatalogBridge$StreamCallback;->password:Ljava/lang/String;
+
+    invoke-static {v5, v6, v7, v0}, Lcom/evolux/EvoluxNativeCatalogBridge;->loadVod(Lorg/bitspark/android/Spark;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+
     return-void
     :try_end_0
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
